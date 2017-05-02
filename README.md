@@ -2,10 +2,15 @@
 ![UltraType Logo](https://github.com/ultratype/UltraTypeBot/raw/master/ico/logo.png)
 <br>
 [Quick Tampermonkey install](https://github.com/ultratype/UltraTypeBot/raw/master/UltraType.user.js)
+<br>
+[Quick Chrome extension install](https://chrome.google.com/webstore/detail/ultratype-nitrotype-bot/ojnekafghcgoeljjlpkbomihnlefdbpa)
 
 UltraType is a fast, easy to use bot for NitroType.com. UltraType provides unique features that no other bot has implemented, such as customizable WPM and accuracy.
 
 # How do I install UltraType?
+
+You can install the Chrome extension [by clicking here](https://chrome.google.com/webstore/detail/ultratype-nitrotype-bot/ojnekafghcgoeljjlpkbomihnlefdbpa)<br>
+However, there are a few alternative ways to install UltraType:
 
 #### Installing on Tampermonkey (the easy way)
 To install UltraType on Tampermonkey, [install Tampermonkey from the Chrome Webstore](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) if you haven't yet. After Tampermonkey has been installed, [click here to install UltraType](https://github.com/ultratype/UltraTypeBot/raw/master/UltraType.user.js).
