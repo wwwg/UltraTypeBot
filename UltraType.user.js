@@ -1,6 +1,8 @@
 // ==UserScript==
 // @name         UltraType NitroType bot
 // @version      2.1.0
+// @downloadURL  https://rawgit.com/ultratype/UltraTypeBot/master/UltraType.user.js
+// @updateURL    https://rawgit.com/ultratype/UltraTypeBot/master/UltraType.user.js
 // @description  A fast, easy to use bot for NitroType.com
 // @author       UltraType
 // @match        https://www.nitrotype.com/race/*
