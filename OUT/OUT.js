@@ -1,6 +1,6 @@
 (function() {
     console.clear = function() {};
-    const VERSION = "2.1";
+    const VERSION = "2.1.0";
     var _title = "Nitro Type Race";
     var FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
     var accuracy = 0.94;
