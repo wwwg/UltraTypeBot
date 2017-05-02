@@ -21,7 +21,7 @@
     {
       "matches": ["https://www.nitrotype.com/race/*", "https://www.nitrotype.com/race"],
       "run_at": "document_start",
-      "js": ["inject.js"]
+      "js": ["injectChrome.js"]
     }
   ],
   "web_accessible_resources": [
