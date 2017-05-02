@@ -1,7 +1,8 @@
 # UltraType Bot
 ![UltraType Logo](https://github.com/ultratype/UltraTypeBot/raw/master/ico/logo.png)
+[Quick Tampermonkey install](https://github.com/ultratype/UltraTypeBot/raw/master/UltraType.user.js)
 
-UltraType is a fast, easy to use bot for NitroType.com. UltraType provides unique features that no other bot has implemented, like customizable WPM and accuracy.
+UltraType is a fast, easy to use bot for NitroType.com. UltraType provides unique features that no other bot has implemented, such as customizable WPM and accuracy.
 
 # How do I install UltraType?
 
@@ -18,4 +19,5 @@ If you are a developer, or Tampermonkey isn't working properly for you, installa
 # How does it work?
 UltraType hooks native JavaScript functions and methods to gather information about the current race session. The extension captures the lesson text by processing every characer that is rendered onto the game canvas, and uses the coordinates the text was rendered at to adjust the string accordingly. UltraType automatically detects the user's average WPM and accuracy by parsing API requests made to NitroType. There is much more to UltraType that goes on behind the scenes, which can be read in [OUT.js](https://github.com/ultratype/UltraTypeBot/blob/master/OUT/OUT.js).
 
-Disclaimer: NitroType.com is a registered trademark owned by learning.com, and associates. UltraType is not related to, nor does it claim to be apart of said trademark.
+#### Disclaimer
+NitroType.com is a registered trademark owned by learning.com, and associates. UltraType is not related to, nor does it claim to be apart of said trademark.
