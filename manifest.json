@@ -1,0 +1,37 @@
+{
+  "manifest_version": 2,
+
+  "name": "UltraType NitroType Bot",
+  "description": "A bot for NitroType that will win almost any match",
+  "version": "2.0.1",
+  "icons": {
+      "16": "ico/16.png",
+      "32": "ico/32.png",
+      "48": "ico/48.png",
+      "64": "ico/64.png",
+      "128": "ico/128.png"
+  },
+
+  "browser_action": {
+    "default_icon": "ico/1024.png",
+    "default_popup": "popup/popup.html",
+    "default_title": "UltraType"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.nitrotype.com/race/*", "https://www.nitrotype.com/race"],
+      "run_at": "document_start",
+      "js": ["inject.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    "OUT/OUT.js"
+  ],
+  "permissions": [
+    "activeTab",
+    "https://www.nitrotype.com/race/*",
+    "https://www.nitrotype.com/race",
+    "http://www.nitrotype.com/race/*",
+    "http://www.nitrotype.com/race/"
+  ]
+}
