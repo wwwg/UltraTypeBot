@@ -15,4 +15,7 @@ If you are a developer, or Tampermonkey isn't working properly for you, installa
 - Click the "Load unpacked extension" button in the top left, and then select the ZIP you downloaded from the file selector.
 - Installation is finished! Visit https://www.nitrotype.com/race/ to try it out.
 
+# How does it work?
+UltraType hooks native JavaScript functions and methods to gather information about the current race session. The extension captures the lesson text by processing every characer that is rendered onto the game canvas, and uses the coordinates the text was rendered at to adjust the string accordingly. UltraType automatically detects the user's average WPM and accuracy by parsing API requests made to NitroType. There is much more to UltraType that goes on behind the scenes, which can be read in [OUT.js](https://github.com/ultratype/UltraTypeBot/blob/master/OUT/OUT.js).
+
 Disclaimer: NitroType.com is a registered trademark owned by learning.com, and associates. UltraType is not related to, nor does it claim to be apart of said trademark.
