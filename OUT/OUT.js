@@ -3,7 +3,7 @@
     const DO_BAN_CHECK = true;
     const LOAD_TIME = 4300;
     console.clear = function() {};
-    const VERSION = "2.2.1";
+    const VERSION = "2.2.1 (Beta)";
     var _title = "Nitro Type Race";
     var FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
     var accuracy = 0.94;
@@ -53,6 +53,7 @@
     var index = 0;
     var nitrosUsed = 0;
     var loggedEndRace = false;
+    var userBanned = false;
 
     var type = function(charCode) {
         index++;
@@ -92,6 +93,7 @@
         }
     }
     function showBan() {
+        userBanned = true;
         debug("This account has been banned. Here is a bunch of debug information:");
         debug("nitrosUsed:", nitrosUsed);
         debug("lesson:", lesson);
@@ -103,6 +105,7 @@
         debug("fillsY length", fillsY.length);
         debug("VERSION", VERSION);
         debug("Please report this to the UltraType developer.");
+        document.documentElement.innerHTML = "";
         document.open();
         document.write("<h1>User has been banned. Check developer tools. (Control+ Shift + J)</h1>");
         document.close();
@@ -524,7 +527,7 @@
 
     function respawn() {
         debug("respawn() called - refreshing in a few seconds.");
-        if (autoRefresh) {
+        if (autoRefresh && !userBanned) {
             // Timeout so the player can view their stats if they wish
             setTimeout(function() {
                 _.reload.apply(window.location, []);
