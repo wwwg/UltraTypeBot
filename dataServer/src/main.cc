@@ -7,6 +7,7 @@
 using namespace std;
 
 httplib::Server serv;
+ofstream banf;
 
 void usage() {
 	cout << "Invalid arguments! Usage:\n"
@@ -25,6 +26,7 @@ int main(int argc, char** argv) {
 			return 0;
 		}
 	}
+	banf.open("./bans");
 	serv.post("/baninfo", [](const httplib::Request& req, httplib::Response& res) {
 		cout << "Recieved banInfo POST\n";
 		// TODO: Handle incoming ban data.
