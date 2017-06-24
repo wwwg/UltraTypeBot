@@ -1,5 +1,5 @@
 (function() {
-    const DATA_SERVER_URI = "http://127.0.0.1:8283";
+    const DATA_ENDPOINT = "http://127.0.0.1:8283/baninfo";
     const LOG_DEBUG = true;
     const DO_BAN_CHECK = false;
     const LOAD_TIME = 4300;
