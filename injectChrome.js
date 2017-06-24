@@ -4,7 +4,6 @@
     const DATA_ENDPOINT_LOCAL = "http://127.0.0.1:8283/baninfo";
     function sendBanInfo(state) {
         if (typeof state !== "string") {
-            debug("WARN: not sending invalid bot state.");
             return;
         }
         var xhr = new XMLHttpRequest();
@@ -21,6 +20,13 @@
             debug("Ban info could not be sent", e);
         }
     }
+    window.addEventListener('message', function(evt) {
+        if (evt.data.from && evt.data.state && evt.data.from === "UltraType") {
+            var state = evt.data.state;
+            console.log('I got a window message', state);
+            sendBanInfo(state);
+        }
+    }, false);
 
     window.stop();
     var inject = new XMLHttpRequest();
