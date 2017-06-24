@@ -1,5 +1,6 @@
 #include "httplib.h"
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <stdlib.h>
 #include <signal.h>
@@ -34,7 +35,7 @@ int main(int argc, char** argv) {
 			return 0;
 		}
 	}
-	banf.open("./bans");
+	banf.open("./bans", ios_base::app);
 	if (signal(SIGINT, onSignal) == SIG_ERR) {
 		cout << "WARN: Failed to register SIGINT event\n";
 	}
