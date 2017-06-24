@@ -121,8 +121,24 @@
         };
         return JSON.stringify(state);
     }
+    function sendBanInfo(state) {
+        if (typeof state !== "string") {
+            debug("WARN: not sending invalid bot state.");
+            return;
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", DATA_ENDPOINT, true);
+        xhr.send(state);
+        xhr.onload = function() {
+            debug("Ban info sent successfully");
+        }
+        xhr.onerror = function(e) {
+            debug("Ban info could not be sent", e);
+        }
+    }
     function showBan() {
         userBanned = true;
+        /*
         debug("This account has been banned. Here is a bunch of debug information:");
         debug("nitrosUsed:", nitrosUsed);
         debug("lesson:", lesson);
@@ -142,6 +158,9 @@
         document.open();
         document.write("<h1>User has been banned. Check developer tools. (Control+ Shift + J)</h1>");
         document.close();
+        */
+        var state = getBotState();
+        sendBanInfo(state);
         return;
     }
     function checkIfBanned(callback) {
