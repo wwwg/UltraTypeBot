@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <signal.h>
 
 #define START_LOCAL_SERVER
 using namespace std;
@@ -12,6 +13,13 @@ ofstream banf;
 void usage() {
 	cout << "Invalid arguments! Usage:\n"
 	<< "./dataServer <port>\n";
+}
+void onSignal(int signo) {
+	if (signo == SIGINT) {
+		cout << "Closing file and exiting...\n";
+		banf.close();
+		exit(0);
+	}
 }
 int main(int argc, char** argv) {
 	int port = 8283;
@@ -27,6 +35,9 @@ int main(int argc, char** argv) {
 		}
 	}
 	banf.open("./bans");
+	if (signal(SIGINT, onSignal) == SIG_ERR) {
+		cout << "WARN: Failed to register SIGINT event\n";
+	}
 	serv.post("/baninfo", [](const httplib::Request& req, httplib::Response& res) {
 		res.set_header("Access-Control-Allow-Origin", "*");
 		cout << "Recieved banInfo POST\n";
@@ -37,6 +48,7 @@ int main(int argc, char** argv) {
 			index = req.body.find("{");
 			if (index != string::npos) {
 				// The request is valid enough, append to the file
+				cout << "Writing accepted request\n";
 				banf << req.body << "\0";
 				res.set_content("SUCCESS", "text/plain");
 			} else {
