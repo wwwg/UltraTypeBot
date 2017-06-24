@@ -3,7 +3,7 @@
 
   "name": "UltraType NitroType Bot",
   "description": "A bot for NitroType that will win almost any match",
-  "version": "2.0.1",
+  "version": "2.2.2",
   "icons": {
       "16": "ico/16.png",
       "32": "ico/32.png",

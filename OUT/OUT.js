@@ -1,9 +1,9 @@
 (function() {
     const LOG_DEBUG = true;
-    const DO_BAN_CHECK = true;
+    const DO_BAN_CHECK = false;
     const LOAD_TIME = 4300;
     console.clear = function() {};
-    const VERSION = "2.2.1 (Beta)";
+    const VERSION = "2.2.2";
     var _title = "Nitro Type Race";
     var FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
     var accuracy = gen(0.80, 0.97);
@@ -40,7 +40,8 @@
     var firstDetected = false;
     var startTime = null;
     var endTime = null;
-    var wordsPerMinute = gen(60, 100);
+    var wordsPerMinute = gen(60, 105);
+    if (wordsPerMinute == 100) wordsPerMinute = 104;
     var username = "";
     var avgSpeed = null;
     var acc = null;
@@ -469,11 +470,7 @@
         setTimeout(function() {
             var dipRate = 0.80;
             var WRONG = false;
-            if (timeoutToggle) {
-                timeout = tgen(12000 / wordsPerMinute);
-            } else {
-                timeout = tgen(12000 / wordsPerMinute);
-            }
+            timeout = tgen(12000 / wordsPerMinute);
             if (inDip) {
                 // Re adjust the timeout
                 dipRate = 0.40;
