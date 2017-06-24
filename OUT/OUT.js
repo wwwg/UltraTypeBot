@@ -105,7 +105,7 @@
         debug("nitrosUsed:", nitrosUsed);
         debug("lesson:", lesson);
         debug("index:", index);
-        debug("wpm:", wpm);
+        debug("wpm:", wordsPerMinute);
         debug("accuracy:", accuracy);
         debug("errorRequests length:", errorRequests.length);
         debug("userInfo", JSON.stringify(userInfo));
