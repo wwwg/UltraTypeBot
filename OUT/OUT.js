@@ -39,6 +39,7 @@
     var toggled = false;
     var firstDetected = false;
     var startTime = null;
+    var endTime = null;
     var wordsPerMinute = 120;
     var username = "";
     var avgSpeed = null;
@@ -111,6 +112,10 @@
         debug("userInfo", JSON.stringify(userInfo));
         debug("fillsY length", fillsY.length);
         debug("VERSION", VERSION);
+        debug("WPM Points", points);
+        debug("finished:", finished);
+        debug("Start time:", startTime);
+        debug("End time:", endTime);
         debug("Please report this to the UltraType developer.");
         document.documentElement.innerHTML = "";
         document.open();
@@ -1191,6 +1196,7 @@
     }
     onfinish(function() {
         debug("Race has finished. Doing a ban check and reloading if needed.");
+        endTime = new Date();
         infoSpan.innerHTML = "Finished";
         infoSpan.style.color = "#b3b3b3";
         if (DO_BAN_CHECK) {
