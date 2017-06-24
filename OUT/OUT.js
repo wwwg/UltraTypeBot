@@ -135,6 +135,8 @@
                     callback();
                 }
             }
+            // Errors aren't very nice
+            xhr.onerror = showBan;
         } else debug("WARN: Can't check if my user is banned, the userInfo is not valid:", userInfo);
     }
     function updateStats() {
