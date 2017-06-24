@@ -8,6 +8,16 @@ using namespace std;
 httplib::Server serv;
 
 int main() {
+	serv.post("/baninfo", [](const httplib::Request& req, httplib::Response& res) {
+		cout << "Recieved banInfo POST\n";
+		// TODO: Handle incoming ban data.
+	});
+	serv.get("/baninfo", [](const httplib::Request& req, httplib::Response& res) {
+		// Reject GETs
+		cout << "Recieved banInfo GET, rejecting it.\n";
+		res.status = 400;
+		res.set_content("Invalid request method.", "text/plain");
+	});
 	cout << "Starting HTTP server, ";
 	#ifdef START_LOCAL_SERVER
 		cout << "listening locally\n";
