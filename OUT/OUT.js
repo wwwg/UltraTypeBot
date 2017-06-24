@@ -489,6 +489,7 @@
                     }
                 }
                 if (autoNitro) {
+                    /*
                     if (lesson && index && ((lesson.length - (lesson.length / 3)) <= index)) {
                         if (loggedEndRace === false) {
                             debug("The race is coming to an end, I'm upping the chance of Nitro usage.");
@@ -500,6 +501,11 @@
                             useNitro();
                         }
                     } else if (randomBool(0.999)) { // Theres a 0.1% chance that a nitro is used mid race during a tick
+                        debug("Using a mid race nitro");
+                        useNitro();
+                    }
+                    */
+                    if (randomBool(0.999)) { // Theres a 0.1% chance that a nitro is used mid race during a tick
                         debug("Using a mid race nitro");
                         useNitro();
                     }
