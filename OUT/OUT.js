@@ -1321,6 +1321,9 @@
         window.onerror = function() {
             return null
         };
+        window.onbeforeunload = function() {
+            return null;
+        };
         window.ga = function() {};
 
         username = extractUserName();
