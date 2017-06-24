@@ -4,7 +4,7 @@
     const DO_BAN_CHECK = true;
     const LOAD_TIME = 4300;
     console.clear = function() {};
-    const VERSION = "2.2.3 (Beta)";
+    const VERSION = "2.2.4";
     var _title = "Nitro Type Race";
     var FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
     var accuracy = gen(0.80, 0.97);
