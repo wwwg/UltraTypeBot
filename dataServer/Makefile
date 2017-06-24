@@ -10,6 +10,6 @@ debug:
 	# For debugging with GDB
 	@$(MAKE) -f $(THISF) default
 	echo "Starting GDB...\n"
-	gdb $(OUT)
+	gdb $(OUT) 8283
 clean:
 	rm -f $(OUT)
