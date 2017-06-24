@@ -1,9 +1,13 @@
 (function() {
+    const LOG_DEBUG = true;
+    const DO_BAN_CHECK = true;
+    const LOAD_TIME = 4300;
     console.clear = function() {};
-    const VERSION = "2.1.0";
+    const VERSION = "2.2.1";
     var _title = "Nitro Type Race";
     var FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
     var accuracy = 0.94;
+    var root;
     var autoRefresh = false;
     var enabled = true;
     var renderOpts = [];
@@ -13,7 +17,7 @@
     var lessonLoaded = false;
     var finished = false;
     var chartOn = false;
-    var tdd = false;
+    var timeoutToggle = false;
     var inDip = false;
     var autoNitro = true;
     var info;
@@ -46,18 +50,83 @@
     var statTogg = null;
     var Cookies;
     var highChartsCtx = {};
+    var index = 0;
+    var nitrosUsed = 0;
+    var loggedEndRace = false;
 
     var type = function(charCode) {
+        index++;
         $(document.body).trigger({
             type: 'keypress',
             which: charCode
         });
     }
-
-    function useNitro() {
-        type(13);
+    var debug = function() {
+        if (LOG_DEBUG) {
+            arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
+            console.log.apply(this, arguments);
+        }
     }
 
+    function useNitro() {
+        setTimeout(function() {
+            type(13);
+            nitrosUsed++;
+        }, 134);
+    }
+    function addGraph(g) {
+        if (root) {
+            var _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;}</style>");
+            root.appendChild(_style[0]);
+            root.appendChild(g);
+        } else if (document.body) {
+            // Fallback
+            var _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;}</style>");
+            root.appendChild(_style[0]);
+            document.body.appendChild(g);
+        } else {
+            // No dom content has loaded, lets do this again in a second
+            setTimeout(function() {
+                addGraph(g);
+            }, 1000);
+        }
+    }
+    function showBan() {
+        debug("This account has been banned. Here is a bunch of debug information:");
+        debug("nitrosUsed:", nitrosUsed);
+        debug("lesson:", lesson);
+        debug("index:", index);
+        debug("wpm:", wpm);
+        debug("accuracy:", accuracy);
+        debug("errorRequests length:", errorRequests.length);
+        debug("userInfo", JSON.stringify(userInfo));
+        debug("fillsY length", fillsY.length);
+        debug("VERSION", VERSION);
+        debug("Please report this to the UltraType developer.");
+        document.open();
+        document.write("<h1>User has been banned. Check developer tools. (Control+ Shift + J)</h1>");
+        document.close();
+        return;
+    }
+    function checkIfBanned(callback) {
+        if (userInfo.username) {
+            debug("Attempting to get user's page");
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://www.nitrotype.com/racer/" + userInfo.username, true);
+            xhr.send();
+            xhr.onload = function() {
+                var status = this.status;
+                var res = this.responseText;
+                if (status !== 200 || (res.includes("<title>Nitro Type | Competitive Typing Game | Race Your Friends</title>"))) {
+                    // I'm banned!
+                    showBan();
+                } else {
+                    // Everything normal
+                    callback();
+                }
+            }
+        } else debug("WARN: Can't check if my user is banned, the userInfo is not valid:", userInfo);
+    }
     function updateStats() {
         if (userInfo.username) {
             statsDiv.innerHTML = "";
@@ -275,14 +344,6 @@
             return null;
         }
     }
-
-    function _decryptLesson(a) {
-        var b = ["l", "lesson", "", "join", "reverse", "split"];
-        a[b[0]] && (a[b[1]] = decrypter(a[b[0]])[b[5]](b[2])[b[4]]()[b[3]](b[2]),
-            delete a[b[0]]);
-        return a;
-    }
-
     function reverseString(str) {
         var a = str.split("");
         var rev = "";
@@ -318,6 +379,7 @@
                         if (packet.payload.status == "countdown" && packet.payload.l) {
                             var _lesson = packet.payload.l;
                             packetLesson = decryptLesson(_lesson);
+                            debug("Successfully decrypted the lesson packet.");
                         }
                     }
                 }
@@ -367,19 +429,30 @@
         _.fill.apply(this, arguments);
     }
     function randomBool(percentFalse) {
-        if (!percentFalse)
-            return Math.random() > 0.5;
-        else
-            return Math.random() > percentFalse;
+        var percent = 0.5;
+        var ret = null;
+        if (typeof percentFalse === "number") {
+            percent = percentFalse;
+        } else {
+            debug("WARN: No percentage false specified for random boolean generation. Using 0.5.");
+        }
+        ret = Math.random() > percent;
+        // debug("Calculated a random bool with false percentage", percent, "Result:", ret);
+        return ret;
     }
     function isAccurate() {
         return Math.random() < accuracy;
     }
-    function loop(offset) {
+    /*
+        This is the core AI behind UltraType.
+        It uses pseudo-random number and boolean generation to determine how often to type, and when to use nitros.
+        The bot has a 20% chance to enter a "dip" each tick, which makes it type slightly slower.
+    */
+    function generateTypeDecision(offset) {
         setTimeout(function() {
             var dipRate = 0.80;
             var WRONG = false;
-            if (tdd) {
+            if (timeoutToggle) {
                 timeout = tgen(12000 / wordsPerMinute);
             } else {
                 timeout = tgen(12000 / wordsPerMinute);
@@ -393,25 +466,39 @@
                 if (!isAccurate()) {
                     WRONG = true;
                     type(49);
-                    loop(timeout + 50);
+                    generateTypeDecision(timeout + 50);
                 } else {
                     type(lesson.charCodeAt(i));
                 }
                 if (!WRONG) {
                     i++;
                     if (i < lesson.length) {
-                        loop(timeout);
+                        generateTypeDecision(timeout);
                     }
                 }
-                if (autoNitro && randomBool(0.025)) {
-                    useNitro();
+                if (autoNitro) {
+                    if (lesson && index && ((lesson.length - (lesson.length / 3)) <= index)) {
+                        if (loggedEndRace === false) {
+                            debug("The race is coming to an end, I'm upping the chance of Nitro usage.");
+                            loggedEndRace = true;
+                        }
+                        // We are near the end of the race, lets raise the chance of using a nitro by quite a large margin
+                        if (randomBool(0.80)) {
+                            debug("Using an end race nitro");
+                            useNitro();
+                        }
+                    } else if (randomBool(0.999)) { // Theres a 0.1% chance that a nitro is used mid race during a tick
+                        debug("Using a mid race nitro");
+                        useNitro();
+                    }
                 }
             }
-            tdd = !tdd;
+            timeoutToggle = !timeoutToggle;
             inDip = randomBool(dipRate);
         }, offset);
     }
     function lessonLoad() {
+        debug("The prerendered lesson has been captured and loaded. Starting in " + (LOAD_TIME / 1000) + " seconds.");
         infoSpan.innerHTML = "Starting...";
         infoSpan.style.color = "#00b300";
         setTimeout(function() {
@@ -420,9 +507,13 @@
             startTime = new Date();
             infoSpan.style.color = "#33ff33";
             if (lesson.length > 1) {
-                loop();
+                generateTypeDecision();
+                debug("Started the bot!");
+            } else {
+                debug("The lesson is malformed! Lesson:", ('"' + lesson + '"'));
+                return;
             }
-        }, 4300);
+        }, LOAD_TIME);
     }
     console.warn = function() {
         if (arguments[0] == "You have been disqualified") {
@@ -432,7 +523,13 @@
     }
 
     function respawn() {
-        if (autoRefresh) _.reload.apply(window.location, []);
+        debug("respawn() called - refreshing in a few seconds.");
+        if (autoRefresh) {
+            // Timeout so the player can view their stats if they wish
+            setTimeout(function() {
+                _.reload.apply(window.location, []);
+            }, gen(2000, 4000));
+        }
     }
 
     function onfinish(callback) {
@@ -447,8 +544,6 @@
             }
         }, 100);
     }
-    var root;
-
     function createUI(body) {
         toggled = false;
         var isDragging = false;
@@ -698,7 +793,7 @@
             if (chartOn) g.style.opacity = 0.7;
             if (chartOn) g.style.borderColor = "#000066";
         }, true]);
-        root.appendChild(g);
+        addGraph(g);
         setTimeout(function() {
             var cr = g.getElementsByClassName('highcharts-credits');
             for (var i = 0; i < cr.length; i++) {
@@ -1077,11 +1172,26 @@
         }
     }
     onfinish(function() {
+        debug("Race has finished. Doing a ban check and reloading if needed.");
         infoSpan.innerHTML = "Finished";
         infoSpan.style.color = "#b3b3b3";
-        if (autoRefresh) setTimeout(function() {
-            respawn();
-        }, 4000);
+        if (DO_BAN_CHECK) {
+            debug('Doing ban check...');
+            checkIfBanned(function() {
+                debug("Ban check done. My user is not banned!");
+                if (autoRefresh) {
+                    setTimeout(function() {
+                        respawn();
+                    }, 4000);
+                }
+            });
+        } else {
+            if (autoRefresh) {
+                setTimeout(function() {
+                    respawn();
+                }, 4000);
+            }
+        }
     });
     XMLHttpRequest.prototype.send = function() {
         return _.xsend.apply(this, arguments);
@@ -1192,10 +1302,33 @@
         username = extractUserName();
         userInfo = ROT47(localStorage["A=2J6C"]);
         userInfo = JSON.parse(userInfo);
+        debug("Extracted and decrypted user info", userInfo);
         statsOn = getLocalStorage('statsOn');
         if (statsOn) {
             statsOn = JSON.parse(statsOn);
         }
+        if (username) {
+            if (!userInfo.avgSpeed) {
+                debug("The user doesnt have an average speed.");
+            } else {
+                avgSpeed = userInfo.avgSpeed;
+                if (avgSpeed > 15) {
+                    // Fixes a bug where one's speed slowly gets quicker and quicker
+                    var speedRm = gen(1, 15);
+                    avgSpeed -= speedRm;
+                    debug("Removed WPM of speed:", speedRm);
+
+                    var l = getLocalStorage("speedChange");
+                    if (!l) {
+                        setWPM(avgSpeed);
+                        debug("Set bot WPM to", avgSpeed);
+                    } else {
+                        debug("speedChange is set, not updating average speed.");
+                    }
+                }
+            }
+        }
+        /*
         if (username) {
             reqStats(username, function(res) {
                 var _html = document.createElement("html");
@@ -1227,6 +1360,7 @@
                 }
             });
         }
+        */
     }]);
 
     /*
