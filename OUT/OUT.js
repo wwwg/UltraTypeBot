@@ -1316,10 +1316,16 @@
             } else {
                 avgSpeed = userInfo.avgSpeed;
                 if (avgSpeed > 15) {
-                    // Fixes a bug where one's speed slowly gets quicker and quicker
-                    var speedRm = gen(1, 15);
-                    avgSpeed -= speedRm;
-                    debug("Removed WPM of speed:", speedRm);
+                    // Randomize the player's WPM to prevent rapid scaling or downscaling of it
+                    var addToWPM = randomBool();
+                    var speedChange = gen(1, 10);
+                    if (addToWPM) {
+                        avgSpeed += speedRm;
+                        debug("Added WPM of speed:", speedRm);
+                    } else {
+                        avgSpeed -= speedRm;
+                        debug("Removed WPM of speed:", speedRm);
+                    }
 
                     var l = getLocalStorage("speedChange");
                     if (!l) {
