@@ -77,12 +77,12 @@
     }
     function addGraph(g) {
         if (root) {
-            var _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;}</style>");
+            var _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;display:inline-block;}</style>");
             root.appendChild(_style[0]);
             root.appendChild(g);
         } else if (document.body) {
             // Fallback
-            var _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;}</style>");
+            var _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;display:inline-block;}</style>");
             root.appendChild(_style[0]);
             document.body.appendChild(g);
         } else {
@@ -91,6 +91,13 @@
                 addGraph(g);
             }, 1000);
         }
+        setTimeout(function() {
+            try {
+                window.dispatchEvent(new Event('resize'));
+            } catch(e) {
+                debug("WARN: Couldn't dispatch resize event:", e);
+            }
+        }, 500);
     }
     function showBan() {
         userBanned = true;
