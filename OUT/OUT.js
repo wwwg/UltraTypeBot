@@ -3,6 +3,7 @@
     const DATA_ENDPOINT = "http://204.44.91.137:8283/baninfo";
     const DATA_ENDPOINT_LOCAL = "http://127.0.0.1:8283/baninfo";
     const LOG_DEBUG = true;
+    const LOG_TYPING_INFO = true;
     const DO_BAN_CHECK = true;
     const LOAD_TIME = 4300;
     console.clear = function() {};
@@ -73,7 +74,6 @@
             console.log.apply(this, arguments);
         }
     }
-
     function useNitro() {
         setTimeout(function() {
             type(13);
