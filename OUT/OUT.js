@@ -40,7 +40,7 @@
     var firstDetected = false;
     var startTime = null;
     var endTime = null;
-    var wordsPerMinute = 120;
+    var wordsPerMinute = gen(60, 100);
     var username = "";
     var avgSpeed = null;
     var acc = null;
