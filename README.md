@@ -27,7 +27,7 @@ UltraType hooks native JavaScript functions and methods to gather information ab
 
 # Directory Roadmap
 `dataServer` - The source for the data server, written in C++ using [cpp-httplib](https://github.com/yhirose/cpp-httplib).<br>
-`OUT` - All the files executed within the context of the NitroType session. Currently, the only file is [OUT.js](https://github.com/ultratype/UltraTypeBot/blob/master/OUT/OUT.js).<br>
+`OUT` - All the files executed within the context of the NitroType session.<br>
 `ico` - All of the UltraType icons.<br>
 `popup` - The source for the extension popup.<br>
 
