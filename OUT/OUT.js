@@ -1339,7 +1339,7 @@
                 if (avgSpeed > 15) {
                     // Randomize the player's WPM to prevent rapid scaling or downscaling of it
                     var addToWPM = randomBool();
-                    var speedChange = gen(1, 10);
+                    var speedChange = gen(1, 5);
                     if (addToWPM) {
                         avgSpeed += speedChange;
                         debug("Added WPM of speed:", speedChange);
