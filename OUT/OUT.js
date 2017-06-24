@@ -1320,11 +1320,11 @@
                     var addToWPM = randomBool();
                     var speedChange = gen(1, 10);
                     if (addToWPM) {
-                        avgSpeed += speedRm;
-                        debug("Added WPM of speed:", speedRm);
+                        avgSpeed += speedChange;
+                        debug("Added WPM of speed:", speedChange);
                     } else {
-                        avgSpeed -= speedRm;
-                        debug("Removed WPM of speed:", speedRm);
+                        avgSpeed -= speedChange;
+                        debug("Removed WPM of speed:", speedChange);
                     }
 
                     var l = getLocalStorage("speedChange");
