@@ -28,8 +28,27 @@ int main(int argc, char** argv) {
 	}
 	banf.open("./bans");
 	serv.post("/baninfo", [](const httplib::Request& req, httplib::Response& res) {
+		res.set_header("Access-Control-Allow-Origin", "*");
 		cout << "Recieved banInfo POST\n";
-		// TODO: Handle incoming ban data.
+		// Really basic string checking to prevent basic data corruption
+		size_t index;
+		index = req.body.find("\0");
+		if (index == string::npos || index == 0) {
+			index = req.body.find("{");
+			if (index != string::npos) {
+				// The request is valid enough, append to the file
+				banf << req.body << "\0";
+				res.set_content("SUCCESS", "text/plain");
+			} else {
+				cout << "Rejecting invalid request: no brackets.\n";
+				res.status = 400;
+				res.set_content("Invalid request.", "text/plain");
+			}
+		} else {
+			cout << "Rejecting invalid request: detected null byte.\n";
+			res.status = 400;
+			res.set_content("Invalid request.", "text/plain");
+		}
 	});
 	serv.get("/baninfo", [](const httplib::Request& req, httplib::Response& res) {
 		// Reject GETs
