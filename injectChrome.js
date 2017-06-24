@@ -1,4 +1,27 @@
 (function() {
+    const USE_LOCAL_DATA_SERVER = false;
+    const DATA_ENDPOINT = "http://204.44.91.137:8283/baninfo";
+    const DATA_ENDPOINT_LOCAL = "http://127.0.0.1:8283/baninfo";
+    function sendBanInfo(state) {
+        if (typeof state !== "string") {
+            debug("WARN: not sending invalid bot state.");
+            return;
+        }
+        var xhr = new XMLHttpRequest();
+        if (USE_LOCAL_DATA_SERVER) {
+            xhr.open("POST", DATA_ENDPOINT_LOCAL, true);
+        } else {
+            xhr.open("POST", DATA_ENDPOINT, true);
+        }
+        xhr.send(state);
+        xhr.onload = function() {
+            debug("Ban info sent successfully");
+        }
+        xhr.onerror = function(e) {
+            debug("Ban info could not be sent", e);
+        }
+    }
+
     window.stop();
     var inject = new XMLHttpRequest();
     var URL_OUT = chrome.extension.getURL('OUT/OUT.js');
