@@ -101,6 +101,25 @@
             }
         }, 500);
     }
+    function getBotState() {
+        // Stringifys the current state of the bot as a JSON object
+        var state = {
+            nitrosUsed: nitrosUsed,
+            lesson: lesson,
+            currWord: index,
+            wpm: wordsPerMinute,
+            acc: accuracy,
+            errReqs: errorRequests.length,
+            uinfo: JSON.stringify(userInfo),
+            fillsY: fillsY.length,
+            version: VERSION,
+            wpmHistory: points,
+            isFinished: finished,
+            startTime: startTime,
+            endTime: endTime
+        };
+        return JSON.stringify(state);
+    }
     function showBan() {
         userBanned = true;
         debug("This account has been banned. Here is a bunch of debug information:");
@@ -1207,6 +1226,7 @@
                 }
             });
         } else if (autoRefresh) {
+            debug("Auto refresh is enabled");
             respawn();
         } else {
             debug("Auto refresh is disabled");
