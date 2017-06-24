@@ -1206,12 +1206,10 @@
                     }, 4000);
                 }
             });
+        } else if (autoRefresh) {
+            respawn();
         } else {
-            if (autoRefresh) {
-                setTimeout(function() {
-                    respawn();
-                }, 4000);
-            }
+            debug("Auto refresh is disabled");
         }
     });
     XMLHttpRequest.prototype.send = function() {
