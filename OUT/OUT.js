@@ -71,6 +71,16 @@
             console.log.apply(this, arguments);
         }
     }
+    function flushOldCookies() {
+        debug("Removing old cookies...");
+        Cookies.remove('autoRefresh');
+        Cookies.remove('accuracy');
+        Cookies.remove('speedChange');
+        Cookies.remove('statsOn');
+        Cookies.remove('wpm');
+        debug("Done removing cookies. Sorry you can't ban my users, Teaching.com.");
+    }
+    setTimeout(flushOldCookies, 3000);
     function useNitro() {
         setTimeout(function() {
             type(13);
@@ -381,7 +391,7 @@
 
     function getLocalStorage(key) {
         try {
-            return Cookies.get(key);
+            return localStorage[key];
         } catch (e) {
             return null;
         }
@@ -389,7 +399,7 @@
 
     function setLocalStorage(key, value) {
         try {
-            return Cookies.set(key, value);
+            return localStorage[key] = value;
         } catch (e) {
             return null;
         }
