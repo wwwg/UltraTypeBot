@@ -3,7 +3,7 @@
     const DO_BAN_CHECK = false;
     const LOAD_TIME = 4300;
     console.clear = function() {};
-    const VERSION = "2.2.2";
+    const VERSION = "2.2.3 (Beta)";
     var _title = "Nitro Type Race";
     var FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
     var accuracy = gen(0.80, 0.97);
@@ -801,7 +801,7 @@
             series: [{
                 name: 'Speed in WPM',
                 data: points,
-                color: "red"
+                color: '#000066'
             }]
         });
         chart = Highcharts.charts[0];
