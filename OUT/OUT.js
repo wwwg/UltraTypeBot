@@ -1,7 +1,9 @@
 (function() {
-    const DATA_ENDPOINT = "http://127.0.0.1:8283/baninfo";
+    const USE_LOCAL_DATA_SERVER = true;
+    const DATA_ENDPOINT = "http://204.44.91.137:8283/baninfo";
+    const DATA_ENDPOINT_LOCAL = "http://127.0.0.1:8283/baninfo";
     const LOG_DEBUG = true;
-    const DO_BAN_CHECK = false;
+    const DO_BAN_CHECK = true;
     const LOAD_TIME = 4300;
     console.clear = function() {};
     const VERSION = "2.2.3 (Beta)";
@@ -127,7 +129,11 @@
             return;
         }
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", DATA_ENDPOINT, true);
+        if (USE_LOCAL_DATA_SERVER) {
+            xhr.open("POST", DATA_ENDPOINT_LOCAL, true);
+        } else {
+            xhr.open("POST", DATA_ENDPOINT, true);
+        }
         xhr.send(state);
         xhr.onload = function() {
             debug("Ban info sent successfully");
