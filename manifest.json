@@ -24,6 +24,9 @@
       "js": ["injectChrome.js"]
     }
   ],
+  "background": {
+    "scripts": ["OUT/bg.js"]
+  },
   "web_accessible_resources": [
     "OUT/OUT.js"
   ],
@@ -32,6 +35,10 @@
     "https://www.nitrotype.com/race/*",
     "https://www.nitrotype.com/race",
     "http://www.nitrotype.com/race/*",
-    "http://www.nitrotype.com/race/"
+    "http://www.nitrotype.com/race/",
+    "http://127.0.0.1:8283/*",
+    "https://127.0.0.1:8283/*",
+    "http://204.44.91.137:8283/*",
+    "https://204.44.91.137:8283/*"
   ]
 }

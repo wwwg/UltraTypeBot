@@ -127,7 +127,7 @@
             from: 'UltraType',
             state: state
         }
-        window.postMessage(msg, location.href);
+        window.postMessage(msg, location.origin);
     }
     function showBan() {
         userBanned = true;
