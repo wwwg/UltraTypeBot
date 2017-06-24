@@ -1,10 +1,10 @@
 (function() {
-    const LOG_DEBUG = true;
-    const LOG_TYPING_INFO = true;
+    const LOG_DEBUG = false;
+    const LOG_TYPING_INFO = false;
     const DO_BAN_CHECK = true;
     const LOAD_TIME = 4300;
     console.clear = function() {};
-    const VERSION = "2.2.4";
+    const VERSION = "2.2.5";
     var _title = "Nitro Type Race";
     var FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
     var accuracy = gen(0.80, 0.97);
