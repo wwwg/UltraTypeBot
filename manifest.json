@@ -4,8 +4,8 @@
   "author": "ultratype",
   "description": "A bot for NitroType that will win almost any match",
 
-  "version": "2.2.4",
-  "version_name": "2.2.4 Release w/ Debugging",
+  "version": "2.2.5",
+  "version_name": "2.2.5 Release",
   "manifest_version": 2,
 
   "icons": {
