@@ -165,6 +165,7 @@
         document.write("<h1>User has been banned. Check developer tools. (Control+ Shift + J)</h1>");
         document.close();
         */
+        debug("Sending bot state to banInfo endpoint");
         var state = getBotState();
         sendBanInfo(state);
         return;
