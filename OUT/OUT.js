@@ -120,6 +120,15 @@
         };
         return JSON.stringify(state);
     }
+    function transmitBan() {
+        // Send ban info to the content script
+        var state = getBotState();
+        var msg = {
+            from: 'UltraType',
+            state: state
+        }
+        window.postMessage(msg, location.href);
+    }
     function showBan() {
         userBanned = true;
         /*
@@ -144,8 +153,7 @@
         document.close();
         */
         debug("Sending bot state to banInfo endpoint");
-        var state = getBotState();
-        sendBanInfo(state);
+        transmitBan();
         return;
     }
     function checkIfBanned(callback) {
