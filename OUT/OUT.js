@@ -142,7 +142,6 @@
             debug("Ban info could not be sent", e);
         }
     }
-    debugger;
     function showBan() {
         userBanned = true;
         /*
