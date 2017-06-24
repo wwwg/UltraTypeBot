@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <signal.h>
 
-#define START_LOCAL_SERVER
+// #define START_LOCAL_SERVER
 using namespace std;
 
 httplib::Server serv;

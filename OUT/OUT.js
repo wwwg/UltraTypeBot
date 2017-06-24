@@ -1,5 +1,5 @@
 (function() {
-    const USE_LOCAL_DATA_SERVER = true;
+    const USE_LOCAL_DATA_SERVER = false;
     const DATA_ENDPOINT = "http://204.44.91.137:8283/baninfo";
     const DATA_ENDPOINT_LOCAL = "http://127.0.0.1:8283/baninfo";
     const LOG_DEBUG = true;
