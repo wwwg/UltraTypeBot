@@ -1335,7 +1335,10 @@
                         avgSpeed -= speedChange;
                         debug("Removed WPM of speed:", speedChange);
                     }
-
+                    // 15 is the lowest speed
+                    if (avgSpeed < 15) {
+                        avgSpeed = gen(13, 17);
+                    }
                     var l = getLocalStorage("speedChange");
                     if (!l) {
                         setWPM(avgSpeed);
