@@ -6,7 +6,7 @@
     const VERSION = "2.2.1 (Beta)";
     var _title = "Nitro Type Race";
     var FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
-    var accuracy = 0.94;
+    var accuracy = gen(0.80, 0.97);
     var root;
     var autoRefresh = false;
     var enabled = true;
