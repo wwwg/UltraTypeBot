@@ -174,7 +174,7 @@
         if (userInfo.username) {
             debug("Attempting to get user's page");
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "https://www.nitrotype.com/racer/" + userInfo.username, true);
+            xhr.open("GET", "https://www.nitrotype.com/racer/" + encodeURIComponent(userInfo.username), true);
             xhr.send();
             xhr.onload = function() {
                 var status = this.status;
