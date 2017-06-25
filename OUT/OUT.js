@@ -1,6 +1,6 @@
 (function() {
     const VERSION = "2.3.0";
-    const LOG_DEBUG = true;
+    const LOG_DEBUG = false;
     const LOG_TYPING_INFO = false;
     const DO_BAN_CHECK = true;
     const LOAD_TIME = 4300;
