@@ -1,10 +1,10 @@
 (function() {
-    const LOG_DEBUG = false;
+    const LOG_DEBUG = true;
     const LOG_TYPING_INFO = false;
     const DO_BAN_CHECK = true;
     const LOAD_TIME = 4300;
     console.clear = function() {};
-    const VERSION = "2.2.5";
+    const VERSION = "2.2.6 (Beta)";
     var _title = "Nitro Type Race";
     var FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
     var accuracy = gen(0.80, 0.97);
@@ -1243,9 +1243,7 @@
             checkIfBanned(function() {
                 debug("Ban check done. My user is not banned!");
                 if (autoRefresh) {
-                    setTimeout(function() {
-                        respawn();
-                    }, 4000);
+                    respawn();
                 }
             });
         } else if (autoRefresh) {
@@ -1261,6 +1259,10 @@
     XMLHttpRequest.prototype.open = function() {
         if (arguments[1].includes('/api/error')) {
             errorRequests.push(this);
+            this.abort();
+            return;
+        } else if (arguments[1].includes('problem-keys')) {
+            debug("Aborting problem-keys AJAX request.");
             this.abort();
             return;
         }
