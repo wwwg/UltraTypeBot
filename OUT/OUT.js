@@ -398,13 +398,7 @@
         autoNitroBtn.style.borderColor = "Red";
         autoNitroBtn.style.color = "Red";
         autoNitroBtn.innerHTML = "Off";
-        if (getLocalStorage('autoNitro') === null ||
-            typeof getLocalStorage('autoNitro') === 'undefined') {
-            // alert('It is not recommended you disable auto nitro, use at your own risk! This message will not be shown again.');
-            setLocalStorage('autoNitro', false);
-        } else {
-            setLocalStorage('autoNitro', false);
-        }
+        setLocalStorage('autoNitro', false);
         autoNitro = false;
     }
 
@@ -1204,6 +1198,14 @@
             var localAutoRefresh = getLocalStorage('autoRefresh');
             var localAccuracy = getLocalStorage('accuracy');
             var localWPM = getLocalStorage('wpm');
+            var localAutoNitro = JSON.parse(getLocalStorage('autoNitro'));
+            if (localAutoNitro !== null) {
+                if (localAutoNitro == false) {
+                    autoNitroOff();
+                } else {
+                    autoNitroOn();
+                }
+            }
 
             if (localAutoRefresh) {
                 autoRefresh = JSON.parse(localAutoRefresh);
