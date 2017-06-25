@@ -1,6 +1,6 @@
 (function() {
     // pseudo-constants
-    var VERSION = "2.3.1 (Beta)";
+    var VERSION = "2.3.2";
     var LOG_DEBUG = false;
     var LOG_TYPING_INFO = false;
     var DO_BAN_CHECK = true;
