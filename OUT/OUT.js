@@ -1,6 +1,6 @@
 (function() {
     // pseudo-constants
-    var VERSION = "2.3.0";
+    var VERSION = "2.3.1 (Beta)";
     var LOG_DEBUG = false;
     var LOG_TYPING_INFO = false;
     var DO_BAN_CHECK = true;
@@ -89,6 +89,12 @@
     }
     var debug = function() {
         if (LOG_DEBUG) {
+            arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
+            console.log.apply(this, arguments);
+        }
+    }
+    var tdebug = function() {
+        if (LOG_TYPING_INFO) {
             arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
             console.log.apply(this, arguments);
         }
