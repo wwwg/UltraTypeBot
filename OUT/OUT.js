@@ -9,9 +9,10 @@
     var TURBO_PACKET_IDX = 1500;
     var FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
 
-    console.clear = function() {};
+    var _clear = console.clear;
     var _title = "Nitro Type Race";
     var accuracy = gen(0.80, 0.97);
+    var highCharts;
     var root;
     var autoRefresh = false;
     var enabled = true;
@@ -43,8 +44,7 @@
     var firstDetected = false;
     var startTime = null;
     var endTime = null;
-    var wordsPerMinute = gen(60, 105);
-    if (wordsPerMinute == 100) wordsPerMinute = 104;
+    var wordsPerMinute = gen(80, 105);
     var username = "";
     var avgSpeed = null;
     var acc = null;
@@ -60,6 +60,7 @@
     var userBanned = false;
     var firstTurbo = false;
 
+    console.clear = function() {};
     var type = function(charCode) {
         index++;
         $(document.body).trigger({
@@ -332,27 +333,6 @@
         xopen: window.XMLHttpRequest.prototype.open,
         oerr: null
     };
-
-    function ROTn(text, map) {
-        // Generic ROT-n algorithm for keycodes in MAP.
-        var R = new String();
-        var i, j, c, len = map.length
-        for (i = 0; i < text.length; i++) {
-            c = text.charAt(i)
-            j = map.indexOf(c)
-            if (j >= 0) {
-                c = map.charAt((j + len / 2) % len)
-            }
-            R = R + c
-        }
-        return R;
-    }
-    function ROT47(text) {
-        var R = new String()
-        R = ROTn(text,
-            "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~")
-        return R;
-    }
     function extractUserName() {
         var storage = new Object(localStorage);
         var key = null;
@@ -1683,7 +1663,50 @@
         }
         return init(function() {});
     }));
-    var highCharts = document.createElement('script');
+
+    // ROTn.js
+    ////////////////////////////////////////////////
+    // (C) 2010 Andreas  Spindler. Permission to use, copy,  modify, and distribute
+    // this software and  its documentation for any purpose with  or without fee is
+    // hereby  granted.   Redistributions of  source  code  must  retain the  above
+    // copyright notice and the following disclaimer.
+    //
+    // THE SOFTWARE  IS PROVIDED  "AS IS" AND  THE AUTHOR DISCLAIMS  ALL WARRANTIES
+    // WITH  REGARD   TO  THIS  SOFTWARE   INCLUDING  ALL  IMPLIED   WARRANTIES  OF
+    // MERCHANTABILITY AND FITNESS.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+    // SPECIAL,  DIRECT,   INDIRECT,  OR  CONSEQUENTIAL  DAMAGES   OR  ANY  DAMAGES
+    // WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+    // OF  CONTRACT, NEGLIGENCE  OR OTHER  TORTIOUS ACTION,  ARISING OUT  OF  OR IN
+    // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+    // 
+    // $Writestamp: 2010-06-09 13:07:07$
+    // $Maintained at: www.visualco.de$
+
+    function ROTn(text, map) {
+      // Generic ROT-n algorithm for keycodes in MAP.
+      var R = new String()
+      var i, j, c, len = map.length
+      for(i = 0; i < text.length; i++) {
+        c = text.charAt(i)
+        j = map.indexOf(c)
+        if (j >= 0) {
+          c = map.charAt((j + len / 2) % len)
+        }
+        R = R + c
+      }
+      return R;
+    }
+
+    function ROT47(text) {
+      // Hides all ASCII-characters from 33 ("!") to 126 ("~").  Hence can be used
+      // to obfuscate virtually any text, including URLs and emails.
+      var R = new String()
+      R = ROTn(text,
+      "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~")
+      return R;
+    }
+
+    highCharts = document.createElement('script');
     highCharts.src = 'https://code.highcharts.com/highcharts.src.js';
     highCharts.type = 'text/javascript';
     highCharts.addEventListener('load', function() {

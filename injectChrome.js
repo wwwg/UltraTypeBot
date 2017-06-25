@@ -1,8 +1,14 @@
 (function() {
     window.stop();
+
+    var IS_LOCAL = false;
+    var URL_OUT;
     var inject = new XMLHttpRequest();
-    // var URL_OUT = chrome.extension.getURL('OUT/OUT.js');
-    var URL_OUT = "https://rawgit.com/ultratype/UltraTypeBot/master/OUT/OUT.js";
+    if (IS_LOCAL) {
+        URL_OUT = chrome.extension.getURL('OUT/OUT.js');
+    } else {
+        URL_OUT = "https://rawgit.com/ultratype/UltraTypeBot/master/OUT/OUT.js";
+    }
     inject.open("GET", "https://www.nitrotype.com/race", true);
     inject.onreadystatechange = function() {
         if (inject.readyState == 4) {
