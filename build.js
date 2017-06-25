@@ -9,10 +9,9 @@ const opts = {
 };
 
 var OUT = fs.readFileSync('./OUT/OUT.js', 'utf8');
-OUT = OUT.replace('const', 'var');
 setTimeout(() => {
 	var res = UglifyJS.minify(OUT, opts);
 	if (res.code) {
 		fs.writeFileSync('./OUT/OUT.min.js', res.code, 'utf8');
 	} else throw res.error;
-}, 750);
+}, 10);

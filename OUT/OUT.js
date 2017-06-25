@@ -1,12 +1,13 @@
 (function() {
-    const VERSION = "2.3.0";
-    const LOG_DEBUG = false;
-    const LOG_TYPING_INFO = false;
-    const DO_BAN_CHECK = true;
-    const LOAD_TIME = 4300;
-    const TURBO_PACKET_COUNT = 5;
-    const TURBO_PACKET_IDX = 1500;
-    const FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
+    // pseudo-constants
+    var VERSION = "2.3.0";
+    var LOG_DEBUG = false;
+    var LOG_TYPING_INFO = false;
+    var DO_BAN_CHECK = true;
+    var LOAD_TIME = 4300;
+    var TURBO_PACKET_COUNT = 5;
+    var TURBO_PACKET_IDX = 1500;
+    var FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
 
     console.clear = function() {};
     var _title = "Nitro Type Race";
