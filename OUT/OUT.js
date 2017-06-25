@@ -1,12 +1,15 @@
 (function() {
+    const VERSION = "2.3.0";
     const LOG_DEBUG = true;
     const LOG_TYPING_INFO = false;
     const DO_BAN_CHECK = true;
     const LOAD_TIME = 4300;
+    const TURBO_PACKET_COUNT = 5;
+    const TURBO_PACKET_IDX = 1500;
+    const FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
+
     console.clear = function() {};
-    const VERSION = "2.2.6 (Beta)";
     var _title = "Nitro Type Race";
-    var FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
     var accuracy = gen(0.80, 0.97);
     var root;
     var autoRefresh = false;
@@ -57,6 +60,9 @@
     var nitrosUsed = 0;
     var loggedEndRace = false;
     var userBanned = false;
+    var typeWrong = 0;
+    var typeRight = 0;
+    var firstTurbo = false;
 
     var type = function(charCode) {
         index++;
@@ -64,6 +70,26 @@
             type: 'keypress',
             which: charCode
         });
+    }
+    var typePacket = function(isRight, idx) {
+        var me = this;
+        var packet = {
+            stream: "race",
+            msg: "update",
+            payload: {  }
+        };
+        if (isRight) {
+            packet.payload.t = idx;
+        } else {
+            packet.payload.e = idx;
+        }
+        ws.send("4" + JSON.stringify(packet));
+    }
+    var turbo = function() {
+        debug("Turbo mode called. Sending " + (TURBO_PACKET_COUNT.toString()) + " type packets.");
+        for (var i = 0; i < TURBO_PACKET_COUNT; ++i) {
+            typePacket(true, TURBO_PACKET_IDX);
+        }
     }
     var debug = function() {
         if (LOG_DEBUG) {
@@ -86,6 +112,16 @@
             type(13);
             nitrosUsed++;
         }, 134);
+    }
+    function rm(id, isClass) {
+        if (!isClass) {
+            document.getElementById(id).remove();
+        } else {
+            var elms = document.getElementsByClassName(id);
+            for (var i = 0; i < elms.length; ++i) {
+                elms[i].remove();
+            }
+        }
     }
     function addGraph(g) {
         if (root) {
@@ -593,7 +629,17 @@
             }, gen(2000, 4000));
         }
     }
-
+    function removeUITrash() {
+        // Remove some garbage on the UI
+        debug("Cleaning up the original UI...");
+        try {
+            rm('settings-button');
+            rm('app-footer', 1);
+            rm('tooltip-hover', 1);
+        } catch (e) {
+            debug("Issue removing UI trash", e);
+        }
+    }
     function onfinish(callback) {
         setInterval(function() {
             var deadDivs = document.getElementsByClassName('popup race-results');
@@ -712,6 +758,43 @@
         outerEnable.appendChild(enableButton);
         UI.appendChild(outerEnable);
 
+        var outerTurbo = document.createElement('center');
+        var turboBtn = document.createElement('button');
+        turboBtn.className = "";
+        turboBtn.style.backgroundColor = "transparent";
+        turboBtn.style.border = "3px solid";
+        turboBtn.style.borderRadius = "3px";
+        turboBtn.style.fontSize = "125%";
+        turboBtn.style.borderColor = "#ff1a1a";
+        turboBtn.style.color = "#ff1a1a";
+        turboBtn.style.transition = "border 500ms, border-color 500ms, color 500ms";
+        turboBtn.innerHTML = "Turbo";
+        turboBtn.onclick = function() {
+            turboBtn.style.color = "#660000";
+            turboBtn.style.borderColor = "#660000";
+            if (!firstTurbo) {
+                firstTurbo = true;
+                if (localStorage["turboAlert"]) {
+                    try {
+                        turbo();
+                    } catch(e) {
+                        debug("WARN: Couldn't turbo", e);
+                    };
+                } else {
+                    alert("WARNING: Abuse of turbo mode may get you banned!\nThis message will not be displayed again.");
+                    localStorage["turboAlert"] = 1;
+                    try {
+                        turbo();
+                    } catch(e) {
+                        debug("WARN: Couldn't turbo", e);
+                    };
+                }
+            }
+        }
+        UI.appendChild(document.createElement('br'));
+        outerTurbo.appendChild(turboBtn);
+        UI.appendChild(outerTurbo);
+
         UI.appendChild(document.createElement('br'));
         statsDiv = document.createElement('center');
         statsDiv.innerHTML = 'Stats are loading...';
@@ -737,6 +820,7 @@
                     if (chartOn) g.style.opacity = UIopacity;
                     UI.style.pointerEvents = "auto";
                     if (chartOn) g.style.pointerEvents = "auto";
+                    else g.style.pointerEvents = "none";
                 }
             }
         }]);
@@ -1154,11 +1238,13 @@
                     chartBtn.style.color = "red";
                     chartBtn.innerHTML = "Off";
                     g.style.opacity = 0;
+                    g.style.pointerEvents = 'none';
                 } else {
                     chartBtn.style.borderColor = "LimeGreen";
                     chartBtn.style.color = "LimeGreen";
                     chartBtn.innerHTML = "On";
                     g.style.opacity = 0.7;
+                    g.style.pointerEvents = 'auto';
                 }
             }
             if (localAccuracy) {
@@ -1358,8 +1444,12 @@
     });
     _.listen.apply(window, ['load', function() {
         _.oerr = window.onerror;
-        window.onerror = function() {
-            return null
+        window.onerror = function(evt) {
+            if (evt.includes("'visible' of undefined")) {
+                // Exception triggered due to turbo mode
+                respawn();
+            }
+            return null;
         };
         window.onbeforeunload = function() {
             return null;
@@ -1438,7 +1528,9 @@
         }
         */
     }]);
-
+    window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(removeUITrash, 75);
+    });
     /*
      * JavaScript Cookie v2.1.3
      * https://github.com/js-cookie/js-cookie
