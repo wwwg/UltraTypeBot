@@ -1198,8 +1198,9 @@
             var localAutoRefresh = getLocalStorage('autoRefresh');
             var localAccuracy = getLocalStorage('accuracy');
             var localWPM = getLocalStorage('wpm');
-            var localAutoNitro = JSON.parse(getLocalStorage('autoNitro'));
-            if (localAutoNitro !== null) {
+            var localAutoNitro = getLocalStorage('autoNitro');
+            if (localAutoNitro !== null && localAutoNitro !== undefined) {
+                localAutoNitro = JSON.parse(localAutoNitro);
                 if (localAutoNitro == false) {
                     autoNitroOff();
                 } else {
