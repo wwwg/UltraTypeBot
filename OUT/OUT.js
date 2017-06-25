@@ -535,11 +535,13 @@
             debug("WARN: No percentage false specified for random boolean generation. Using 0.5.");
         }
         ret = Math.random() > percent;
-        // debug("Calculated a random bool with false percentage", percent, "Result:", ret);
+        tdebug("Calculated random bool with false percentage", percent, "Result:", ret);
         return ret;
     }
     function isAccurate() {
-        return Math.random() < accuracy;
+        var acc = Math.random() < accuracy;
+        tdebug("Calculated isAccurate", acc);
+        return acc;
     }
     /*
         This is the core AI behind UltraType.
@@ -588,13 +590,14 @@
                     }
                     */
                     if (randomBool(0.999)) { // Theres a 0.1% chance that a nitro is used mid race during a tick
-                        debug("Using a mid race nitro");
+                        tdebug("Using a mid race nitro");
                         useNitro();
                     }
                 }
             }
             timeoutToggle = !timeoutToggle;
             inDip = randomBool(dipRate);
+            tdebug("Generated typing decision with offset", offset);
         }, offset);
     }
     function lessonLoad() {
