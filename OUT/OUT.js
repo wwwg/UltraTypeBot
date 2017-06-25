@@ -14,8 +14,6 @@
     var root;
     var autoRefresh = false;
     var enabled = true;
-    var renderOpts = [];
-    var unlimited = false;
     var autoNitroBtn = null;
     var disqualified = false;
     var lessonLoaded = false;
@@ -55,13 +53,10 @@
     var userInfo = {};
     var statTogg = null;
     var Cookies;
-    var highChartsCtx = {};
     var index = 0;
     var nitrosUsed = 0;
     var loggedEndRace = false;
     var userBanned = false;
-    var typeWrong = 0;
-    var typeRight = 0;
     var firstTurbo = false;
 
     var type = function(charCode) {
