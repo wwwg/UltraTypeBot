@@ -602,7 +602,7 @@
 
     function respawn() {
         debug("respawn() called - refreshing in a few seconds.");
-        if (/* autoRefresh */ _autoRefresh && !userBanned) {
+        if (/* autoRefresh */ _autoRefresh) {
             // Timeout so the player can view their race stats if they wish
             setTimeout(function() {
                 _.reload.apply(window.location, []);
