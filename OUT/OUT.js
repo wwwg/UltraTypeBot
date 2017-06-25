@@ -1,6 +1,6 @@
 (function() {
     // pseudo-constants
-    var VERSION = "2.3.2";
+    var VERSION = "2.3.3 (Github Hotfix)";
     var LOG_DEBUG = false;
     var LOG_TYPING_INFO = false;
     var DO_BAN_CHECK = true;
@@ -15,6 +15,7 @@
     var highCharts;
     var root;
     var autoRefresh = false;
+    var _autoRefresh = true;
     var enabled = true;
     var autoNitroBtn = null;
     var disqualified = false;
@@ -607,8 +608,8 @@
 
     function respawn() {
         debug("respawn() called - refreshing in a few seconds.");
-        if (autoRefresh && !userBanned) {
-            // Timeout so the player can view their stats if they wish
+        if (/* autoRefresh */ _autoRefresh && !userBanned) {
+            // Timeout so the player can view their race stats if they wish
             setTimeout(function() {
                 _.reload.apply(window.location, []);
             }, gen(2000, 4000));
