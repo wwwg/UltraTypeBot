@@ -783,6 +783,10 @@
         UI.appendChild(statsDiv);
         UI.appendChild(document.createElement('br'));
 
+        var discordMsg = document.createElement('p');
+        discordMsg.innerHTML = "<a href='https://discord.gg/NkhuDZS'>Join our Discord!</a>";
+        UI.appendChild(discordMsg);
+
         function moveUI(e) {
             UI.style.top = (e.clientY - (e.clientY - UI.style.top)) + 'px';
             UI.style.left = (e.clientX - (e.clientX - UI.style.left)) + 'px';
@@ -1187,7 +1191,7 @@
         inner.appendChild(outerStatTogg);
 
         var tips = document.createElement('p');
-        tips.innerHTML = "Press escape to hide all of the UltraType menus.";
+        tips.innerHTML = "Press escape to hide all of the UltraType menus.<br><a href='https://discord.gg/NkhuDZS'>Join our Discord!</a>";
         inner.appendChild(tips);
 
         opt.appendChild(inner);
