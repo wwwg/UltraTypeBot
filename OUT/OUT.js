@@ -73,7 +73,8 @@
         onRaceStart: null,
         onNitroUsed: null,
         onUserBanned: null,
-        onRaceStarting: null
+        onRaceStarting: null,
+        onType: null
     }
 
     console.clear = function() {};
@@ -601,6 +602,12 @@
             timeoutToggle = !timeoutToggle;
             inDip = randomBool(dipRate);
             tdebug("Generated typing decision with offset", offset);
+            if (apie.onType) {
+                apie.onType({
+                    charTyped: lesson.charCodeAt(i),
+                    isWront: WRONG
+                });
+            }
         }, offset);
     }
     function lessonLoad() {
@@ -1602,8 +1609,46 @@
     window.addEventListener('DOMContentLoaded', function() {
         setTimeout(removeUITrash, 75);
     });
+    var registerAPIEvent = function(evt, callback) {
+        if (typeof callback !== 'function') {
+            throw new Error('Invalid event callback.');
+            return;
+        }
+        switch (evt) {
+            case "userBanned":
+                apie.onUserBanned = callback;
+                break;
+            case "raceStart":
+                apie.onRaceStart = callback;
+                break;
+            case "raceEnd":
+            case "raceFinish":
+                apie.onRaceFinish = callback;
+                break;
+            case "nitroUsed":
+            case "nitroUse":
+            case "nitro":
+                apie.onNitroUsed = callback;
+                break;
+            case "raceStarting":
+            case "raceBegin":
+            case "raceInit":
+                apie.onRaceStarting = callback;
+                break;
+            case "type":
+            case "typed":
+            case "botType":
+                apie.onType = callback;
+                break;
+            default:
+                throw new Error('Invalid event name!');
+                break;
+        }
+        return window.UltraTypeCore;
+    }
     // Core API
     var core = {
+        on: registerAPIEvent,
         turbo: turbo,
         setWPM: setWPM,
         sendTypePacket: typePacket,
@@ -1650,6 +1695,14 @@
             if (lesson) {
                 return lesson;
             } else return null;
+        },
+        setAutoRefresh: function(val) {
+            if (typeof val !== 'boolean') {
+                throw new Error('Can only set auto refresh to a boolean.');
+                return;
+            } else {
+                autoRefresh = val;
+            }
         },
         getNitrosUsed: function() { return nitrosUsed || 0 },
         toggleBotLog: function() {
