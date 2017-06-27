@@ -1,6 +1,6 @@
 (function() {
     // pseudo-constants
-    var VERSION = "2.3.3 (Github Hotfix)";
+    var VERSION = "2.3.4 (GitHub)";
     var LOG_DEBUG = false;
     var LOG_TYPING_INFO = false;
     var DO_BAN_CHECK = true;
