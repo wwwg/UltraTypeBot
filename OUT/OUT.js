@@ -64,7 +64,7 @@
     if (!autoTurbo) {
         autoTurbo = false;
     } else {
-        autoTurbo = true;
+        autoTurbo = JSON.parse(autoTurbo);
     }
 
     console.clear = function() {};
