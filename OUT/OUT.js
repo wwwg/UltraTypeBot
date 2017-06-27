@@ -62,8 +62,10 @@
     var firstTurbo = false;
     var autoTurbo = getLocalStorage('autoTurbo');
     if (!autoTurbo) {
+        autoTurbo = false;
+    } else {
         autoTurbo = true;
-    } else autoTurbo = false;
+    }
 
     console.clear = function() {};
     var type = function(charCode) {
