@@ -1180,7 +1180,7 @@
         wpm = document.createElement('input');
         wpm.type = "number";
         wpm.min = 3;
-        wpm.max = 300;
+        wpm.max = 220; // About the fastest you can go without any bans
         wpm.value = wordsPerMinute;
         wpm.className = "";
         wpm.style.backgroundColor = "transparent";
