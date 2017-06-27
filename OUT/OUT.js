@@ -1232,6 +1232,16 @@
                 autoNitroOff();
             }
         }
+        // Set the default button state
+        if (autoTurbo) {
+            autoT.style.borderColor = "LimeGreen";
+            autoT.style.color = "LimeGreen";
+            autoT.innerHTML = "On";
+        } else {
+            autoT.style.borderColor = "red";
+            autoT.style.color = "red";
+            autoT.innerHTML = "Off";
+        }
         outerAutoT.innerHTML = "Auto Turbo: ";
         outerAutoT.appendChild(autoT);
         inner.appendChild(outerAutoT);
