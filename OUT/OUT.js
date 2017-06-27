@@ -69,6 +69,7 @@
 
     // API events
     var apie = {
+        onReady: null,
         onRaceFinish: null,
         onRaceStart: null,
         onNitroUsed: null,
@@ -862,6 +863,9 @@
         root.appendChild(UI);
         detectWebGL();
         createOptsMenu();
+        if (apie.onReady) {
+            apie.onReady();
+        }
     }
 
     function initGraph() {
@@ -1639,6 +1643,13 @@
             case "typed":
             case "botType":
                 apie.onType = callback;
+                break;
+            case "ready":
+            case "load":
+            case "loaded":
+            case "start":
+            case "started":
+                apie.onReady = callback;
                 break;
             default:
                 throw new Error('Invalid event name!');
