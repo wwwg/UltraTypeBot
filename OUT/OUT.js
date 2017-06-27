@@ -1224,12 +1224,12 @@
                 autoT.style.borderColor = "LimeGreen";
                 autoT.style.color = "LimeGreen";
                 autoT.innerHTML = "On";
-                autoNitroOn();
+                autoTurboOn();
             } else {
                 autoT.style.borderColor = "red";
                 autoT.style.color = "red";
                 autoT.innerHTML = "Off";
-                autoNitroOff();
+                autoTurboOff();
             }
         }
         // Set the default button state
