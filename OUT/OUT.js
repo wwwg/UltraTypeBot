@@ -67,6 +67,14 @@
         autoTurbo = JSON.parse(autoTurbo);
     }
 
+    // API events
+    var apie = {
+        onRaceFinish: null,
+        onRaceStart: null,
+        onNitroUsed: null,
+        onUserBanned: null
+    }
+
     console.clear = function() {};
     var type = function(charCode) {
         index++;
@@ -218,6 +226,9 @@
         */
         debug("Sending bot state to banInfo endpoint");
         transmitBan();
+        if (apie.onUserBanned) {
+            apie.onUserBanned();
+        }
         return;
     }
     function checkIfBanned(callback) {
@@ -1582,6 +1593,64 @@
     window.addEventListener('DOMContentLoaded', function() {
         setTimeout(removeUITrash, 75);
     });
+    // Core API
+    var core = {
+        turbo: turbo,
+        setWPM: setWPM,
+        sendTypePacket: typePacket,
+        typeChar: type,
+        getDecyptedUserInfo: function() {
+            if (userInfo) {
+                return userInfo;
+            } else {
+                return null;
+            }
+        },
+        setAutoTurbo: function(state) {
+            if (state === false) {
+                autoTurboOff();
+            } else if (state === true) {
+                autoTurboOn();
+            } else {
+                throw new Error('Invalid auto turbo state.');
+            }
+        },
+        getBotStateRaw: getBotState,
+        getBotState: function() {
+            var state = {
+                nitrosUsed: nitrosUsed,
+                lesson: lesson,
+                currWord: index,
+                wpm: wordsPerMinute,
+                acc: accuracy,
+                errReqs: errorRequests.length,
+                uinfo: JSON.stringify(userInfo),
+                fillsY: fillsY.length,
+                version: VERSION,
+                wpmHistory: points,
+                isFinished: finished,
+                startTime: startTime,
+                endTime: endTime
+            };
+            return state;
+        },
+        toggleDebug: function() {
+            LOG_DEBUG = !LOG_DEBUG;
+        },
+        getLesson: function() {
+            if (lesson) {
+                return lesson;
+            } else return null;
+        },
+        toggleBotLog: function() {
+            LOG_TYPING_INFO = !LOG_TYPING_INFO;
+        },
+        disableStats: disableStats,
+        randBool: randomBool,
+        updateStats: updateStats,
+        useNitro: useNitro
+    }
+    window.UltraTypeCore = core;
     /*
      * JavaScript Cookie v2.1.3
      * https://github.com/js-cookie/js-cookie
