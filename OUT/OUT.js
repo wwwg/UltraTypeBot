@@ -60,6 +60,10 @@
     var loggedEndRace = false;
     var userBanned = false;
     var firstTurbo = false;
+    var autoTurbo = getLocalStorage('autoTurbo');
+    if (!autoTurbo) {
+        autoTurbo = true;
+    } else autoTurbo = false;
 
     console.clear = function() {};
     var type = function(charCode) {
@@ -116,6 +120,14 @@
             type(13);
             nitrosUsed++;
         }, 134);
+    }
+    function autoTurboOn() {
+        autoTurbo = true;
+        setLocalStorage('autoTurbo', autoTurbo);
+    }
+    function autoTurboOff() {
+        autoTurbo = false;
+        setLocalStorage('autoTurbo', autoTurbo);
     }
     function rm(id, isClass) {
         if (!isClass) {
@@ -587,6 +599,12 @@
             if (lesson.length > 1) {
                 generateTypeDecision();
                 debug("Started the bot!");
+                if (autoTurbo) {
+                    setTimeout(function() {
+                        debug("Using auto turbo");
+                        turbo();
+                    }, 750);
+                }
             } else {
                 debug("The lesson is malformed! Lesson:", ('"' + lesson + '"'));
                 return;
