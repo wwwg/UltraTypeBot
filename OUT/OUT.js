@@ -1208,6 +1208,34 @@
         outerStatTogg.appendChild(statTogg);
         inner.appendChild(outerStatTogg);
 
+        var outerAutoT = document.createElement('div');
+        var autoT = document.createElement('button');
+        autoT.className = "";
+        autoT.style.backgroundColor = "transparent";
+        autoT.style.border = "3px solid";
+        autoT.style.borderRadius = "3px";
+        autoT.style.fontSize = "100%";
+        autoT.style.borderColor = "LimeGreen";
+        autoT.style.color = "LimeGreen";
+        autoT.style.transition = "border 2s, border-color 2s, color 2s";
+        autoT.innerHTML = "On";
+        autoT.onclick = function() {
+            if (!autoTurbo) {
+                autoT.style.borderColor = "LimeGreen";
+                autoT.style.color = "LimeGreen";
+                autoT.innerHTML = "On";
+                autoNitroOn();
+            } else {
+                autoT.style.borderColor = "red";
+                autoT.style.color = "red";
+                autoT.innerHTML = "Off";
+                autoNitroOff();
+            }
+        }
+        outerAutoT.innerHTML = "Auto Turbo: ";
+        outerAutoT.appendChild(autoT);
+        inner.appendChild(outerAutoT);
+
         var tips = document.createElement('p');
         tips.innerHTML = "Press escape to hide all of the UltraType menus.<br><a href='https://discord.gg/NkhuDZS'>Join our Discord!</a>";
         inner.appendChild(tips);
