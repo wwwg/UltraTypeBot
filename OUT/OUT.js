@@ -72,7 +72,8 @@
         onRaceFinish: null,
         onRaceStart: null,
         onNitroUsed: null,
-        onUserBanned: null
+        onUserBanned: null,
+        onRaceStarting: null
     }
 
     console.clear = function() {};
@@ -126,6 +127,7 @@
     }
     setTimeout(flushOldCookies, 3000);
     function useNitro() {
+        if (apie.onNitroUsed) apie.onNitroUsed();
         setTimeout(function() {
             type(13);
             nitrosUsed++;
@@ -514,6 +516,7 @@
                 lesson = this.text;
                 setTimeout(function() {
                     lessonLoad();
+                    apie.onRaceStarting && (apie.onRaceStarting());
                 }, 200);
             }
         }
@@ -621,6 +624,9 @@
             } else {
                 debug("The lesson is malformed! Lesson:", ('"' + lesson + '"'));
                 return;
+            }
+            if (apie.onRaceStart) {
+                apie.onRaceStart(startTime, lesson);
             }
         }, LOAD_TIME);
     }
@@ -1383,6 +1389,9 @@
     }
     onfinish(function() {
         debug("Race has finished. Doing a ban check and reloading if needed.");
+        if (apie.onRaceFinish) {
+            apie.onRaceFinish();
+        }
         endTime = new Date();
         infoSpan.innerHTML = "Finished";
         infoSpan.style.color = "#b3b3b3";
@@ -1642,6 +1651,7 @@
                 return lesson;
             } else return null;
         },
+        getNitrosUsed: function() { return nitrosUsed || 0 },
         toggleBotLog: function() {
             LOG_TYPING_INFO = !LOG_TYPING_INFO;
         },
