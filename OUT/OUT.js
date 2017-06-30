@@ -60,6 +60,7 @@
     var loggedEndRace = false;
     var userBanned = false;
     var firstTurbo = false;
+    var isStopped = false;
     var autoTurbo = getLocalStorage('autoTurbo');
     if (!autoTurbo) {
         autoTurbo = false;
@@ -154,6 +155,7 @@
         }
     }
     function addGraph(g) {
+        if (isStopped) return;
         if (root) {
             var _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;display:inline-block;}</style>");
             root.appendChild(_style[0]);
@@ -410,6 +412,7 @@
     }
 
     function setWPM(w) {
+        if (isStopped)return;
         wordsPerMinute = w;
         wpm.value = w;
         setLocalStorage('wpm', w);
@@ -554,6 +557,7 @@
         The bot has a 20% chance to enter a "dip" each tick, which makes it type slightly slower.
     */
     function generateTypeDecision(offset) {
+        if(isStopped)return;
         setTimeout(function() {
             var dipRate = 0.80;
             var WRONG = false;
@@ -613,13 +617,15 @@
     }
     function lessonLoad() {
         debug("The prerendered lesson has been captured and loaded. Starting in " + (LOAD_TIME / 1000) + " seconds.");
-        infoSpan.innerHTML = "Starting...";
-        infoSpan.style.color = "#00b300";
+        if (!isStopped) {
+            infoSpan.innerHTML = "Starting...";
+            infoSpan.style.color = "#00b300";
+        }
         setTimeout(function() {
-            infoSpan.innerHTML = "Started!";
+            if (!isStopped) infoSpan.innerHTML = "Started!";
             lessonLoaded = true;
             startTime = new Date();
-            infoSpan.style.color = "#33ff33";
+            if (!isStopped) infoSpan.style.color = "#33ff33";
             if (lesson.length > 1) {
                 generateTypeDecision();
                 debug("Started the bot!");
@@ -678,6 +684,9 @@
         }, 100);
     }
     function createUI(body) {
+        if (isStopped) {
+            return;
+        }
         toggled = false;
         var isDragging = false;
         var UIopacity = 0.7;
@@ -1664,6 +1673,9 @@
         setWPM: setWPM,
         sendTypePacket: typePacket,
         typeChar: type,
+        stopFromRunning: function() { // Stops the bot from appearing or typing
+            isStopped = true;
+        },
         getDecyptedUserInfo: function() {
             if (userInfo) {
                 return userInfo;
