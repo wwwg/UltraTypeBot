@@ -5,7 +5,7 @@
 <br>
 [Quick Chrome extension install](https://chrome.google.com/webstore/detail/ultratype-nitrotype-bot/ojnekafghcgoeljjlpkbomihnlefdbpa)
 
-UltraType is a fast, easy to use bot for NitroType.com. UltraType provides unique features that no other bot has implemented, such as customizable WPM and accuracy.
+UltraType is a fast, easy to use bot for NitroType.com. UltraType provides unique features that no other bot has implemented, such as customizable WPM / accuracy, and an API to write your own features to the bot, and NitroType itself.
 
 # How do I install UltraType?
 
@@ -22,14 +22,15 @@ If you are a developer, or Tampermonkey isn't working properly for you, installa
 - Click the "Load unpacked extension" button in the top left, and then select the ZIP you downloaded from the file selector.
 - Installation is finished! Visit https://www.nitrotype.com/race/ to try it out.
 
-# How does it work?
-UltraType hooks native JavaScript functions and methods to gather information about the current race session. The extension captures the lesson text by processing every characer that is rendered onto the game canvas, and uses the coordinates the text was rendered at to adjust the string accordingly. There is much more to UltraType that goes on behind the scenes, which can be read in [OUT.js](https://github.com/ultratype/UltraTypeBot/blob/master/OUT/OUT.js).
+# The UltraType API
+UltraType comes with an API to build add-ons and simple userscripts with. Information on the API can be located in the `api/` directory.
 
 # Directory Roadmap
 `dataServer` - The source for the data server, written in C++ using [cpp-httplib](https://github.com/yhirose/cpp-httplib).<br>
 `OUT` - All the files executed within the context of the NitroType session.<br>
 `ico` - All of the UltraType icons.<br>
 `popup` - The source for the extension popup.<br>
+`api` - Examples and documentation regarding the UltraType API<br>
 
 #### Disclaimer
 NitroType.com is a registered trademark owned by learning.com, and associates. UltraType is not related to, nor does it claim to be apart of said trademark.
