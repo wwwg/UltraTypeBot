@@ -1280,7 +1280,7 @@
         inner.appendChild(outerAutoT);
 
         var tips = document.createElement('p');
-        tips.innerHTML = "Press escape to hide all of the UltraType menus.<br><a href='https://discord.gg/NkhuDZS'>Join our Discord!</a>";
+        tips.innerHTML = "Press escape to hide all of the UltraType menus.<br>";
         inner.appendChild(tips);
 
         opt.appendChild(inner);
