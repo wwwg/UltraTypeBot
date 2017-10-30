@@ -1,67 +1,66 @@
 (function() {
     // pseudo-constants
-    var VERSION = "2.3.4 (GitHub)";
-    var LOG_DEBUG = false;
-    var LOG_TYPING_INFO = false;
-    var DO_BAN_CHECK = true;
-    var LOAD_TIME = 4300;
-    var TURBO_PACKET_COUNT = 5;
-    var TURBO_PACKET_IDX = 1500;
-    var FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
+    var VERSION = "2.3.4 (GitHub)",
+        LOG_DEBUG = false,
+        LOG_TYPING_INFO = false,
+        DO_BAN_CHECK = true,
+        LOAD_TIME = 4300,
+        TURBO_PACKET_COUNT = 5,
+        TURBO_PACKET_IDX = 1500,
+        FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
 
-    var _clear = console.clear;
-    var _title = "Nitro Type Race";
-    var accuracy = gen(0.80, 0.97);
-    var highCharts;
-    var root;
-    var autoRefresh = false;
-    var _autoRefresh = true;
-    var enabled = true;
-    var autoNitroBtn = null;
-    var disqualified = false;
-    var lessonLoaded = false;
-    var finished = false;
-    var chartOn = false;
-    var timeoutToggle = false;
-    var inDip = false;
-    var autoNitro = true;
-    var info;
-    var ws = null;
-    var infoSpan;
-    var injectedRoot;
-    var fillsY = [];
-    var points = [];
-    var errorRequests = [];
-    var lesson = "";
-    var packetLesson = "";
-    var opt;
-    var optOn = false;
-    var renderedKeys = 0;
-    var i = 0;
-    var chart;
-    var g;
-    var timeout = 0;
-    var toggled = false;
-    var firstDetected = false;
-    var startTime = null;
-    var endTime = null;
-    var wordsPerMinute = gen(80, 105);
-    var username = "";
-    var avgSpeed = null;
-    var acc = null;
-    var wpm = null;
-    var statsDiv = null;
-    var statsOn = true;
-    var userInfo = {};
-    var statTogg = null;
-    var Cookies;
-    var index = 0;
-    var nitrosUsed = 0;
-    var loggedEndRace = false;
-    var userBanned = false;
-    var firstTurbo = false;
-    var isStopped = false;
-    var autoTurbo = getLocalStorage('autoTurbo');
+    var _title = "Nitro Type Race",
+        accuracy = gen(0.80, 0.97),
+        highCharts,
+        root,
+        autoRefresh = false,
+        _autoRefresh = true,
+        enabled = true,
+        autoNitroBtn = null,
+        disqualified = false,
+        lessonLoaded = false,
+        finished = false,
+        chartOn = false,
+        timeoutToggle = false,
+        inDip = false,
+        autoNitro = true,
+        info,
+        ws = null,
+        infoSpan,
+        injectedRoot,
+        fillsY = [],
+        points = [],
+        errorRequests = [],
+        lesson = "",
+        packetLesson = "",
+        opt,
+        optOn = false,
+        renderedKeys = 0,
+        i = 0,
+        chart,
+        g,
+        timeout = 0,
+        toggled = false,
+        firstDetected = false,
+        startTime = null,
+        endTime = null,
+        wordsPerMinute = gen(80, 105),
+        username = "",
+        avgSpeed = null,
+        acc = null,
+        wpm = null,
+        statsDiv = null,
+        statsOn = true,
+        userInfo = {},
+        statTogg = null,
+        Cookies,
+        index = 0,
+        nitrosUsed = 0,
+        loggedEndRace = false,
+        userBanned = false,
+        firstTurbo = false,
+        isStopped = false,
+        autoTurbo = getLocalStorage('autoTurbo');
     if (!autoTurbo) {
         autoTurbo = false;
     } else {
