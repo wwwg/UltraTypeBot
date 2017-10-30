@@ -1,6 +1,6 @@
 (function() {
     // pseudo-constants
-    var VERSION = "2.3.4 (GitHub)",
+    var VERSION = "2.4",
         LOG_DEBUG = false,
         LOG_TYPING_INFO = false,
         DO_BAN_CHECK = true,
