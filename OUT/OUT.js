@@ -827,11 +827,6 @@
         UI.appendChild(document.createElement('br'));
         outerTurbo.appendChild(turboBtn);
         UI.appendChild(outerTurbo);
-
-        var discordMsg = document.createElement('p');
-        discordMsg.innerHTML = "<a href='https://discord.gg/NkhuDZS'>Join our Discord!</a>";
-        UI.appendChild(discordMsg);
-
         UI.appendChild(document.createElement('br'));
         statsDiv = document.createElement('center');
         statsDiv.innerHTML = 'Stats are loading...';
