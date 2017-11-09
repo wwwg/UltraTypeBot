@@ -36,7 +36,6 @@
   ],
   "permissions": [
     "activeTab",
-    "http://204.44.91.137:8283/*",
     "https://www.nitrotype.com/race/*",
     "https://www.nitrotype.com/race",
     "http://www.nitrotype.com/race/*",
