@@ -46,7 +46,7 @@
         endTime = null,
         wordsPerMinute = gen(80, 105),
         username = "",
-        avgSpeed = null,
+        avgSpeed = 100,
         acc = null,
         wpm = null,
         statsDiv = null,
@@ -1198,8 +1198,7 @@
                 wordsPerMinute = parseInt(wpm.value);
                 if (isNaN(wordsPerMinute))
                     wpm.value = 85;
-                wordsPerMinute = (wpm.value);
-                setLocalStorage('wpm', wordsPerMinute);
+                setWPM(wpm.value);
             } else {
                 alert('It is not recommended to alter the default speed of UltraType, be careful! This message will not be shown again.');
                 setLocalStorage('speedChange', true);
@@ -1336,6 +1335,7 @@
             if (localWPM) {
                 wpm.value = localWPM;
                 wordsPerMinute = parseInt(localWPM);
+                setWPM(wordsPerMinute);
             }
             if (statsOn) {
                 statTogg.style.borderColor = "LimeGreen";
@@ -1549,6 +1549,7 @@
         if (statsOn) {
             statsOn = JSON.parse(statsOn);
         }
+        /*
         if (username) {
             if (!userInfo.avgSpeed) {
                 debug("The user doesnt have an average speed.");
@@ -1579,6 +1580,8 @@
                 }
             }
         }
+        */
+
         /*
         if (username) {
             reqStats(username, function(res) {
