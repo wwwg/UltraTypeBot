@@ -10,7 +10,7 @@
         FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
 
     var _title = "Nitro Type Race",
-        accuracy = gen(0.80, 0.97),
+        accuracy = gen(0.93, 0.97),
         highCharts,
         root,
         autoRefresh = false,
