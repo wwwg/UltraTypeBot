@@ -1200,7 +1200,7 @@
                     wpm.value = 85;
                 setWPM(wpm.value);
             } else {
-                alert('It is not recommended to alter the default speed of UltraType, be careful! This message will not be shown again.');
+                // alert('It is not recommended to alter the default speed of UltraType, be careful! This message will not be shown again.');
                 setLocalStorage('speedChange', true);
             }
         }
