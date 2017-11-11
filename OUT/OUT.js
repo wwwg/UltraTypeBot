@@ -1385,7 +1385,7 @@
             scr.addEventListener('load', () => {
                 _set = PIXI.BitmapText.prototype.setText;
                 let tos = __.toStr;
-                PIXI.BitmapText.prototype.setText = () => {
+                PIXI.BitmapText.prototype.setText = function() {
                     let txt = arguments[0];
                     if (lessonLoaded) {
                         let t = parseInt(txt);
