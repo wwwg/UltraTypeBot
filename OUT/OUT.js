@@ -483,13 +483,7 @@
         });
         return ws;
     },
-    _send = WebSocket.prototype.send;
-    setTimeout(flushOldCookies, 3000);
-    WebSocket.prototype.send = function() {
-        return _send.apply(this, arguments);
-    }
-
-    function tgen(val) {
+    tgen = val => {
         max = val + 17;
         min = val - 17;
         let rand = 0;
@@ -628,8 +622,8 @@
                 apie.onRaceStart(startTime, lesson);
             }
         }, LOAD_TIME);
-    }
-    function respawn() {
+    },
+    respawn = () => {
         debug("respawn() called - refreshing in a few seconds.");
         if (autoRefresh) {
             // Timeout so the player can view their race stats if they wish
@@ -637,8 +631,8 @@
                 _.reload.apply(window.location, []);
             }, gen(1200, 2500));
         }
-    }
-    function removeUITrash() {
+    },
+    removeUITrash = () => {
         // Remove some garbage on the UI
         debug("Cleaning up the original UI...");
         try {
@@ -648,8 +642,8 @@
         } catch (e) {
             debug("Issue removing UI trash", e);
         }
-    }
-    function onfinish(callback) {
+    },
+    onfinish = callback => {
         setInterval(() => {
             let deadDivs = document.getElementsByClassName('popup race-results');
             let banner = document.getElementsByClassName('banner');
@@ -661,8 +655,8 @@
                 }
             }
         }, 100);
-    }
-    function createUI(body) {
+    },
+    createUI = body => {
         if (isStopped) {
             return;
         }
@@ -849,8 +843,8 @@
         if (apie.onReady) {
             apie.onReady();
         }
-    }
-    function initGraph() {
+    },
+    initGraph = () => {
         g.style.zIndex = 9999;
         g.style.backgroundColor = "#000";
         g.style.fontFamily = "Ubuntu";
@@ -959,8 +953,8 @@
                 cr[i].remove();
             }
         }, 500);
-    }
-    function createOptsMenu() {
+    },
+    createOptsMenu = () => {
         opt = document.createElement('div');
         opt.style.zIndex = 99999999;
         opt.style.backgroundColor = "#000";
@@ -1333,8 +1327,8 @@
                 disableStats();
             }
         }, 1000);
-    }
-    function blockAd(ad) {
+    },
+    blockAd = ad => {
         try {
             ad.style.display = "none";
         } catch (e) {
@@ -1343,8 +1337,8 @@
         try {
             ad.parentElement.parentElement.parentElement.remove();
         } catch (e) {};
-    }
-    function changeTip(node) {
+    },
+    changeTip = node => {
         setTimeout(() => {
             node.style.fontSize = "125%";
             node.style.border = "3px solid #000066";
@@ -1355,13 +1349,13 @@
             node.innerHTML += FONT;
             node.innerHTML += '<center style="font-family:Ubuntu;">UltraType - NitroType simplified.<br>Version: ' + VERSION + '</center>';
         }, 1000);
-    }
-    function detectWebGL() {
+    },
+    detectWebGL = () => {
         if (document.cookie.includes('webgl')) {
             document.cookie = document.cookie.replace('webgl', 'canvas');
         }
-    }
-    function handleScript(scr) {
+    },
+    handleScript = scr => {
         if (scr.src.includes('race-lib')) {
             scr.addEventListener('load', () => {
                 _set = PIXI.BitmapText.prototype.setText;
@@ -1390,7 +1384,12 @@
         handleFillText(arguments);
         _.fill.apply(this, arguments);
     }
-    let _set = null;
+    let _set = null,
+        _send = WebSocket.prototype.send;
+    setTimeout(flushOldCookies, 3000);
+    WebSocket.prototype.send = function() {
+        return _send.apply(this, arguments);
+    }
     onfinish(() => {
         debug("Race has finished. Doing a ban check and reloading if needed.");
         if (apie.onRaceFinish) {
