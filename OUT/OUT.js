@@ -1398,15 +1398,7 @@
         endTime = new Date();
         infoSpan.innerHTML = "Finished";
         infoSpan.style.color = "#b3b3b3";
-        if (DO_BAN_CHECK) {
-            debug('Doing ban check...');
-            checkIfBanned(() => {
-                debug("Ban check done. My user is not banned!");
-                if (autoRefresh) {
-                    respawn();
-                }
-            });
-        } else if (autoRefresh) {
+        if (autoRefresh) {
             debug("Auto refresh is enabled");
             respawn();
         } else {
