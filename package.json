@@ -7,11 +7,5 @@
  		"type": "git",
  		"url": "https://github.com/ultratype/UltraTypeBot"
  	},
- 	"dependencies": {
- 		"uglify-js": "*"
- 	},
- 	"scripts": {
- 		"build": "node ./build.js"
- 	},
  	"license": "MIT"
 }
