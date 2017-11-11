@@ -513,9 +513,8 @@
                 }, 200);
             }
         }
-    }
-
-    function gen(min, max) {
+    },
+    gen = (min, max) => {
         return Math.floor(Math.random() * max) + min;
     }
     __.fill = function() {
