@@ -1869,7 +1869,7 @@
     highCharts.src = 'https://code.highcharts.com/highcharts.src.js';
     highCharts.type = 'text/javascript';
     highCharts.addEventListener('load', function() {
-        initGraph();
+        setTimeout(initGraph.bind(window), 250);
     });
     document.head.appendChild(highCharts);
     document.currentScript.remove();
