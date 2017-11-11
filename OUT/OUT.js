@@ -599,7 +599,7 @@
             if (apie.onType) {
                 apie.onType({
                     charTyped: lesson.charCodeAt(i),
-                    isWront: WRONG
+                    isWrong: WRONG
                 });
             }
         }, offset);
