@@ -516,12 +516,8 @@
     },
     gen = (min, max) => {
         return Math.floor(Math.random() * max) + min;
-    }
-    __.fill = function() {
-        handleFillText(arguments);
-        _.fill.apply(this, arguments);
-    }
-    function randomBool(percentFalse) {
+    },
+    randomBool = percentFalse => {
         let percent = 0.5;
         let ret = null;
         if (typeof percentFalse === "number") {
@@ -532,8 +528,8 @@
         ret = Math.random() > percent;
         tdebug("Calculated random bool with false percentage", percent, "Result:", ret);
         return ret;
-    }
-    function isAccurate() {
+    },
+    isAccurate = () => {
         let acc = Math.random() < accuracy;
         tdebug("Calculated isAccurate", acc);
         return acc;
@@ -543,7 +539,7 @@
         It uses pseudo-random number and boolean generation to determine how often to type, and when to use nitros.
         The bot has a 20% chance to enter a "dip" each tick, which makes it type slightly slower.
     */
-    function generateTypeDecision(offset) {
+    const generateTypeDecision = offset => {
         if(isStopped)return;
         setTimeout(() => {
             let dipRate = 0.80;
@@ -601,8 +597,8 @@
                 });
             }
         }, offset);
-    }
-    function lessonLoad() {
+    },
+    lessonLoad = () => {
         debug("The prerendered lesson has been captured and loaded. Starting in " + (LOAD_TIME / 1000) + " seconds.");
         if (!isStopped) {
             infoSpan.innerHTML = "Starting...";
@@ -633,13 +629,6 @@
             }
         }, LOAD_TIME);
     }
-    console.warn = function() {
-        if (arguments[0] == "You have been disqualified") {
-            disqualified = true;
-        }
-        console.log.apply(this, arguments);
-    }
-
     function respawn() {
         debug("respawn() called - refreshing in a few seconds.");
         if (autoRefresh) {
@@ -861,7 +850,6 @@
             apie.onReady();
         }
     }
-
     function initGraph() {
         g.style.zIndex = 9999;
         g.style.backgroundColor = "#000";
@@ -972,7 +960,6 @@
             }
         }, 500);
     }
-
     function createOptsMenu() {
         opt = document.createElement('div');
         opt.style.zIndex = 99999999;
@@ -1347,7 +1334,6 @@
             }
         }, 1000);
     }
-
     function blockAd(ad) {
         try {
             ad.style.display = "none";
@@ -1358,7 +1344,6 @@
             ad.parentElement.parentElement.parentElement.remove();
         } catch (e) {};
     }
-
     function changeTip(node) {
         setTimeout(() => {
             node.style.fontSize = "125%";
@@ -1371,14 +1356,11 @@
             node.innerHTML += '<center style="font-family:Ubuntu;">UltraType - NitroType simplified.<br>Version: ' + VERSION + '</center>';
         }, 1000);
     }
-
     function detectWebGL() {
         if (document.cookie.includes('webgl')) {
             document.cookie = document.cookie.replace('webgl', 'canvas');
         }
     }
-    let _set = null;
-
     function handleScript(scr) {
         if (scr.src.includes('race-lib')) {
             scr.addEventListener('load', () => {
@@ -1398,6 +1380,17 @@
             });
         }
     }
+    console.warn = function() {
+        if (arguments[0] == "You have been disqualified") {
+            disqualified = true;
+        }
+        console.log.apply(this, arguments);
+    }
+    __.fill = function() {
+        handleFillText(arguments);
+        _.fill.apply(this, arguments);
+    }
+    let _set = null;
     onfinish(() => {
         debug("Race has finished. Doing a ban check and reloading if needed.");
         if (apie.onRaceFinish) {
