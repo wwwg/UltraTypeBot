@@ -656,8 +656,8 @@
             ) {
                 if (finished == false) {
                     finished = true;
-                    debug("Firing onfinish callback.");
-                    callback();
+                    debug("Firing onfinish callback in 100ms.");
+                    setTimeout(callback.bind(this), 100);
                 }
             }
         }, 300);
