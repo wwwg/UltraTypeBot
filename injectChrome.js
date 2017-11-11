@@ -1,21 +1,19 @@
 (function() {
     window.stop();
 
-    var IS_LOCAL = false;
-    var URL_OUT;
-    var inject = new XMLHttpRequest();
-    if (IS_LOCAL) {
-        URL_OUT = chrome.extension.getURL('OUT/OUT.js');
-    } else {
-        URL_OUT = "https://rawgit.com/ultratype/UltraTypeBot/master/OUT/OUT.js";
-    }
-    inject.open("GET", "https://www.nitrotype.com/race", true);
-    inject.onreadystatechange = function() {
-        if (inject.readyState == 4) {
+    const IS_LOCAL = false,
+        URL_REMOTE = "https://rawgit.com/ultratype/UltraTypeBot/master/OUT/OUT.js",
+        URL_OUT = IS_LOCAL ? chrome.extension.getURL('OUT/OUT.js') : URL_REMOTE,
+        SCRIPT_OUT = "<script src='" + URL_OUT + "'></script>\n";
+    let loader = new XMLHttpRequest();
+    loader.open("GET", "https://www.nitrotype.com/race", true);
+    loader.onreadystatechange = function() {
+        if (loader.readyState == 4) {
+            const res = loader.responseText;
             document.open();
-            document.write("<script src='" + URL_OUT + "'></script>" + this.responseText);
+            document.write(`${SCRIPT_OUT}${res}`);
             document.close();
         }
     }
-    inject.send();
+    loader.send();
 })();
