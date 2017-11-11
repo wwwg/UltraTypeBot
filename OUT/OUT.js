@@ -8,7 +8,6 @@
         TURBO_PACKET_COUNT = 5,
         TURBO_PACKET_IDX = 1500,
         FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
-
     let _title = "Nitro Type Race",
         accuracy = gen(0.93, 0.97),
         highCharts,
