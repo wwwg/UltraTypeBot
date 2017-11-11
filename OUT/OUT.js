@@ -38,7 +38,7 @@
         renderedKeys = 0,
         i = 0,
         chart,
-        g,
+        g = document.createElement('div'),
         timeout = 0,
         toggled = false,
         firstDetected = false,
@@ -872,7 +872,6 @@
     }
 
     function initGraph() {
-        g = document.createElement('div');
         g.style.zIndex = 9999;
         g.style.backgroundColor = "#000";
         g.style.fontFamily = "Ubuntu";
