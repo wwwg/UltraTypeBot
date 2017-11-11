@@ -84,8 +84,8 @@
             type: 'keypress',
             which: charCode
         });
-    }
-    let typePacket = (isRight, idx) => {
+    },
+    typePacket = (isRight, idx) => {
         let me = this,
             packet = {
                 stream: "race",
@@ -98,26 +98,26 @@
             packet.payload.e = idx;
         }
         ws.send("4" + JSON.stringify(packet));
-    }
-    let turbo = () => {
+    },
+    turbo = () => {
         debug("Turbo mode called. Sending " + (TURBO_PACKET_COUNT.toString()) + " type packets.");
         for (let i = 0; i < TURBO_PACKET_COUNT; ++i) {
             typePacket(true, TURBO_PACKET_IDX);
         }
-    }
-    let debug = () => {
+    },
+    debug = () => {
         if (LOG_DEBUG) {
             arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
             console.log.apply(this, arguments);
         }
-    }
-    let tdebug = () => {
+    },
+    tdebug = () => {
         if (LOG_TYPING_INFO) {
             arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
             console.log.apply(this, arguments);
         }
-    }
-    let flushOldCookies = () => {
+    },
+    flushOldCookies = () => {
         debug("Removing old cookies...");
         Cookies.remove('autoRefresh');
         Cookies.remove('accuracy');
@@ -125,24 +125,23 @@
         Cookies.remove('statsOn');
         Cookies.remove('wpm');
         debug("Done removing cookies. Sorry you can't ban my users, Teaching.com.");
-    }
-    setTimeout(flushOldCookies, 3000);
-    let useNitro = () => {
+    },
+    useNitro = () => {
         if (apie.onNitroUsed) apie.onNitroUsed();
         setTimeout(function() {
             type(13);
             nitrosUsed++;
         }, 134);
-    }
-    let autoTurboOn = () => {
+    },
+    autoTurboOn = () => {
         autoTurbo = true;
         setLocalStorage('autoTurbo', autoTurbo);
-    }
-    let autoTurboOff = () => {
+    },
+    autoTurboOff = () => {
         autoTurbo = false;
         setLocalStorage('autoTurbo', autoTurbo);
-    }
-    let rm = (id, isClass) => {
+    },
+    rm = (id, isClass) => {
         if (!isClass) {
             document.getElementById(id).remove();
         } else {
@@ -151,8 +150,8 @@
                 elms[i].remove();
             }
         }
-    }
-    let addGraph = g => {
+    },
+    addGraph = g => {
         if (isStopped) return;
         if (root) {
             let _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;display:inline-block;}</style>");
@@ -176,8 +175,8 @@
                 debug("WARN: Couldn't dispatch resize event:", e);
             }
         }, 500);
-    }
-    let getBotState = () => {
+    },
+    getBotState = () => {
         // Stringifys the current state of the bot as a JSON object
         let state = {
             nitrosUsed: nitrosUsed,
@@ -195,8 +194,8 @@
             endTime: endTime
         };
         return JSON.stringify(state);
-    }
-    let transmitBan = () => {
+    },
+    transmitBan = () => {
         // Send ban info to the content script
         let state = getBotState();
         let msg = {
@@ -204,8 +203,8 @@
             state: state
         }
         window.postMessage(msg, location.origin);
-    }
-    let showBan = () => {
+    },
+    showBan = () => {
         userBanned = true;
         /*
         debug("This account has been banned. Here is a bunch of debug information:");
@@ -234,8 +233,8 @@
             apie.onUserBanned();
         }
         return;
-    }
-    let checkIfBanned = callback => {
+    },
+    checkIfBanned = callback => {
         if (userInfo.username) {
             debug("Attempting to get user's page");
             let xhr = new XMLHttpRequest();
@@ -255,8 +254,8 @@
             // Errors aren't very nice
             xhr.onerror = showBan;
         } else debug("WARN: Can't check if my user is banned, the userInfo is not valid:", userInfo);
-    }
-    let updateStats = () => {
+    },
+    updateStats = () => {
         if (userInfo.username) {
             statsDiv.innerHTML = "";
             statsDiv.style.color = "white";
@@ -342,13 +341,12 @@
         } else {
             setTimeout(updateStats, 1000);
         }
-    }
-
-    function disableStats() {
+    },
+    disableStats = () => {
         statsDiv.innerHTML = "";
-    }
-    let __ = {};
-    let _ = {
+    },
+    __ = {},
+    _ = {
         fill: window.CanvasRenderingContext2D.prototype.fillText,
         toStr: window.Function.prototype.toString,
         get: window.Object.prototype.__lookupGetter__,
@@ -362,8 +360,8 @@
         xsend: window.XMLHttpRequest.prototype.send,
         xopen: window.XMLHttpRequest.prototype.open,
         oerr: null
-    };
-    function extractUserName() {
+    },
+    extractUserName = () => {
         let storage = new Object(localStorage);
         let key = null;
         for (let p in storage) {
@@ -380,8 +378,8 @@
             }
         }
         return null;
-    }
-    function extractStats() {
+    },
+    extractStats = () => {
         let storage = new Object(localStorage);
         let key = null;
         for (let p in storage) {
@@ -398,69 +396,62 @@
             }
         }
         return null;
-    }
-
-    let reqStats = (uname, callback) => {
+    },
+    reqStats = (uname, callback) => {
         let x = new XMLHttpRequest();
         x.open("GET", "https://www.nitrotype.com/racer/" + uname, true);
         x.send();
         x.onload = () => {
             callback(x.responseText);
         }
-    }
-
-    let setWPM = w => {
+    },
+    setWPM = w => {
         if (isStopped)return;
         wordsPerMinute = w;
         wpm.value = w;
         setLocalStorage('wpm', w);
-    }
-
-    let autoNitroOn = () => {
+    },
+    autoNitroOn = () => {
         autoNitroBtn.style.borderColor = "LimeGreen";
         autoNitroBtn.style.color = "LimeGreen";
         autoNitroBtn.innerHTML = "On";
         setLocalStorage('autoNitro', true);
         autoNitro = true;
-    }
-
-    let autoNitroOff = () => {
+    },
+    autoNitroOff = () => {
         autoNitroBtn.style.borderColor = "Red";
         autoNitroBtn.style.color = "Red";
         autoNitroBtn.innerHTML = "Off";
         setLocalStorage('autoNitro', false);
         autoNitro = false;
-    }
-
-    let getLocalStorage = key => {
+    },
+    getLocalStorage = key => {
         try {
             return localStorage[key];
         } catch (e) {
             return null;
         }
-    }
-
-    let setLocalStorage = (key, value) => {
+    },
+    setLocalStorage = (key, value) => {
         try {
             return localStorage[key] = value;
         } catch (e) {
             return null;
         }
-    }
-    let reverseString = str => {
+    },
+    reverseString = str => {
         let a = str.split("");
         let rev = "";
         for (let i = a.length - 1; i >= 0; --i) {
             rev += a[i];
         }
         return rev;
-    }
-
-    let decryptLesson = lesson => {
+    },
+    decryptLesson = lesson => {
         let reversed = ROT47(lesson);
         return reverseString(reversed);
-    }
-    let __ws = function(ip, protocol) {
+    },
+    __ws = function(ip, protocol) {
         ws = new _.ws(ip, protocol);
         ws.addEventListener('message', msg => {
             // console.debug('recieved', msg.data);
@@ -489,8 +480,9 @@
             }
         });
         return ws;
-    }
-    let _send = WebSocket.prototype.send;
+    },
+    _send = WebSocket.prototype.send;
+    setTimeout(flushOldCookies, 3000);
     WebSocket.prototype.send = function() {
         return _send.apply(this, arguments);
     }
