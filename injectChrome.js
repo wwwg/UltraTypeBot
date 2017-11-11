@@ -1,7 +1,7 @@
 (function() {
     window.stop();
 
-    var IS_LOCAL = false;
+    var IS_LOCAL = true;
     var URL_OUT;
     var inject = new XMLHttpRequest();
     if (IS_LOCAL) {
