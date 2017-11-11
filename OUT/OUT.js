@@ -9,7 +9,7 @@
         TURBO_PACKET_IDX = 1500,
         FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
 
-    var _title = "Nitro Type Race",
+    let _title = "Nitro Type Race",
         accuracy = gen(0.93, 0.97),
         highCharts,
         root,
@@ -68,7 +68,7 @@
     }
 
     // API events
-    var apie = {
+    let apie = {
         onReady: null,
         onRaceFinish: null,
         onRaceStart: null,
@@ -79,20 +79,20 @@
     }
 
     console.clear = function() {};
-    var type = function(charCode) {
+    let type = function(charCode) {
         index++;
         $(document.body).trigger({
             type: 'keypress',
             which: charCode
         });
     }
-    var typePacket = function(isRight, idx) {
-        var me = this;
-        var packet = {
-            stream: "race",
-            msg: "update",
-            payload: {  }
-        };
+    let typePacket = function(isRight, idx) {
+        let me = this,
+            packet = {
+                stream: "race",
+                msg: "update",
+                payload: {  }
+            };
         if (isRight) {
             packet.payload.t = idx;
         } else {
@@ -100,19 +100,19 @@
         }
         ws.send("4" + JSON.stringify(packet));
     }
-    var turbo = function() {
+    let turbo = function() {
         debug("Turbo mode called. Sending " + (TURBO_PACKET_COUNT.toString()) + " type packets.");
-        for (var i = 0; i < TURBO_PACKET_COUNT; ++i) {
+        for (let i = 0; i < TURBO_PACKET_COUNT; ++i) {
             typePacket(true, TURBO_PACKET_IDX);
         }
     }
-    var debug = function() {
+    let debug = function() {
         if (LOG_DEBUG) {
             arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
             console.log.apply(this, arguments);
         }
     }
-    var tdebug = function() {
+    let tdebug = function() {
         if (LOG_TYPING_INFO) {
             arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
             console.log.apply(this, arguments);
@@ -147,8 +147,8 @@
         if (!isClass) {
             document.getElementById(id).remove();
         } else {
-            var elms = document.getElementsByClassName(id);
-            for (var i = 0; i < elms.length; ++i) {
+            let elms = document.getElementsByClassName(id);
+            for (let i = 0; i < elms.length; ++i) {
                 elms[i].remove();
             }
         }
@@ -156,12 +156,12 @@
     function addGraph(g) {
         if (isStopped) return;
         if (root) {
-            var _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;display:inline-block;}</style>");
+            let _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;display:inline-block;}</style>");
             root.appendChild(_style[0]);
             root.appendChild(g);
         } else if (document.body) {
             // Fallback
-            var _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;display:inline-block;}</style>");
+            let _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;display:inline-block;}</style>");
             root.appendChild(_style[0]);
             document.body.appendChild(g);
         } else {
@@ -180,7 +180,7 @@
     }
     function getBotState() {
         // Stringifys the current state of the bot as a JSON object
-        var state = {
+        let state = {
             nitrosUsed: nitrosUsed,
             lesson: lesson,
             currWord: index,
@@ -199,8 +199,8 @@
     }
     function transmitBan() {
         // Send ban info to the content script
-        var state = getBotState();
-        var msg = {
+        let state = getBotState();
+        let msg = {
             from: 'UltraType',
             state: state
         }
@@ -239,12 +239,12 @@
     function checkIfBanned(callback) {
         if (userInfo.username) {
             debug("Attempting to get user's page");
-            var xhr = new XMLHttpRequest();
+            let xhr = new XMLHttpRequest();
             xhr.open("GET", "https://www.nitrotype.com/racer/" + encodeURIComponent(userInfo.username), true);
             xhr.send();
             xhr.onload = function() {
-                var status = this.status;
-                var res = this.responseText;
+                let status = this.status;
+                let res = this.responseText;
                 if (status !== 200 || (res.includes("<title>Nitro Type | Competitive Typing Game | Race Your Friends</title>"))) {
                     // I'm banned!
                     showBan();
@@ -263,8 +263,8 @@
             statsDiv.style.color = "white";
             statsDiv.style.display = 'inline-block';
 
-            var st = document.createElement('span');
-            var sname = document.createElement('span');
+            let st = document.createElement('span');
+            let sname = document.createElement('span');
             sname.textContent = userInfo.username;
             sname.style.color = 'red';
 
@@ -274,8 +274,8 @@
             statsDiv.appendChild(document.createElement('br'));
             statsDiv.appendChild(document.createElement('br'));
 
-            var statTitle = document.createElement('span');
-            var stt = document.createElement('span');
+            let statTitle = document.createElement('span');
+            let stt = document.createElement('span');
             stt.textContent = userInfo.title;
             stt.style.color = 'blue';
             statTitle.textContent = "Title: ";
@@ -284,17 +284,17 @@
             statsDiv.appendChild(document.createElement('br'));
 
             if (userInfo.tag !== '') {
-                var statTeam = document.createElement('span');
+                let statTeam = document.createElement('span');
                 statTeam.textContent = 'Team: ';
-                var sTeam = document.createElement('span');
+                let sTeam = document.createElement('span');
                 if (userInfo.tagColor) sTeam.style.color = userInfo.tagColor;
                 sTeam.textContent = userInfo.tag;
                 statTeam.appendChild(sTeam);
                 statsDiv.appendChild(statTeam);
                 statsDiv.appendChild(document.createElement('br'));
             }
-            var statNitro = document.createElement('span');
-            var sn = document.createElement('span');
+            let statNitro = document.createElement('span');
+            let sn = document.createElement('span');
             sn.textContent = userInfo.nitros;
             sn.style.color = 'blue';
 
@@ -303,8 +303,8 @@
             statsDiv.appendChild(statNitro);
             statsDiv.appendChild(document.createElement('br'));
 
-            var statMoney = document.createElement('span');
-            var stm1 = document.createElement('span');
+            let statMoney = document.createElement('span');
+            let stm1 = document.createElement('span');
             stm1.textContent = "$" + userInfo.money + " (Spent: $" + userInfo.moneySpent + ")";
             stm1.style.color = 'blue';
             statMoney.textContent = 'Money: ';
@@ -313,8 +313,8 @@
             statsDiv.appendChild(statMoney);
             statsDiv.appendChild(document.createElement('br'));
 
-            var statMember = document.createElement('span');
-            var sm = document.createElement('span');
+            let statMember = document.createElement('span');
+            let sm = document.createElement('span');
             sm.textContent = (userInfo.membership !== 'basic');
             sm.style.color = 'blue';
 
@@ -323,8 +323,8 @@
             statsDiv.appendChild(statMember);
             statsDiv.appendChild(document.createElement('br'));
 
-            var statRaces = document.createElement('span');
-            var sr = document.createElement('span');
+            let statRaces = document.createElement('span');
+            let sr = document.createElement('span');
             sr.style.color = 'blue';
             sr.textContent = userInfo.racesPlayed;
             statRaces.textContent = 'Total races played: ';
@@ -332,8 +332,8 @@
             statsDiv.appendChild(statRaces);
             statsDiv.appendChild(document.createElement('br'));
 
-            var statWins = document.createElement('span');
-            var sw = document.createElement('span');
+            let statWins = document.createElement('span');
+            let sw = document.createElement('span');
             sw.textContent = userInfo.consecWins;
             sw.style.color = 'blue';
             statWins.textContent = 'Consecutive wins: ';
@@ -348,8 +348,8 @@
     function disableStats() {
         statsDiv.innerHTML = "";
     }
-    var __ = {};
-    var _ = {
+    let __ = {};
+    let _ = {
         fill: window.CanvasRenderingContext2D.prototype.fillText,
         toStr: window.Function.prototype.toString,
         get: window.Object.prototype.__lookupGetter__,
@@ -365,9 +365,9 @@
         oerr: null
     };
     function extractUserName() {
-        var storage = new Object(localStorage);
-        var key = null;
-        for (var p in storage) {
+        let storage = new Object(localStorage);
+        let key = null;
+        for (let p in storage) {
             if (storage.hasOwnProperty(p)) {
                 try {
                     key = JSON.parse(ROT47(storage[p]));
@@ -383,9 +383,9 @@
         return null;
     }
     function extractStats() {
-        var storage = new Object(localStorage);
-        var key = null;
-        for (var p in storage) {
+        let storage = new Object(localStorage);
+        let key = null;
+        for (let p in storage) {
             if (storage.hasOwnProperty(p)) {
                 try {
                     key = JSON.parse(ROT47(storage[p]));
@@ -402,7 +402,7 @@
     }
 
     function reqStats(uname, callback) {
-        var x = new XMLHttpRequest();
+        let x = new XMLHttpRequest();
         x.open("GET", "https://www.nitrotype.com/racer/" + uname, true);
         x.send();
         x.onload = function() {
@@ -449,24 +449,24 @@
         }
     }
     function reverseString(str) {
-        var a = str.split("");
-        var rev = "";
-        for (var i = a.length - 1; i >= 0; --i) {
+        let a = str.split("");
+        let rev = "";
+        for (let i = a.length - 1; i >= 0; --i) {
             rev += a[i];
         }
         return rev;
     }
 
     function decryptLesson(lesson) {
-        var reversed = ROT47(lesson);
+        let reversed = ROT47(lesson);
         return reverseString(reversed);
     }
-    var __ws = function(ip, protocol) {
+    let __ws = function(ip, protocol) {
         ws = new _.ws(ip, protocol);
         ws.addEventListener('message', function(msg) {
             // console.debug('recieved', msg.data);
-            var validPacket = true;
-            var packet = {};
+            let validPacket = true;
+            let packet = {};
             if (msg.data) {
                 try {
                     packet = JSON.parse(msg.data.substring(1, msg.length));
@@ -481,7 +481,7 @@
                 } else if (packet.stream == "race") {
                     if (packet.msg == "status") {
                         if (packet.payload.status == "countdown" && packet.payload.l) {
-                            var _lesson = packet.payload.l;
+                            let _lesson = packet.payload.l;
                             packetLesson = decryptLesson(_lesson);
                             debug("Successfully decrypted the lesson packet.");
                         }
@@ -491,7 +491,7 @@
         });
         return ws;
     }
-    var _send = WebSocket.prototype.send;
+    let _send = WebSocket.prototype.send;
     WebSocket.prototype.send = function() {
         return _send.apply(this, arguments);
     }
@@ -499,8 +499,8 @@
     function tgen(val) {
         max = val + 17;
         min = val - 17;
-        var rand = 0;
-        for (var i = 0; i < 6; i += 1) {
+        let rand = 0;
+        for (let i = 0; i < 6; i += 1) {
             rand += Math.random();
         }
         return Math.ceil((((rand - 3) / 3) * (max - min)) + min);
@@ -534,8 +534,8 @@
         _.fill.apply(this, arguments);
     }
     function randomBool(percentFalse) {
-        var percent = 0.5;
-        var ret = null;
+        let percent = 0.5;
+        let ret = null;
         if (typeof percentFalse === "number") {
             percent = percentFalse;
         } else {
@@ -546,7 +546,7 @@
         return ret;
     }
     function isAccurate() {
-        var acc = Math.random() < accuracy;
+        let acc = Math.random() < accuracy;
         tdebug("Calculated isAccurate", acc);
         return acc;
     }
@@ -558,8 +558,8 @@
     function generateTypeDecision(offset) {
         if(isStopped)return;
         setTimeout(function() {
-            var dipRate = 0.80;
-            var WRONG = false;
+            let dipRate = 0.80;
+            let WRONG = false;
             timeout = tgen(12000 / wordsPerMinute);
             if (inDip) {
                 // Re adjust the timeout
@@ -672,8 +672,8 @@
     }
     function onfinish(callback) {
         setInterval(function() {
-            var deadDivs = document.getElementsByClassName('popup race-results');
-            var banner = document.getElementsByClassName('banner');
+            let deadDivs = document.getElementsByClassName('popup race-results');
+            let banner = document.getElementsByClassName('banner');
             if ((deadDivs && deadDivs != [] && deadDivs.length !== 0 && deadDivs.toString() !== "") || (disqualified) || (banner && banner.length !== 0 && banner !== [])) {
                 if (finished == false) {
                     finished = true;
@@ -687,14 +687,14 @@
             return;
         }
         toggled = false;
-        var isDragging = false;
-        var UIopacity = 0.7;
-        var doc = document.querySelector('html');
-        var inner = document.querySelector('.wrap');
+        let isDragging = false;
+        let UIopacity = 0.7;
+        let doc = document.querySelector('html');
+        let inner = document.querySelector('.wrap');
         injectedRoot = document.createElement('div');
         body.appendChild(injectedRoot);
         root = injectedRoot.createShadowRoot();
-        var UI = document.createElement('div');
+        let UI = document.createElement('div');
         $(root).append(FONT);
         Object.defineProperty(UI, 'shadowRoot', {
             get: function() {
@@ -739,15 +739,15 @@
             UI.style.opacity = UIopacity;
         }
 
-        var outerTitle = document.createElement('center');
-        var title = document.createElement('p');
+        let outerTitle = document.createElement('center');
+        let title = document.createElement('p');
         title.style.fontSize = "135%";
         title.innerHTML = "<strong>UltraType 2</strong>";
         UI.style.fontSize = "135%";
         outerTitle.appendChild(title);
         UI.appendChild(outerTitle);
 
-        var outerInfo = document.createElement('center');
+        let outerInfo = document.createElement('center');
         info = document.createElement('p');
         infoSpan = document.createElement('span');
         infoSpan.innerHTML = "Idle.";
@@ -759,8 +759,8 @@
         outerInfo.appendChild(info);
         UI.appendChild(outerInfo);
 
-        var outerEnable = document.createElement('center');
-        var enableButton = document.createElement('button');
+        let outerEnable = document.createElement('center');
+        let enableButton = document.createElement('button');
         enableButton.className = "";
         enableButton.style.backgroundColor = "transparent";
         enableButton.style.border = "3px solid";
@@ -791,8 +791,8 @@
         outerEnable.appendChild(enableButton);
         UI.appendChild(outerEnable);
 
-        var outerTurbo = document.createElement('center');
-        var turboBtn = document.createElement('button');
+        let outerTurbo = document.createElement('center');
+        let turboBtn = document.createElement('button');
         turboBtn.className = "";
         turboBtn.style.backgroundColor = "transparent";
         turboBtn.style.border = "3px solid";
@@ -975,8 +975,8 @@
         }, true]);
         addGraph(g);
         setTimeout(function() {
-            var cr = g.getElementsByClassName('highcharts-credits');
-            for (var i = 0; i < cr.length; i++) {
+            let cr = g.getElementsByClassName('highcharts-credits');
+            for (let i = 0; i < cr.length; i++) {
                 cr[i].remove();
             }
         }, 500);
@@ -1004,15 +1004,15 @@
         opt.style.opacity = 0;
         opt.style.pointerEvents = "none";
 
-        var inner = document.createElement('center');
+        let inner = document.createElement('center');
 
-        var lbl = document.createElement('h1');
+        let lbl = document.createElement('h1');
         lbl.style.fontSize = "150%";
         lbl.innerHTML = "Customize UltraType";
         inner.appendChild(lbl);
 
-        var outerBotOn = document.createElement('div');
-        var botOnBtn = document.createElement('button');
+        let outerBotOn = document.createElement('div');
+        let botOnBtn = document.createElement('button');
         botOnBtn.className = "";
         botOnBtn.style.backgroundColor = "transparent";
         botOnBtn.style.border = "3px solid";
@@ -1038,8 +1038,8 @@
         outerBotOn.appendChild(botOnBtn);
         inner.appendChild(outerBotOn);
 
-        var outerToggle = document.createElement('div');
-        var toggleButton = document.createElement('button');
+        let outerToggle = document.createElement('div');
+        let toggleButton = document.createElement('button');
         toggleButton.className = "";
         toggleButton.style.backgroundColor = "transparent";
         toggleButton.style.border = "3px solid";
@@ -1066,7 +1066,7 @@
         outerToggle.appendChild(toggleButton);
         inner.appendChild(outerToggle);
 
-        var outerNtr = document.createElement('div');
+        let outerNtr = document.createElement('div');
         autoNitroBtn = document.createElement('button');
         autoNitroBtn.className = "";
         autoNitroBtn.style.backgroundColor = "transparent";
@@ -1089,7 +1089,7 @@
         outerNtr.appendChild(autoNitroBtn);
         inner.appendChild(outerNtr);
 
-        var exitButton = document.createElement('button');
+        let exitButton = document.createElement('button');
         exitButton.className = "";
         exitButton.style.position = "absolute";
         exitButton.style.bottom = "3%";
@@ -1119,8 +1119,8 @@
         }
         inner.appendChild(exitButton);
 
-        var outerChrtBtn = document.createElement('div');
-        var chartBtn = document.createElement('button');
+        let outerChrtBtn = document.createElement('div');
+        let chartBtn = document.createElement('button');
         chartBtn.className = "";
         chartBtn.style.backgroundColor = "transparent";
         chartBtn.style.border = "3px solid";
@@ -1149,7 +1149,7 @@
         outerChrtBtn.appendChild(chartBtn);
         inner.appendChild(outerChrtBtn);
 
-        var outerACfg = document.createElement('div');
+        let outerACfg = document.createElement('div');
         acc = document.createElement('input');
         acc.type = "number";
         acc.min = 10;
@@ -1178,7 +1178,7 @@
         outerACfg.appendChild(acc);
         inner.appendChild(outerACfg);
 
-        var oWPMCfg = document.createElement('div');
+        let oWPMCfg = document.createElement('div');
         wpm = document.createElement('input');
         wpm.type = "number";
         wpm.min = 3;
@@ -1208,7 +1208,7 @@
         oWPMCfg.appendChild(wpm);
         inner.appendChild(oWPMCfg);
 
-        var outerStatTogg = document.createElement('div');
+        let outerStatTogg = document.createElement('div');
         statTogg = document.createElement('button');
 
         statTogg.className = "";
@@ -1239,8 +1239,8 @@
         outerStatTogg.appendChild(statTogg);
         inner.appendChild(outerStatTogg);
 
-        var outerAutoT = document.createElement('div');
-        var autoT = document.createElement('button');
+        let outerAutoT = document.createElement('div');
+        let autoT = document.createElement('button');
         autoT.className = "";
         autoT.style.backgroundColor = "transparent";
         autoT.style.border = "3px solid";
@@ -1277,7 +1277,7 @@
         outerAutoT.appendChild(autoT);
         inner.appendChild(outerAutoT);
 
-        var tips = document.createElement('p');
+        let tips = document.createElement('p');
         tips.innerHTML = "Press escape to hide all of the UltraType menus.<br>";
         inner.appendChild(tips);
 
@@ -1285,11 +1285,11 @@
         root.appendChild(opt);
 
         setTimeout(function() {
-            var localChartOn = getLocalStorage('chartOn');
-            var localAutoRefresh = getLocalStorage('autoRefresh');
-            var localAccuracy = getLocalStorage('accuracy');
-            var localWPM = getLocalStorage('wpm');
-            var localAutoNitro = getLocalStorage('autoNitro');
+            let localChartOn = getLocalStorage('chartOn');
+            let localAutoRefresh = getLocalStorage('autoRefresh');
+            let localAccuracy = getLocalStorage('accuracy');
+            let localWPM = getLocalStorage('wpm');
+            let localAutoNitro = getLocalStorage('autoNitro');
             if (localAutoNitro !== null && localAutoNitro !== undefined) {
                 localAutoNitro = JSON.parse(localAutoNitro);
                 if (localAutoNitro == false) {
@@ -1379,17 +1379,17 @@
             document.cookie = document.cookie.replace('webgl', 'canvas');
         }
     }
-    var _set = null;
+    let _set = null;
 
     function handleScript(scr) {
         if (scr.src.includes('race-lib')) {
             scr.addEventListener('load', function() {
                 _set = PIXI.BitmapText.prototype.setText;
-                var tos = __.toStr;
+                let tos = __.toStr;
                 PIXI.BitmapText.prototype.setText = function() {
-                    var txt = arguments[0];
+                    let txt = arguments[0];
                     if (lessonLoaded) {
-                        var t = parseInt(txt);
+                        let t = parseInt(txt);
                         if ((t !== 0) && (t > 5)) {
                             points.push(t);
                             chart.series[0].setData(points, true);
@@ -1444,14 +1444,13 @@
     PIXI.BitmapText.prototype.setText = function(a) {
         this.text = a || " ", this.dirty = !0
     };
-    var hostt = ShadowRoot.prototype.__lookupGetter__('host');
-    var _getToStr = Function.prototype.__lookupGetter__('toString');
-    var _setTxt = Element.prototype.__lookupSetter__('textContent');
-    var _getTitle = Document.prototype.__lookupGetter__('title');
-    var _setTitle = Document.prototype.__lookupSetter__('title');
+    let hostt = ShadowRoot.prototype.__lookupGetter__('host');
+    let _getToStr = Function.prototype.__lookupGetter__('toString');
+    let _setTxt = Element.prototype.__lookupSetter__('textContent');
+    let _getTitle = Document.prototype.__lookupGetter__('title');
+    let _setTitle = Document.prototype.__lookupSetter__('title');
     CanvasRenderingContext2D.prototype.fillText = __.fill;
     window.WebSocket = __ws;
-    var _get = _get;
     Function.prototype.toString = __.toStr = function() {
         if (this === Function.prototype.toString) return _.toStr.call(_.toStr);
         if (this === CanvasRenderingContext2D.prototype.fillText) return _.toStr.call(_.fill);
@@ -1473,10 +1472,10 @@
         if (this === injectedRoot) return null;
         return _.host.call(this);
     });
-    var observer = new MutationObserver(function(mutations) {
+    let observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if (mutation.type == "childList" && mutation.addedNodes.length > 0) {
-                for (var i in mutation.addedNodes) {
+                for (let i in mutation.addedNodes) {
                     if (mutation.addedNodes[i].nodeName == "BODY") createUI(mutation.addedNodes[i]);
                     if (mutation.addedNodes[i].nodeName == "IFRAME") blockAd(mutation.addedNodes[i]);
                     if (mutation.addedNodes[i].className == "race-tip") changeTip(mutation.addedNodes[i]);
@@ -1491,7 +1490,7 @@
         attributes: true,
         attributeFilter: ['style']
     });
-    var _fakeToStr = __.toStr;
+    let _fakeToStr = __.toStr;
     _fakeToStr.__proto__ = _.toStr.prototype;
     _fakeToStr.prototype = _.toStr.prototype;
     Object.defineProperty(Function.prototype, 'toString', {
@@ -1618,7 +1617,7 @@
     window.addEventListener('DOMContentLoaded', function() {
         setTimeout(removeUITrash, 75);
     });
-    var registerAPIEvent = function(evt, callback) {
+    let registerAPIEvent = function(evt, callback) {
         if (typeof callback !== 'function') {
             throw new Error('Invalid event callback.');
             return;
@@ -1663,7 +1662,7 @@
         return window.UltraTypeCore;
     }
     // Core API
-    var core = {
+    let core = {
         on: registerAPIEvent,
         turbo: turbo,
         setWPM: setWPM,
@@ -1690,7 +1689,7 @@
         },
         getBotStateRaw: getBotState,
         getBotState: function() {
-            var state = {
+            let state = {
                 nitrosUsed: nitrosUsed,
                 lesson: lesson,
                 currWord: index,
@@ -1733,7 +1732,7 @@
         useNitro: useNitro,
         flush: function() {
             // Reset UltraType to it's default settings
-            var keys = [
+            let keys = [
                 'accuracy',
                 'autoRefresh',
                 'autoTurbo',
@@ -1761,19 +1760,19 @@
      */
     ;
     (function(factory) {
-        var OldCookies = Cookies;
-        var api = Cookies = factory();
+        let OldCookies = Cookies;
+        let api = Cookies = factory();
         api.noConflict = function() {
             Cookies = OldCookies;
             return api;
         };
     }(function() {
         function extend() {
-            var i = 0;
-            var result = {};
+            let i = 0;
+            let result = {};
             for (; i < arguments.length; i++) {
-                var attributes = arguments[i];
-                for (var key in attributes) {
+                let attributes = arguments[i];
+                for (let key in attributes) {
                     result[key] = attributes[key];
                 }
             }
@@ -1782,7 +1781,7 @@
 
         function init(converter) {
             function api(key, value, attributes) {
-                var result;
+                let result;
                 if (typeof document === 'undefined') {
                     return;
                 }
@@ -1792,7 +1791,7 @@
                     }, api.defaults, attributes);
 
                     if (typeof attributes.expires === 'number') {
-                        var expires = new Date();
+                        let expires = new Date();
                         expires.setMilliseconds(expires.getMilliseconds() + attributes.expires * 864e+5);
                         attributes.expires = expires;
                     }
@@ -1818,9 +1817,9 @@
                     key = key.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent);
                     key = key.replace(/[\(\)]/g, escape);
 
-                    var stringifiedAttributes = '';
+                    let stringifiedAttributes = '';
 
-                    for (var attributeName in attributes) {
+                    for (let attributeName in attributes) {
                         if (!attributes[attributeName]) {
                             continue;
                         }
@@ -1839,20 +1838,20 @@
                 // To prevent the for loop in the first place assign an empty array
                 // in case there are no cookies at all. Also prevents odd result when
                 // calling "get()"
-                var cookies = document.cookie ? document.cookie.split('; ') : [];
-                var rdecode = /(%[0-9A-Z]{2})+/g;
-                var i = 0;
+                let cookies = document.cookie ? document.cookie.split('; ') : [];
+                let rdecode = /(%[0-9A-Z]{2})+/g;
+                let i = 0;
 
                 for (; i < cookies.length; i++) {
-                    var parts = cookies[i].split('=');
-                    var cookie = parts.slice(1).join('=');
+                    let parts = cookies[i].split('=');
+                    let cookie = parts.slice(1).join('=');
 
                     if (cookie.charAt(0) === '"') {
                         cookie = cookie.slice(1, -1);
                     }
 
                     try {
-                        var name = parts[0].replace(rdecode, decodeURIComponent);
+                        let name = parts[0].replace(rdecode, decodeURIComponent);
                         cookie = converter.read ?
                             converter.read(cookie, name) : converter(cookie, name) ||
                             cookie.replace(rdecode, decodeURIComponent);
@@ -1920,8 +1919,8 @@
 
     function ROTn(text, map) {
       // Generic ROT-n algorithm for keycodes in MAP.
-      var R = new String()
-      var i, j, c, len = map.length
+      let R = new String()
+      let i, j, c, len = map.length
       for(i = 0; i < text.length; i++) {
         c = text.charAt(i)
         j = map.indexOf(c)
@@ -1936,7 +1935,7 @@
     function ROT47(text) {
       // Hides all ASCII-characters from 33 ("!") to 126 ("~").  Hence can be used
       // to obfuscate virtually any text, including URLs and emails.
-      var R = new String()
+      let R = new String()
       R = ROTn(text,
       "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~")
       return R;
