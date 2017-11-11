@@ -496,18 +496,17 @@
         return Math.ceil((((rand - 3) / 3) * (max - min)) + min);
     }
 
-    function FillTextEvent(args) {
-        this.text = args[0];
-        if (this.text.length < 2) {
+    let handleFillText = args => {
+        const text = args[0];
+        if (text.length < 2) {
             renderedKeys++;
             fillsY.push(args[2]);
-            if (fillsY[fillsY.length - 1] < fillsY[fillsY.length - 2]) {
-                lesson += " ";
-            }
-            lesson += this.text;
+            // A space needs to be appended to the lesson
+            if (fillsY[fillsY.length - 1] < fillsY[fillsY.length - 2]) lesson += " ";
+            lesson += text;
             if (renderedKeys > 128 && firstDetected == false) {
                 firstDetected = true;
-                lesson = this.text;
+                lesson = text;
                 setTimeout(() => {
                     lessonLoad();
                     apie.onRaceStarting && (apie.onRaceStarting());
@@ -520,7 +519,7 @@
         return Math.floor(Math.random() * max) + min;
     }
     __.fill = function() {
-        new FillTextEvent(arguments);
+        handleFillText(arguments);
         _.fill.apply(this, arguments);
     }
     function randomBool(percentFalse) {
