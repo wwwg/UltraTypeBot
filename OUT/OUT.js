@@ -1422,10 +1422,10 @@
             debug("Auto refresh is disabled");
         }
     });
-    XMLHttpRequest.prototype.send = () => {
+    XMLHttpRequest.prototype.send = function() {
         return _.xsend.apply(this, arguments);
     }
-    XMLHttpRequest.prototype.open = () => {
+    XMLHttpRequest.prototype.open = function() {
         if (arguments[1].includes('/api/error')) {
             errorRequests.push(this);
             this.abort();
