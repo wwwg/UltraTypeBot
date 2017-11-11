@@ -645,13 +645,19 @@
     },
     onfinish = callback => {
         setInterval(() => {
-            let deadDivs = document.getElementsByClassName('popup race-results');
-            let banner = document.getElementsByClassName('banner');
-            if ((deadDivs && deadDivs != [] && deadDivs.length !== 0 && deadDivs.toString() !== "") || (disqualified) || (banner && banner.length !== 0 && banner !== [])) {
+            let deadDivs = document.getElementsByClassName('popup race-results'),
+                banner = document.getElementsByClassName('banner'),
+                errorDivs = document.getElementsByClassName('popup popup-race-error');
+            if (
+                (deadDivs && deadDivs.length > 0) ||
+                (disqualified) ||
+                (banner && banner.length > 0) ||
+                (errorDivs && errorDivs.length > 0)
+            ) {
                 if (finished == false) {
                     finished = true;
+                    debug("Firing onfinish callback.");
                     callback();
-                    debug("onfinish fired.");
                 }
             }
         }, 300);
