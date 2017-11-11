@@ -1672,6 +1672,15 @@
             });
             console.warn('Flushed UltraType settings, reloading...');
             setTimeout(location.reload.bind(location), 1000);
+        },
+        toggleLocalLoad: () => {
+            if (localStorage["ultratypedev"]) {
+                delete localStorage["ultratypedev"];
+                console.info("Disabled local loading.");
+            } else {
+                localStorage["ultratypedev"] = 1;
+                console.info("Enabled local loading.");
+            }
         }
     }
     window.UltraTypeCore = core;
