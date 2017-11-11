@@ -7,7 +7,10 @@
         LOAD_TIME = 4300,
         TURBO_PACKET_COUNT = 5,
         TURBO_PACKET_IDX = 1500,
-        FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">';
+        FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">',
+        gen = (min, max) => {
+            return Math.floor(Math.random() * max) + min;
+        };
     let _title = "Nitro Type Race",
         accuracy = gen(0.93, 0.97),
         highCharts,
@@ -77,7 +80,7 @@
     }
 
     console.clear = (function() {});
-    let type = charCode => {
+    const type = charCode => {
         index++;
         $(document.body).trigger({
             type: 'keypress',
@@ -513,9 +516,6 @@
                 }, 200);
             }
         }
-    },
-    gen = (min, max) => {
-        return Math.floor(Math.random() * max) + min;
     },
     randomBool = percentFalse => {
         let percent = 0.5;
