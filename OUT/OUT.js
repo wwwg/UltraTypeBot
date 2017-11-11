@@ -1036,10 +1036,17 @@
         toggleButton.style.border = "3px solid";
         toggleButton.style.borderRadius = "3px";
         toggleButton.style.fontSize = "100%";
-        toggleButton.style.borderColor = "LimeGreen";
-        toggleButton.style.color = "LimeGreen";
         toggleButton.style.transition = "border 2s, border-color 2s, color 2s";
-        toggleButton.innerHTML = "On";
+
+        if (autoRefresh) {
+            toggleButton.style.borderColor = "LimeGreen";
+            toggleButton.style.color = "LimeGreen";
+            toggleButton.innerHTML = "On";
+        } else {
+            toggleButton.style.borderColor = "red";
+            toggleButton.style.color = "red";
+            toggleButton.innerHTML = "Off";
+        }
         toggleButton.onclick = () => {
             autoRefresh = !autoRefresh;
             setLocalStorage('autoRefresh', autoRefresh);
