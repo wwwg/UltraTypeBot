@@ -646,7 +646,7 @@
             // Timeout so the player can view their race stats if they wish
             setTimeout(() => {
                 _.reload.apply(window.location, []);
-            }, gen(2000, 4000));
+            }, gen(1200, 2500));
         }
     }
     function removeUITrash() {
