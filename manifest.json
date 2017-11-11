@@ -33,11 +33,6 @@
       ]
     }
   ],
-  "background": {
-    "scripts": [
-      "OUT/bg.js"
-    ]
-  },
   "web_accessible_resources": [
     "OUT/OUT.js"
   ],
