@@ -1,7 +1,7 @@
 (() => {
     // Constants
     const VERSION = "2.4",
-        LOG_DEBUG = false,
+        LOG_DEBUG = 1,
         LOG_TYPING_INFO = false,
         DO_BAN_CHECK = true,
         LOAD_TIME = 4300,
