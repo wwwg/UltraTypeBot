@@ -611,10 +611,12 @@
             infoSpan.style.color = "#00b300";
         }
         setTimeout(() => {
-            if (!isStopped) infoSpan.innerHTML = "Started!";
+            if (!isStopped) {
+                infoSpan.innerHTML = "Started!";
+                infoSpan.style.color = "#33ff33";
+            }
             lessonLoaded = true;
             startTime = new Date();
-            if (!isStopped) infoSpan.style.color = "#33ff33";
             if (lesson.length > 1) {
                 generateTypeDecision();
                 debug("Started the bot!");
