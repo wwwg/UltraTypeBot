@@ -59,7 +59,7 @@
         userBanned = false,
         firstTurbo = false,
         isStopped = false,
-        autoTurbo = getLocalStorage('autoTurbo');
+        autoTurbo = localStorage['autoTurbo'];
     if (!autoTurbo) {
         autoTurbo = false;
     } else {
@@ -1192,7 +1192,7 @@
         wpm.style.color = "LimeGreen";
         wpm.style.transition = "border 2s, border-color 2s, color 2s";
         wpm.onchange = () => {
-            if (getLocalStorage("speedChange") != null) {
+            if (localStorage["speedChange"]) {
                 wordsPerMinute = parseInt(wpm.value);
                 if (isNaN(wordsPerMinute))
                     wpm.value = 85;
@@ -1284,11 +1284,11 @@
         root.appendChild(opt);
 
         setTimeout(() => {
-            let localChartOn = getLocalStorage('chartOn');
-            let localAutoRefresh = getLocalStorage('autoRefresh');
-            let localAccuracy = getLocalStorage('accuracy');
-            let localWPM = getLocalStorage('wpm');
-            let localAutoNitro = getLocalStorage('autoNitro');
+            let localChartOn = localStorage['chartOn'];
+            let localAutoRefresh = localStorage['autoRefresh'];
+            let localAccuracy = localStorage['accuracy'];
+            let localWPM = localStorage['wpm'];
+            let localAutoNitro = localStorage['autoNitro'];
             if (localAutoNitro !== null && localAutoNitro !== undefined) {
                 localAutoNitro = JSON.parse(localAutoNitro);
                 if (localAutoNitro == false) {
@@ -1542,7 +1542,7 @@
         userInfo = ROT47(localStorage["A=2J6C"]);
         userInfo = JSON.parse(userInfo);
         debug("Extracted and decrypted user info", userInfo);
-        statsOn = getLocalStorage('statsOn');
+        statsOn = localStorage['statsOn'];
         if (statsOn) {
             statsOn = JSON.parse(statsOn);
         }
