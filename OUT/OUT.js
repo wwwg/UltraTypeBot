@@ -668,6 +668,7 @@
                 if (finished == false) {
                     finished = true;
                     callback();
+                    debug("onfinish fired.");
                 }
             }
         }, 100);
