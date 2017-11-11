@@ -1404,7 +1404,7 @@
         endTime = new Date();
         infoSpan.innerHTML = "Finished";
         infoSpan.style.color = "#b3b3b3";
-        if (autoRefresh) {
+        if (localStorage['autoRefresh']) {
             debug("Auto refresh is enabled");
             respawn();
         } else {
