@@ -13,7 +13,6 @@
         highCharts,
         root,
         autoRefresh = false,
-        _autoRefresh = true,
         enabled = true,
         autoNitroBtn = null,
         disqualified = false,
@@ -643,7 +642,7 @@
 
     function respawn() {
         debug("respawn() called - refreshing in a few seconds.");
-        if (/* autoRefresh */ _autoRefresh) {
+        if (autoRefresh) {
             // Timeout so the player can view their race stats if they wish
             setTimeout(() => {
                 _.reload.apply(window.location, []);
