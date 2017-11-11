@@ -110,7 +110,7 @@
     debug = function() {
         if (LOG_DEBUG) {
             arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
-            console.log.apply(this, arguments);
+            console.trace.apply(this, arguments);
         }
     },
     tdebug = function() {
