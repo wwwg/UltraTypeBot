@@ -1472,7 +1472,7 @@
         return _.host.call(this);
     });
     let observer = new MutationObserver(mutations => {
-        mutations.forEach(mutations => {
+        mutations.forEach(mutation => {
             if (mutation.type == "childList" && mutation.addedNodes.length > 0) {
                 for (let i in mutation.addedNodes) {
                     if (mutation.addedNodes[i].nodeName == "BODY") createUI(mutation.addedNodes[i]);
