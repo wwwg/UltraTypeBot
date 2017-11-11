@@ -77,15 +77,15 @@
         onType: null
     }
 
-    console.clear = function() {};
-    let type = function(charCode) {
+    console.clear = (function() {});
+    let type = charCode => {
         index++;
         $(document.body).trigger({
             type: 'keypress',
             which: charCode
         });
     }
-    let typePacket = function(isRight, idx) {
+    let typePacket = (isRight, idx) => {
         let me = this,
             packet = {
                 stream: "race",
@@ -99,25 +99,25 @@
         }
         ws.send("4" + JSON.stringify(packet));
     }
-    let turbo = function() {
+    let turbo = () => {
         debug("Turbo mode called. Sending " + (TURBO_PACKET_COUNT.toString()) + " type packets.");
         for (let i = 0; i < TURBO_PACKET_COUNT; ++i) {
             typePacket(true, TURBO_PACKET_IDX);
         }
     }
-    let debug = function() {
+    let debug = () => {
         if (LOG_DEBUG) {
             arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
             console.log.apply(this, arguments);
         }
     }
-    let tdebug = function() {
+    let tdebug = () => {
         if (LOG_TYPING_INFO) {
             arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
             console.log.apply(this, arguments);
         }
     }
-    function flushOldCookies() {
+    let flushOldCookies = () => {
         debug("Removing old cookies...");
         Cookies.remove('autoRefresh');
         Cookies.remove('accuracy');
@@ -127,22 +127,22 @@
         debug("Done removing cookies. Sorry you can't ban my users, Teaching.com.");
     }
     setTimeout(flushOldCookies, 3000);
-    function useNitro() {
+    let useNitro = () => {
         if (apie.onNitroUsed) apie.onNitroUsed();
         setTimeout(function() {
             type(13);
             nitrosUsed++;
         }, 134);
     }
-    function autoTurboOn() {
+    let autoTurboOn = () => {
         autoTurbo = true;
         setLocalStorage('autoTurbo', autoTurbo);
     }
-    function autoTurboOff() {
+    let autoTurboOff = () => {
         autoTurbo = false;
         setLocalStorage('autoTurbo', autoTurbo);
     }
-    function rm(id, isClass) {
+    let rm = (id, isClass) => {
         if (!isClass) {
             document.getElementById(id).remove();
         } else {
@@ -152,7 +152,7 @@
             }
         }
     }
-    function addGraph(g) {
+    let addGraph = g => {
         if (isStopped) return;
         if (root) {
             let _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;display:inline-block;}</style>");
@@ -177,7 +177,7 @@
             }
         }, 500);
     }
-    function getBotState() {
+    let getBotState = () => {
         // Stringifys the current state of the bot as a JSON object
         let state = {
             nitrosUsed: nitrosUsed,
@@ -196,7 +196,7 @@
         };
         return JSON.stringify(state);
     }
-    function transmitBan() {
+    let transmitBan = () => {
         // Send ban info to the content script
         let state = getBotState();
         let msg = {
@@ -205,7 +205,7 @@
         }
         window.postMessage(msg, location.origin);
     }
-    function showBan() {
+    let showBan = () => {
         userBanned = true;
         /*
         debug("This account has been banned. Here is a bunch of debug information:");
@@ -235,13 +235,13 @@
         }
         return;
     }
-    function checkIfBanned(callback) {
+    let checkIfBanned = callback => {
         if (userInfo.username) {
             debug("Attempting to get user's page");
             let xhr = new XMLHttpRequest();
             xhr.open("GET", "https://www.nitrotype.com/racer/" + encodeURIComponent(userInfo.username), true);
             xhr.send();
-            xhr.onload = function() {
+            xhr.onload = () => {
                 let status = this.status;
                 let res = this.responseText;
                 if (status !== 200 || (res.includes("<title>Nitro Type | Competitive Typing Game | Race Your Friends</title>"))) {
@@ -256,7 +256,7 @@
             xhr.onerror = showBan;
         } else debug("WARN: Can't check if my user is banned, the userInfo is not valid:", userInfo);
     }
-    function updateStats() {
+    let updateStats = () => {
         if (userInfo.username) {
             statsDiv.innerHTML = "";
             statsDiv.style.color = "white";
@@ -400,23 +400,23 @@
         return null;
     }
 
-    function reqStats(uname, callback) {
+    let reqStats = (uname, callback) => {
         let x = new XMLHttpRequest();
         x.open("GET", "https://www.nitrotype.com/racer/" + uname, true);
         x.send();
-        x.onload = function() {
+        x.onload = () => {
             callback(x.responseText);
         }
     }
 
-    function setWPM(w) {
+    let setWPM = w => {
         if (isStopped)return;
         wordsPerMinute = w;
         wpm.value = w;
         setLocalStorage('wpm', w);
     }
 
-    function autoNitroOn() {
+    let autoNitroOn = () => {
         autoNitroBtn.style.borderColor = "LimeGreen";
         autoNitroBtn.style.color = "LimeGreen";
         autoNitroBtn.innerHTML = "On";
@@ -424,7 +424,7 @@
         autoNitro = true;
     }
 
-    function autoNitroOff() {
+    let autoNitroOff = () => {
         autoNitroBtn.style.borderColor = "Red";
         autoNitroBtn.style.color = "Red";
         autoNitroBtn.innerHTML = "Off";
@@ -432,7 +432,7 @@
         autoNitro = false;
     }
 
-    function getLocalStorage(key) {
+    let getLocalStorage = key => {
         try {
             return localStorage[key];
         } catch (e) {
@@ -440,14 +440,14 @@
         }
     }
 
-    function setLocalStorage(key, value) {
+    let setLocalStorage = (key, value) => {
         try {
             return localStorage[key] = value;
         } catch (e) {
             return null;
         }
     }
-    function reverseString(str) {
+    let reverseString = str => {
         let a = str.split("");
         let rev = "";
         for (let i = a.length - 1; i >= 0; --i) {
@@ -456,13 +456,13 @@
         return rev;
     }
 
-    function decryptLesson(lesson) {
+    let decryptLesson = lesson => {
         let reversed = ROT47(lesson);
         return reverseString(reversed);
     }
     let __ws = function(ip, protocol) {
         ws = new _.ws(ip, protocol);
-        ws.addEventListener('message', function(msg) {
+        ws.addEventListener('message', msg => {
             // console.debug('recieved', msg.data);
             let validPacket = true;
             let packet = {};
@@ -517,7 +517,7 @@
             if (renderedKeys > 128 && firstDetected == false) {
                 firstDetected = true;
                 lesson = this.text;
-                setTimeout(function() {
+                setTimeout(() => {
                     lessonLoad();
                     apie.onRaceStarting && (apie.onRaceStarting());
                 }, 200);
@@ -556,7 +556,7 @@
     */
     function generateTypeDecision(offset) {
         if(isStopped)return;
-        setTimeout(function() {
+        setTimeout(() => {
             let dipRate = 0.80;
             let WRONG = false;
             timeout = tgen(12000 / wordsPerMinute);
@@ -619,7 +619,7 @@
             infoSpan.innerHTML = "Starting...";
             infoSpan.style.color = "#00b300";
         }
-        setTimeout(function() {
+        setTimeout(() => {
             if (!isStopped) infoSpan.innerHTML = "Started!";
             lessonLoaded = true;
             startTime = new Date();
@@ -628,7 +628,7 @@
                 generateTypeDecision();
                 debug("Started the bot!");
                 if (autoTurbo) {
-                    setTimeout(function() {
+                    setTimeout(() => {
                         debug("Using auto turbo");
                         turbo();
                     }, 750);
@@ -653,7 +653,7 @@
         debug("respawn() called - refreshing in a few seconds.");
         if (/* autoRefresh */ _autoRefresh) {
             // Timeout so the player can view their race stats if they wish
-            setTimeout(function() {
+            setTimeout(() => {
                 _.reload.apply(window.location, []);
             }, gen(2000, 4000));
         }
@@ -670,7 +670,7 @@
         }
     }
     function onfinish(callback) {
-        setInterval(function() {
+        setInterval(() => {
             let deadDivs = document.getElementsByClassName('popup race-results');
             let banner = document.getElementsByClassName('banner');
             if ((deadDivs && deadDivs != [] && deadDivs.length !== 0 && deadDivs.toString() !== "") || (disqualified) || (banner && banner.length !== 0 && banner !== [])) {
@@ -696,19 +696,19 @@
         let UI = document.createElement('div');
         $(root).append(FONT);
         Object.defineProperty(UI, 'shadowRoot', {
-            get: function() {
+            get: () => {
                 return null;
             },
             enumerable: false
         });
         Object.defineProperty(injectedRoot, 'shadowRoot', {
-            get: function() {
+            get: () => {
                 return null;
             },
             enumerable: false
         });
         Object.defineProperty(root, 'shadowRoot', {
-            get: function() {
+            get: () => {
                 return null;
             },
             enumerable: false
@@ -729,11 +729,11 @@
         UI.style.opacity = UIopacity;
         UI.style.transition = "opacity 1s, border 1s, border-color 1s";
         UI.style.fontFamily = "'Ubuntu', sans-serif";
-        UI.onmouseover = function() {
+        UI.onmouseover = () => {
             UIopacity = 1;
             UI.style.opacity = UIopacity;
         }
-        UI.onmouseleave = function() {
+        UI.onmouseleave = () => {
             UIopacity = 0.7;
             UI.style.opacity = UIopacity;
         }
@@ -769,7 +769,7 @@
         enableButton.style.color = "#808080";
         enableButton.style.transition = "border 500ms, border-color 500ms, color 500ms";
         enableButton.innerHTML = "Customize";
-        enableButton.onclick = function() {
+        enableButton.onclick = () => {
             if (!optOn) {
                 optOn = true;
                 opt.style.opacity = 0.95;
@@ -779,11 +779,11 @@
                 return;
             }
         }
-        _.listen.apply(enableButton, ["mouseover", function() {
+        _.listen.apply(enableButton, ["mouseover", () => {
             enableButton.style.color = "white";
             enableButton.style.borderColor = "white";
         }, true]);
-        _.listen.apply(enableButton, ["mouseout", function() {
+        _.listen.apply(enableButton, ["mouseout", () => {
             enableButton.style.color = "#808080";
             enableButton.style.borderColor = "#808080";
         }, true]);
@@ -801,7 +801,7 @@
         turboBtn.style.color = "#ff1a1a";
         turboBtn.style.transition = "border 500ms, border-color 500ms, color 500ms";
         turboBtn.innerHTML = "Turbo";
-        turboBtn.onclick = function() {
+        turboBtn.onclick = () => {
             turboBtn.style.color = "#660000";
             turboBtn.style.borderColor = "#660000";
             if (!firstTurbo) {
@@ -838,7 +838,7 @@
             UI.style.top = (e.clientY - (e.clientY - UI.style.top)) + 'px';
             UI.style.left = (e.clientX - (e.clientX - UI.style.left)) + 'px';
         }
-        _.listen.apply(window, ['keydown', function(e) {
+        _.listen.apply(window, ['keydown', e => {
             if (e.keyCode == 27) {
                 toggled = !toggled;
                 if (toggled) {
@@ -855,7 +855,7 @@
                 }
             }
         }]);
-        _.listen.apply(window, ['mouseup', function(e) {
+        _.listen.apply(window, ['mouseup', e => {
             isDragging = false;
             UI.style.opacity = UIopacity;
             UI.style.borderColor = "#000066";
@@ -964,16 +964,16 @@
             }]
         });
         chart = Highcharts.charts[0];
-        _.listen.apply(g, ['mouseover', function() {
+        _.listen.apply(g, ['mouseover', () => {
             if (chartOn) g.style.opacity = 1;
             if (chartOn) g.style.borderColor = "#0000ff";
         }, true]);
-        _.listen.apply(g, ['mouseout', function() {
+        _.listen.apply(g, ['mouseout', () => {
             if (chartOn) g.style.opacity = 0.7;
             if (chartOn) g.style.borderColor = "#000066";
         }, true]);
         addGraph(g);
-        setTimeout(function() {
+        setTimeout(() => {
             let cr = g.getElementsByClassName('highcharts-credits');
             for (let i = 0; i < cr.length; i++) {
                 cr[i].remove();
@@ -1021,7 +1021,7 @@
         botOnBtn.style.color = "LimeGreen";
         botOnBtn.style.transition = "border 2s, border-color 2s, color 2s";
         botOnBtn.innerHTML = "On";
-        botOnBtn.onclick = function() {
+        botOnBtn.onclick = () => {
             enabled = !enabled;
             if (!enabled) {
                 botOnBtn.style.borderColor = "red";
@@ -1048,7 +1048,7 @@
         toggleButton.style.color = "LimeGreen";
         toggleButton.style.transition = "border 2s, border-color 2s, color 2s";
         toggleButton.innerHTML = "On";
-        toggleButton.onclick = function() {
+        toggleButton.onclick = () => {
             autoRefresh = !autoRefresh;
             setLocalStorage('autoRefresh', autoRefresh);
             if (!autoRefresh) {
@@ -1076,7 +1076,7 @@
         autoNitroBtn.style.color = "LimeGreen";
         autoNitroBtn.style.transition = "border 2s, border-color 2s, color 2s";
         autoNitroBtn.innerHTML = "On";
-        autoNitroBtn.onclick = function() {
+        autoNitroBtn.onclick = () => {
             if (autoNitro) {
                 autoNitroOff();
             } else {
@@ -1101,16 +1101,16 @@
         exitButton.style.borderRadius = "3px";
         exitButton.style.backgroundColor = "transparent";
         exitButton.style.transition = "border 500ms, border-color 500ms, color 500ms";
-        _.listen.apply(exitButton, ["mouseover", function() {
+        _.listen.apply(exitButton, ["mouseover", () => {
             exitButton.style.color = "#FFF";
             exitButton.style.borderColor = "#FFF";
         }, true]);
-        _.listen.apply(exitButton, ["mouseout", function() {
+        _.listen.apply(exitButton, ["mouseout", () => {
             exitButton.style.color = "#808080";
             exitButton.style.borderColor = "#808080";
         }, true]);
         exitButton.innerHTML = "Exit";
-        exitButton.onclick = function() {
+        exitButton.onclick = () => {
             opt.style.opacity = 0;
             opt.style.pointerEvents = "none";
             optOn = false;
@@ -1129,7 +1129,7 @@
         chartBtn.style.color = "LimeGreen";
         chartBtn.style.transition = "border 2s, border-color 2s, color 2s";
         chartBtn.innerHTML = "On";
-        chartBtn.onclick = function() {
+        chartBtn.onclick = () => {
             chartOn = !chartOn;
             setLocalStorage('chartOn', chartOn);
             if (!chartOn) {
@@ -1162,7 +1162,7 @@
         acc.style.borderColor = "LimeGreen";
         acc.style.color = "LimeGreen";
         acc.style.transition = "border 2s, border-color 2s, color 2s";
-        acc.onchange = function() {
+        acc.onchange = () => {
             accuracy = parseInt(acc.value);
             if (isNaN(accuracy)) {
                 accuracy = 0.98;
@@ -1191,7 +1191,7 @@
         wpm.style.borderColor = "LimeGreen";
         wpm.style.color = "LimeGreen";
         wpm.style.transition = "border 2s, border-color 2s, color 2s";
-        wpm.onchange = function() {
+        wpm.onchange = () => {
             if (getLocalStorage("speedChange") != null) {
                 wordsPerMinute = parseInt(wpm.value);
                 if (isNaN(wordsPerMinute))
@@ -1219,7 +1219,7 @@
         statTogg.style.color = "LimeGreen";
         statTogg.style.transition = "border 2s, border-color 2s, color 2s";
         statTogg.innerHTML = "On";
-        statTogg.onclick = function() {
+        statTogg.onclick = () => {
             statsOn = !statsOn;
             if (statsOn) {
                 statTogg.style.borderColor = "LimeGreen";
@@ -1249,7 +1249,7 @@
         autoT.style.color = "LimeGreen";
         autoT.style.transition = "border 2s, border-color 2s, color 2s";
         autoT.innerHTML = "On";
-        autoT.onclick = function() {
+        autoT.onclick = () => {
             if (!autoTurbo) {
                 autoT.style.borderColor = "LimeGreen";
                 autoT.style.color = "LimeGreen";
@@ -1283,7 +1283,7 @@
         opt.appendChild(inner);
         root.appendChild(opt);
 
-        setTimeout(function() {
+        setTimeout(() => {
             let localChartOn = getLocalStorage('chartOn');
             let localAutoRefresh = getLocalStorage('autoRefresh');
             let localAccuracy = getLocalStorage('accuracy');
@@ -1361,7 +1361,7 @@
     }
 
     function changeTip(node) {
-        setTimeout(function() {
+        setTimeout(() => {
             node.style.fontSize = "125%";
             node.style.border = "3px solid #000066";
             node.style.borderRadius = "7px";
@@ -1382,10 +1382,10 @@
 
     function handleScript(scr) {
         if (scr.src.includes('race-lib')) {
-            scr.addEventListener('load', function() {
+            scr.addEventListener('load', () => {
                 _set = PIXI.BitmapText.prototype.setText;
                 let tos = __.toStr;
-                PIXI.BitmapText.prototype.setText = function() {
+                PIXI.BitmapText.prototype.setText = () => {
                     let txt = arguments[0];
                     if (lessonLoaded) {
                         let t = parseInt(txt);
@@ -1399,7 +1399,7 @@
             });
         }
     }
-    onfinish(function() {
+    onfinish(() => {
         debug("Race has finished. Doing a ban check and reloading if needed.");
         if (apie.onRaceFinish) {
             apie.onRaceFinish();
@@ -1409,7 +1409,7 @@
         infoSpan.style.color = "#b3b3b3";
         if (DO_BAN_CHECK) {
             debug('Doing ban check...');
-            checkIfBanned(function() {
+            checkIfBanned(() => {
                 debug("Ban check done. My user is not banned!");
                 if (autoRefresh) {
                     respawn();
@@ -1422,10 +1422,10 @@
             debug("Auto refresh is disabled");
         }
     });
-    XMLHttpRequest.prototype.send = function() {
+    XMLHttpRequest.prototype.send = () => {
         return _.xsend.apply(this, arguments);
     }
-    XMLHttpRequest.prototype.open = function() {
+    XMLHttpRequest.prototype.open = () => {
         if (arguments[1].includes('/api/error')) {
             errorRequests.push(this);
             this.abort();
@@ -1467,12 +1467,12 @@
         if (this === window.onerror) return _.toStr.call(_.oerr);
         return _.toStr.call(this);
     }
-    ShadowRoot.prototype.__defineGetter__('host', function() {
+    ShadowRoot.prototype.__defineGetter__('host', () => {
         if (this === injectedRoot) return null;
         return _.host.call(this);
     });
-    let observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
+    let observer = new MutationObserver(mutations => {
+        mutations.forEach(mutations => {
             if (mutation.type == "childList" && mutation.addedNodes.length > 0) {
                 for (let i in mutation.addedNodes) {
                     if (mutation.addedNodes[i].nodeName == "BODY") createUI(mutation.addedNodes[i]);
@@ -1493,7 +1493,7 @@
     _fakeToStr.__proto__ = _.toStr.prototype;
     _fakeToStr.prototype = _.toStr.prototype;
     Object.defineProperty(Function.prototype, 'toString', {
-        get: function() {
+        get: () => {
             if (this === __.toStr) return _fakeToStr;
             return __.toStr;
         },
@@ -1515,28 +1515,28 @@
         if (this === window.onerror) return __.toStr;
         return _.toStr;
     });
-    setInterval(function() {
+    setInterval(() => {
         _setTitle.call(document, "UltraType 2");
     }, 100);
-    Document.prototype.__defineGetter__('title', function(t) {
+    Document.prototype.__defineGetter__('title', t => {
         return _title;
     });
-    Document.prototype.__defineSetter__('title', function(t) {
+    Document.prototype.__defineSetter__('title', t => {
         _title = t;
     });
-    _.listen.apply(window, ['load', function() {
+    _.listen.apply(window, ['load', () => {
         _.oerr = window.onerror;
-        window.onerror = function(evt) {
+        window.onerror = evt => {
             if (evt.includes("'visible' of undefined")) {
                 // Exception triggered due to turbo mode
                 respawn();
             }
             return null;
         };
-        window.onbeforeunload = function() {
+        window.onbeforeunload = () => {
             return null;
         };
-        window.ga = function() {};
+        window.ga = () => {};
 
         username = extractUserName();
         userInfo = ROT47(localStorage["A=2J6C"]);
@@ -1547,10 +1547,10 @@
             statsOn = JSON.parse(statsOn);
         }
     }]);
-    window.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('DOMContentLoaded', () => {
         setTimeout(removeUITrash, 75);
     });
-    let registerAPIEvent = function(evt, callback) {
+    let registerAPIEvent = (evt, callback) => {
         if (typeof callback !== 'function') {
             throw new Error('Invalid event callback.');
             return;
@@ -1601,17 +1601,17 @@
         setWPM: setWPM,
         sendTypePacket: typePacket,
         typeChar: type,
-        stopFromRunning: function() { // Stops the bot from appearing or typing
+        stopFromRunning: () => { // Stops the bot from appearing or typing
             isStopped = true;
         },
-        getDecyptedUserInfo: function() {
+        getDecyptedUserInfo: () => {
             if (userInfo) {
                 return userInfo;
             } else {
                 return null;
             }
         },
-        setAutoTurbo: function(state) {
+        setAutoTurbo: state => {
             if (state === false) {
                 autoTurboOff();
             } else if (state === true) {
@@ -1621,8 +1621,8 @@
             }
         },
         getBotStateRaw: getBotState,
-        getBotState: function() {
-            let state = {
+        getBotState: () => {
+            return {
                 nitrosUsed: nitrosUsed,
                 lesson: lesson,
                 currWord: index,
@@ -1637,17 +1637,16 @@
                 startTime: startTime,
                 endTime: endTime
             };
-            return state;
         },
-        toggleDebug: function() {
+        toggleDebug: () => {
             LOG_DEBUG = !LOG_DEBUG;
         },
-        getLesson: function() {
+        getLesson: () => {
             if (lesson) {
                 return lesson;
             } else return null;
         },
-        setAutoRefresh: function(val) {
+        setAutoRefresh: val => {
             if (typeof val !== 'boolean') {
                 throw new Error('Can only set auto refresh to a boolean.');
                 return;
@@ -1655,15 +1654,15 @@
                 autoRefresh = val;
             }
         },
-        getNitrosUsed: function() { return nitrosUsed || 0 },
-        toggleBotLog: function() {
+        getNitrosUsed: () => { return nitrosUsed || 0 },
+        toggleBotLog: () => {
             LOG_TYPING_INFO = !LOG_TYPING_INFO;
         },
         disableStats: disableStats,
         randBool: randomBool,
         updateStats: updateStats,
         useNitro: useNitro,
-        flush: function() {
+        flush: () => {
             // Reset UltraType to it's default settings
             let keys = [
                 'accuracy',
