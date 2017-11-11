@@ -1276,11 +1276,11 @@
         root.appendChild(opt);
 
         setTimeout(() => {
-            let localChartOn = localStorage['chartOn'];
-            let localAutoRefresh = localStorage['autoRefresh'];
-            let localAccuracy = localStorage['accuracy'];
-            let localWPM = localStorage['wpm'];
-            let localAutoNitro = localStorage['autoNitro'];
+            let localChartOn = localStorage['chartOn'],
+                localAutoRefresh = localStorage['autoRefresh'],
+                localAccuracy = localStorage['accuracy'],
+                localWPM = localStorage['wpm'],
+                localAutoNitro = localStorage['autoNitro'];
             if (localAutoNitro !== null && localAutoNitro !== undefined) {
                 localAutoNitro = JSON.parse(localAutoNitro);
                 if (localAutoNitro == false) {
