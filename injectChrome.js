@@ -6,7 +6,7 @@
         URL_OUT = IS_LOCAL ? chrome.extension.getURL('OUT/OUT.js') : URL_REMOTE,
         SCRIPT_OUT = "<script src='" + URL_OUT + "'></script>\n";
     let loader = new XMLHttpRequest();
-    loader.open("GET", "https://www.nitrotype.com/race", true);
+    loader.open("GET", location.href, true);
     loader.onreadystatechange = function() {
         if (loader.readyState == 4) {
             const res = loader.responseText;
