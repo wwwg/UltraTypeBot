@@ -1657,7 +1657,7 @@
         useNitro: useNitro,
         flush: () => {
             // Reset UltraType to it's default settings
-            let keys = [
+            [
                 'accuracy',
                 'autoRefresh',
                 'autoTurbo',
@@ -1665,9 +1665,9 @@
                 'autoNitro',
                 'wpm',
                 'chartOn',
-                'speedChange'
-            ];
-            keys.forEach(k => {
+                'speedChange',
+                'ultratypedev'
+            ].forEach(k => {
                 delete localStorage[k];
             });
             console.warn('Flushed UltraType settings, reloading...');
