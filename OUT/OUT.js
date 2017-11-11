@@ -654,7 +654,7 @@
                     debug("onfinish fired.");
                 }
             }
-        }, 100);
+        }, 300);
     },
     createUI = body => {
         if (isStopped) {
