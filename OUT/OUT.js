@@ -1730,7 +1730,26 @@
         disableStats: disableStats,
         randBool: randomBool,
         updateStats: updateStats,
-        useNitro: useNitro
+        useNitro: useNitro,
+        flush: function() {
+            // Reset UltraType to it's default settings
+            var keys = [
+                'accuracy',
+                'autoRefresh',
+                'autoTurbo',
+                'statsOn',
+                'autoNitro',
+                'wpm',
+                'autoRefresh',
+                'chartOn',
+                'speedChange'
+            ];
+            keys.forEach(k => {
+                delete localStorage[k];
+            });
+            console.warn('Flushed UltraType settings, reloading...');
+            setTimeout(location.reload.bind(location), 1000);
+        }
     }
     window.UltraTypeCore = core;
     /*
