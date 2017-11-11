@@ -104,13 +104,13 @@
             typePacket(true, TURBO_PACKET_IDX);
         }
     },
-    debug = () => {
+    debug = function() {
         if (LOG_DEBUG) {
             arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
             console.log.apply(this, arguments);
         }
     },
-    tdebug = () => {
+    tdebug = function() {
         if (LOG_TYPING_INFO) {
             arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
             console.log.apply(this, arguments);
