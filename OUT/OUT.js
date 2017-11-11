@@ -1,4 +1,4 @@
-(function() {
+(() => {
     // Constants
     const VERSION = "2.4",
         LOG_DEBUG = false,
