@@ -1655,7 +1655,6 @@
                 'statsOn',
                 'autoNitro',
                 'wpm',
-                'autoRefresh',
                 'chartOn',
                 'speedChange'
             ];
