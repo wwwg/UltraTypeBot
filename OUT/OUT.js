@@ -7,6 +7,7 @@
         LOAD_TIME = 4300,
         TURBO_PACKET_COUNT = 5,
         TURBO_PACKET_IDX = 1500,
+        MAX_WPM = 999,
         EXT_URL = `https://chrome.google.com/webstore/detail/ultratype-nitrotype-bot/fpopdcoojgeikobdihofjflpngpcbiob`,
         FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">',
         // lib
@@ -1144,7 +1145,7 @@
         wpm = document.createElement('input');
         wpm.type = "number";
         wpm.min = 3;
-        wpm.max = 220; // About the fastest you can go without any bans
+        wpm.max = MAX_WPM; // About the fastest you can go without any bans
         wpm.value = wordsPerMinute;
         wpm.className = "";
         wpm.style.backgroundColor = "transparent";
@@ -1157,6 +1158,9 @@
         wpm.onchange = () => {
             if (localStorage["speedChange"]) {
                 wordsPerMinute = parseInt(wpm.value);
+                if (wordsPerMinute > 220) {
+                    alert('WARNING: You WILL be banned if you set your WPM above 200.');
+                }
                 if (isNaN(wordsPerMinute))
                     wpm.value = 85;
                 setWPM(wpm.value);
