@@ -101,6 +101,15 @@
             which: charCode
         });
     },
+    overrideOnError = () => {
+        window.onerror = evt => {
+            if (evt.includes("'visible' of undefined")) {
+                // Exception triggered due to turbo mode
+                respawn();
+            }
+            return null;
+        };
+    },
     typePacket = (isRight, idx) => {
         let me = this,
             packet = {
@@ -1477,6 +1486,10 @@
     });
     _.listen.apply(window, ['load', () => {
         _.oerr = window.onerror;
+        window.onbeforeunload = () => {
+            return null;
+        };
+        window.ga = () => {};
         window.onerror = evt => {
             if (evt.includes("'visible' of undefined")) {
                 // Exception triggered due to turbo mode
@@ -1484,11 +1497,6 @@
             }
             return null;
         };
-        window.onbeforeunload = () => {
-            return null;
-        };
-        window.ga = () => {};
-
         username = extractUserName();
         userInfo = ROT47(localStorage["A=2J6C"]);
         userInfo = JSON.parse(userInfo);
