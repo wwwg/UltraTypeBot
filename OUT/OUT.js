@@ -119,15 +119,6 @@
             console.log.apply(this, arguments);
         }
     },
-    flushOldCookies = () => {
-        debug("Removing old cookies...");
-        Cookies.remove('autoRefresh');
-        Cookies.remove('accuracy');
-        Cookies.remove('speedChange');
-        Cookies.remove('statsOn');
-        Cookies.remove('wpm');
-        debug("Done removing cookies. Sorry you can't ban my users, Teaching.com.");
-    },
     useNitro = () => {
         if (apie.onNitroUsed) apie.onNitroUsed();
         setTimeout(function() {
@@ -1392,7 +1383,6 @@
     }
     let _set = null,
         _send = WebSocket.prototype.send;
-    setTimeout(flushOldCookies, 3000);
     WebSocket.prototype.send = function() {
         return _send.apply(this, arguments);
     }
