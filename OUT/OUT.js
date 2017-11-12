@@ -1,6 +1,6 @@
 (() => {
     // Constants
-    const VERSION = "2.4",
+    const VERSION = "2.5.0",
         LOG_DEBUG = true,
         LOG_TYPING_INFO = false,
         DO_BAN_CHECK = true,
@@ -1100,7 +1100,7 @@
         chartBtn.onclick = () => {
             if (localStorage['chartOn']) {
                 delete localStorage['chartOn'];
-                
+
             } else {
                 localStorage['chartOn'] = 1;
                 chartBtn.style.borderColor = "LimeGreen";
