@@ -593,12 +593,8 @@
     },
     respawn = () => {
         debug("respawn() called - refreshing in a few seconds.");
-        if (autoRefresh) {
-            // Timeout so the player can view their race stats if they wish
-            setTimeout(() => {
-                _.reload.apply(window.location, []);
-            }, gen(1200, 2500));
-        }
+        setTimeout(location.reload.bind(location),
+            gen(750, 1100));
     },
     removeUITrash = () => {
         // Remove some garbage on the UI
@@ -1672,7 +1668,7 @@
         setTimeout(initGraph.bind(window), 250);
     });
     document.head.appendChild(hcScript);
-    
+
     // Bye bye!
     document.currentScript.remove();
 })();
