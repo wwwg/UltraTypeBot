@@ -39,7 +39,7 @@
         chartOn = false,
         timeoutToggle = false,
         inDip = false,
-        autoNitro = true,
+        autoNitro = false,
         info,
         ws = null,
         infoSpan,
