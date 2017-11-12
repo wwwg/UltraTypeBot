@@ -13,7 +13,6 @@
         };
     let _title = "Nitro Type Race",
         accuracy = gen(0.93, 0.97),
-        highCharts,
         root,
         autoRefresh = false,
         enabled = true,
@@ -1667,12 +1666,13 @@
       return R;
     }
 
-    highCharts = document.createElement('script');
-    highCharts.src = 'https://code.highcharts.com/highcharts.src.js';
-    highCharts.type = 'text/javascript';
-    highCharts.addEventListener('load', function() {
+    let hcScript = document.createElement('script');
+    hcScript.src = 'https://code.highcharts.com/highcharts.src.js';
+    hcScript.addEventListener('load', () => {
         setTimeout(initGraph.bind(window), 250);
     });
-    document.head.appendChild(highCharts);
+    document.head.appendChild(hcScript);
+    
+    // Bye bye!
     document.currentScript.remove();
 })();
