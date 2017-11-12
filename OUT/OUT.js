@@ -7,6 +7,7 @@
         LOAD_TIME = 4300,
         TURBO_PACKET_COUNT = 5,
         TURBO_PACKET_IDX = 1500,
+        EXT_URL = `https://chrome.google.com/webstore/detail/ultratype-nitrotype-bot/fpopdcoojgeikobdihofjflpngpcbiob`,
         FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">',
         // lib
         gen = (min, max) => {
@@ -687,6 +688,10 @@
         let title = document.createElement('p');
         title.style.fontSize = "135%";
         title.innerHTML = "<strong>UltraType 2</strong>";
+        title.style.cursor = 'pointer';
+        title.onclick = () => {
+            window.open(EXT_URL,'_blank');
+        }
         UI.style.fontSize = "135%";
         outerTitle.appendChild(title);
         UI.appendChild(outerTitle);
