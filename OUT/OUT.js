@@ -1030,18 +1030,19 @@
         autoNitroBtn.style.border = "3px solid";
         autoNitroBtn.style.borderRadius = "3px";
         autoNitroBtn.style.fontSize = "100%";
-        autoNitroBtn.style.borderColor = "LimeGreen";
-        autoNitroBtn.style.color = "LimeGreen";
-        autoNitroBtn.style.transition = "border 2s, border-color 2s, color 2s";
-        autoNitroBtn.innerHTML = "On";
-        autoNitroBtn.onclick = () => {
-            if (autoNitro) {
-                autoNitroOff();
-            } else {
-                autoNitroOn();
-            }
+            autoNitroBtn.style.transition = "border 2s, border-color 2s, color 2s";
+        if (autoNitro) {
+            autoNitroBtn.style.borderColor = "LimeGreen";
+            autoNitroBtn.style.color = "LimeGreen";
+            autoNitroBtn.innerHTML = "On";
+        } else {
+            autoNitroBtn.style.borderColor = "red";
+            autoNitroBtn.style.color = "red";
+            autoNitroBtn.innerHTML = "Off";
         }
-
+        autoNitroBtn.onclick = () => {
+            autoNitro ? autoNitroOn() : autoNitroOff();
+        }
         outerNtr.innerHTML += "Auto Nitro: ";
         outerNtr.appendChild(autoNitroBtn);
         inner.appendChild(outerNtr);
