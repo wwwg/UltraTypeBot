@@ -433,16 +433,10 @@
         }
     },
     reverseString = str => {
-        let a = str.split("");
-        let rev = "";
-        for (let i = a.length - 1; i >= 0; --i) {
-            rev += a[i];
-        }
-        return rev;
+        return str.split``.reverse().join``;
     },
     decryptLesson = lesson => {
-        let reversed = ROT47(lesson);
-        return reverseString(reversed);
+        return reverseString(ROT47(lesson));
     },
     __ws = function(ip, protocol) {
         ws = new _.ws(ip, protocol);
