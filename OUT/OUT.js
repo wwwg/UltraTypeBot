@@ -1500,10 +1500,7 @@
         userInfo = ROT47(localStorage["A=2J6C"]);
         userInfo = JSON.parse(userInfo);
         debug("Extracted and decrypted user info", userInfo);
-        statsOn = localStorage['statsOn'];
-        if (statsOn) {
-            statsOn = JSON.parse(statsOn);
-        }
+        if (localStorage['statsOn']) statsOn = true;
     }]);
     window.addEventListener('DOMContentLoaded', () => {
         setTimeout(removeUITrash, 75);
