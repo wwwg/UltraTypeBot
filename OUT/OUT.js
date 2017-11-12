@@ -36,7 +36,6 @@
         disqualified = false,
         lessonLoaded = false,
         finished = false,
-        chartOn = false,
         timeoutToggle = false,
         inDip = false,
         autoNitro = false,
@@ -801,9 +800,9 @@
                     g.style.pointerEvents = "none";
                 } else {
                     UI.style.opacity = UIopacity;
-                    if (chartOn) g.style.opacity = UIopacity;
+                    if (localStorage['chartOn']) g.style.opacity = UIopacity;
                     UI.style.pointerEvents = "auto";
-                    if (chartOn) g.style.pointerEvents = "auto";
+                    if (localStorage['chartOn']) g.style.pointerEvents = "auto";
                     else g.style.pointerEvents = "none";
                 }
             }
@@ -822,7 +821,7 @@
             apie.onReady();
         }
     },
-    initGraph = () => {
+    initChart = () => {
         g.style.zIndex = 9999;
         g.style.backgroundColor = "#000";
         g.style.fontFamily = "Ubuntu";
@@ -917,12 +916,12 @@
         });
         chart = Highcharts.charts[0];
         _.listen.apply(g, ['mouseover', () => {
-            if (chartOn) g.style.opacity = 1;
-            if (chartOn) g.style.borderColor = "#0000ff";
+            if (localStorage['chartOn']) g.style.opacity = 1;
+            if (localStorage['chartOn']) g.style.borderColor = "#0000ff";
         }, true]);
         _.listen.apply(g, ['mouseout', () => {
-            if (chartOn) g.style.opacity = 0.7;
-            if (chartOn) g.style.borderColor = "#000066";
+            if (localStorage['chartOn']) g.style.opacity = 0.7;
+            if (localStorage['chartOn']) g.style.borderColor = "#000066";
         }, true]);
         addGraph(g);
         setTimeout(() => {
@@ -931,6 +930,9 @@
                 cr[i].remove();
             }
         }, 500);
+        if (!localStorage['chartOn']) {
+            g.style.opacity = 0;
+        }
     },
     createOptsMenu = () => {
         opt = document.createElement('div');
@@ -1084,19 +1086,26 @@
         chartBtn.style.border = "3px solid";
         chartBtn.style.borderRadius = "3px";
         chartBtn.style.fontSize = "100%";
-        chartBtn.style.borderColor = "LimeGreen";
-        chartBtn.style.color = "LimeGreen";
         chartBtn.style.transition = "border 2s, border-color 2s, color 2s";
-        chartBtn.innerHTML = "On";
+
+        if (localStorage['chartOn']) {
+            chartBtn.style.borderColor = "LimeGreen";
+            chartBtn.style.color = "LimeGreen";
+            chartBtn.innerHTML = "On";
+        } else {
+            chartBtn.style.borderColor = "red";
+            chartBtn.style.color = "red";
+            chartBtn.innerHTML = "Off";
+        }
         chartBtn.onclick = () => {
-            chartOn = !chartOn;
-            setLocalStorage('chartOn', chartOn);
-            if (!chartOn) {
+            if (localStorage['chartOn']) {
+                delete localStorage['chartOn'];
                 chartBtn.style.borderColor = "red";
                 chartBtn.style.color = "red";
                 chartBtn.innerHTML = "Off";
                 g.style.opacity = 0;
             } else {
+                localStorage['chartOn'] = 1;
                 chartBtn.style.borderColor = "LimeGreen";
                 chartBtn.style.color = "LimeGreen";
                 chartBtn.innerHTML = "On";
@@ -1243,8 +1252,7 @@
         root.appendChild(opt);
 
         setTimeout(() => {
-            let localChartOn = localStorage['chartOn'],
-                localAutoRefresh = localStorage['autoRefresh'],
+            let localAutoRefresh = localStorage['autoRefresh'],
                 localAccuracy = localStorage['accuracy'],
                 localWPM = localStorage['wpm'],
                 localAutoNitro = localStorage['autoNitro'];
@@ -1267,22 +1275,6 @@
                     toggleButton.style.borderColor = "LimeGreen";
                     toggleButton.style.color = "LimeGreen";
                     toggleButton.innerHTML = "On";
-                }
-            }
-            if (localChartOn) {
-                chartOn = JSON.parse(localChartOn);
-                if (!chartOn) {
-                    chartBtn.style.borderColor = "red";
-                    chartBtn.style.color = "red";
-                    chartBtn.innerHTML = "Off";
-                    g.style.opacity = 0;
-                    g.style.pointerEvents = 'none';
-                } else {
-                    chartBtn.style.borderColor = "LimeGreen";
-                    chartBtn.style.color = "LimeGreen";
-                    chartBtn.innerHTML = "On";
-                    g.style.opacity = 0.7;
-                    g.style.pointerEvents = 'auto';
                 }
             }
             if (localAccuracy) {
@@ -1652,7 +1644,7 @@
     let hcScript = document.createElement('script');
     hcScript.src = 'https://code.highcharts.com/highcharts.src.js';
     hcScript.addEventListener('load', () => {
-        setTimeout(initGraph.bind(window), 250);
+        setTimeout(initChart.bind(window), 250);
     });
     document.head.appendChild(hcScript);
 
