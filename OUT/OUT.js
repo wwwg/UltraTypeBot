@@ -199,27 +199,6 @@
     },
     showBan = () => {
         userBanned = true;
-        /*
-        debug("This account has been banned. Here is a bunch of debug information:");
-        debug("nitrosUsed:", nitrosUsed);
-        debug("lesson:", lesson);
-        debug("index:", index);
-        debug("wpm:", wordsPerMinute);
-        debug("accuracy:", accuracy);
-        debug("errorRequests length:", errorRequests.length);
-        debug("userInfo", JSON.stringify(userInfo));
-        debug("fillsY length", fillsY.length);
-        debug("VERSION", VERSION);
-        debug("WPM Points", points);
-        debug("finished:", finished);
-        debug("Start time:", startTime);
-        debug("End time:", endTime);
-        debug("Please report this to the UltraType developer.");
-        document.documentElement.innerHTML = "";
-        document.open();
-        document.write("<h1>User has been banned. Check developer tools. (Control+ Shift + J)</h1>");
-        document.close();
-        */
         debug("Sending bot state to banInfo endpoint");
         transmitBan();
         if (apie.onUserBanned) {
