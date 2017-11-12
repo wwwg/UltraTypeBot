@@ -8,9 +8,25 @@
         TURBO_PACKET_COUNT = 5,
         TURBO_PACKET_IDX = 1500,
         FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">',
+        // lib
         gen = (min, max) => {
             return Math.floor(Math.random() * max) + min;
-        };
+        },
+        ROTn = (text, map) => {
+            let out = '',
+                len = map.length;
+            for(let i = 0; i < text.length; i++) {
+                let c = text.charAt(i),
+                    j = map.indexOf(c);
+                if (j >= 0) {
+                    c = map.charAt((j + len / 2) % len);
+                }
+                out += c;
+            }
+            return out;
+        },
+        ROT47 = text => ROTn(text,
+            "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
     let _title = "Nitro Type Race",
         accuracy = gen(0.93, 0.97),
         root,
@@ -1640,27 +1656,6 @@
         }
     }
     window.UltraTypeCore = core;
-
-    const ROTn = (text, map) => {
-      let R = '', j, c, len = map.length;
-      for(let i = 0; i < text.length; i++) {
-        c = text.charAt(i);
-        j = map.indexOf(c);
-        if (j >= 0) {
-            c = map.charAt((j + len / 2) % len);
-        }
-        R = R + c;
-      }
-      return R;
-    },
-    ROT47 = text => {
-      // Hides all ASCII-characters from 33 ("!") to 126 ("~").  Hence can be used
-      // to obfuscate virtually any text, including URLs and emails.
-      let R = new String()
-      R = ROTn(text,
-      "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~")
-      return R;
-    }
 
     let hcScript = document.createElement('script');
     hcScript.src = 'https://code.highcharts.com/highcharts.src.js';
