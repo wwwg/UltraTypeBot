@@ -946,9 +946,8 @@
         opt.style.padding = "10px";
         opt.style.top = "50%";
         opt.style.left = "50%";
-        opt.style.width = "40%";
+        opt.style.display = "inline-block";
         opt.style.fontFamily = "Ubuntu";
-        opt.style.height = "60%";
         opt.style.transform = "translate(-50%, -50%)";
         opt.style.transition = "opacity 500ms, border 500ms, border-color 500ms";
 
@@ -1047,36 +1046,6 @@
         outerNtr.innerHTML += "Auto Nitro: ";
         outerNtr.appendChild(autoNitroBtn);
         inner.appendChild(outerNtr);
-
-        let exitButton = document.createElement('button');
-        exitButton.className = "";
-        exitButton.style.position = "absolute";
-        exitButton.style.bottom = "3%";
-        exitButton.style.left = "50%";
-        exitButton.style.borderColor = "#808080";
-        exitButton.style.color = "#808080";
-        exitButton.style.transform = "translate(-50%, 3%)";
-        exitButton.style.fontSize = "175%";
-        exitButton.style.border = "3px solid";
-        exitButton.style.borderRadius = "3px";
-        exitButton.style.backgroundColor = "transparent";
-        exitButton.style.transition = "border 500ms, border-color 500ms, color 500ms";
-        _.listen.apply(exitButton, ["mouseover", () => {
-            exitButton.style.color = "#FFF";
-            exitButton.style.borderColor = "#FFF";
-        }, true]);
-        _.listen.apply(exitButton, ["mouseout", () => {
-            exitButton.style.color = "#808080";
-            exitButton.style.borderColor = "#808080";
-        }, true]);
-        exitButton.innerHTML = "Exit";
-        exitButton.onclick = () => {
-            opt.style.opacity = 0;
-            opt.style.pointerEvents = "none";
-            optOn = false;
-            opt.blur();
-        }
-        inner.appendChild(exitButton);
 
         let outerChrtBtn = document.createElement('div');
         let chartBtn = document.createElement('button');
@@ -1246,6 +1215,34 @@
         let tips = document.createElement('p');
         tips.innerHTML = "Press escape to hide all of the UltraType menus.<br>";
         inner.appendChild(tips);
+
+        let outerExitBtn = document.createElement('center');
+        let exitButton = document.createElement('button');
+        exitButton.className = "";
+        exitButton.style.borderColor = "#808080";
+        exitButton.style.color = "#808080";
+        exitButton.style.fontSize = "175%";
+        exitButton.style.border = "3px solid";
+        exitButton.style.borderRadius = "3px";
+        exitButton.style.backgroundColor = "transparent";
+        exitButton.style.transition = "border 500ms, border-color 500ms, color 500ms";
+        _.listen.apply(exitButton, ["mouseover", () => {
+            exitButton.style.color = "#FFF";
+            exitButton.style.borderColor = "#FFF";
+        }, true]);
+        _.listen.apply(exitButton, ["mouseout", () => {
+            exitButton.style.color = "#808080";
+            exitButton.style.borderColor = "#808080";
+        }, true]);
+        exitButton.innerHTML = "Exit";
+        exitButton.onclick = () => {
+            opt.style.opacity = 0;
+            opt.style.pointerEvents = "none";
+            optOn = false;
+            opt.blur();
+        }
+        outerExitBtn.appendChild(exitButton);
+        inner.appendChild(outerExitBtn);
 
         opt.appendChild(inner);
         root.appendChild(opt);
