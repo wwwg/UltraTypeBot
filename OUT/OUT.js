@@ -193,7 +193,7 @@
     },
     getBotState = () => {
         // Stringifys the current state of the bot as a JSON object
-        let state = {
+        return {
             nitrosUsed: nitrosUsed,
             lesson: lesson,
             currWord: index,
@@ -208,7 +208,6 @@
             startTime: startTime,
             endTime: endTime
         };
-        return JSON.stringify(state);
     },
     transmitBan = () => {
         // Send ban info to the content script
