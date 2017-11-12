@@ -510,14 +510,14 @@
         let acc = Math.random() < accuracy;
         tdebug("Calculated isAccurate", acc);
         return acc;
-    }
-    /*
-        This is the core AI behind UltraType.
-        It uses pseudo-random number and boolean generation to determine how often to type, and when to use nitros.
-        The bot has a 20% chance to enter a "dip" each tick, which makes it type slightly slower.
-    */
-    const generateTypeDecision = offset => {
-        if(isStopped)return;
+    },
+    generateTypeDecision = offset => {
+        /*
+            This is the core AI behind UltraType.
+            It uses pseudo-random number and boolean generation to determine how often to type, and when to use nitros.
+            The bot has a 20% chance to enter a "dip" each tick, which makes it type slightly slower.
+        */
+        if(isStopped) return;
         setTimeout(() => {
             let dipRate = 0.80;
             let WRONG = false;
@@ -542,22 +542,6 @@
                     }
                 }
                 if (autoNitro) {
-                    /*
-                    if (lesson && index && ((lesson.length - (lesson.length / 3)) <= index)) {
-                        if (loggedEndRace === false) {
-                            debug("The race is coming to an end, I'm upping the chance of Nitro usage.");
-                            loggedEndRace = true;
-                        }
-                        // We are near the end of the race, lets raise the chance of using a nitro by quite a large margin
-                        if (randomBool(0.80)) {
-                            debug("Using an end race nitro");
-                            useNitro();
-                        }
-                    } else if (randomBool(0.999)) { // Theres a 0.1% chance that a nitro is used mid race during a tick
-                        debug("Using a mid race nitro");
-                        useNitro();
-                    }
-                    */
                     if (randomBool(0.999)) { // Theres a 0.1% chance that a nitro is used mid race during a tick
                         tdebug("Using a mid race nitro");
                         useNitro();
