@@ -679,7 +679,7 @@
         UI.style.backgroundColor = "black";
         UI.style.textAlign = "center";
         UI.style.opacity = UIopacity;
-        UI.style.transition = "opacity 1s, border 1s, border-color 1s";
+        UI.style.transition = "opacity 500ms, border 500ms, border-color 500ms";
         UI.style.fontFamily = "'Ubuntu', sans-serif";
         UI.onmouseover = () => {
             UIopacity = 1;
@@ -703,7 +703,7 @@
         infoSpan = document.createElement('span');
         infoSpan.innerHTML = "Idle.";
         infoSpan.style.color = "#b3b3b3";
-        infoSpan.style.transition = "color 2s";
+        infoSpan.style.transition = "color 500ms";
         info.style.fontSize = "100%";
         info.innerHTML += "Status: ";
         info.appendChild(infoSpan);
@@ -837,7 +837,7 @@
         g.style.borderRadius = "7px";
         g.style.width = "40%";
         g.style.height = "25%";
-        g.style.transition = "opacity 1s, border 1s, border-color 1s";
+        g.style.transition = "opacity 500ms, border 500ms, border-color 500ms";
         Highcharts.chart(g, {
             chart: {
                 backgroundColor: {
@@ -951,7 +951,7 @@
         opt.style.fontFamily = "Ubuntu";
         opt.style.height = "60%";
         opt.style.transform = "translate(-50%, -50%)";
-        opt.style.transition = "opacity 1s, border 1s, border-color 1s";
+        opt.style.transition = "opacity 500ms, border 500ms, border-color 500ms";
 
         opt.style.opacity = 0;
         opt.style.pointerEvents = "none";
@@ -972,7 +972,7 @@
         botOnBtn.style.fontSize = "100%";
         botOnBtn.style.borderColor = "LimeGreen";
         botOnBtn.style.color = "LimeGreen";
-        botOnBtn.style.transition = "border 2s, border-color 2s, color 2s";
+        botOnBtn.style.transition = "border 500ms, border-color 500ms, color 500ms";
         botOnBtn.innerHTML = "On";
         botOnBtn.onclick = () => {
             enabled = !enabled;
@@ -997,7 +997,7 @@
         toggleButton.style.border = "3px solid";
         toggleButton.style.borderRadius = "3px";
         toggleButton.style.fontSize = "100%";
-        toggleButton.style.transition = "border 2s, border-color 2s, color 2s";
+        toggleButton.style.transition = "border 500ms, border-color 500ms, color 500ms";
 
         if (autoRefresh) {
             toggleButton.style.borderColor = "LimeGreen";
@@ -1032,7 +1032,7 @@
         autoNitroBtn.style.border = "3px solid";
         autoNitroBtn.style.borderRadius = "3px";
         autoNitroBtn.style.fontSize = "100%";
-            autoNitroBtn.style.transition = "border 2s, border-color 2s, color 2s";
+            autoNitroBtn.style.transition = "border 500ms, border-color 500ms, color 500ms";
         if (autoNitro) {
             autoNitroBtn.style.borderColor = "LimeGreen";
             autoNitroBtn.style.color = "LimeGreen";
@@ -1086,7 +1086,7 @@
         chartBtn.style.border = "3px solid";
         chartBtn.style.borderRadius = "3px";
         chartBtn.style.fontSize = "100%";
-        chartBtn.style.transition = "border 2s, border-color 2s, color 2s";
+        chartBtn.style.transition = "border 500ms, border-color 500ms, color 500ms";
 
         if (localStorage['chartOn']) {
             chartBtn.style.borderColor = "LimeGreen";
@@ -1100,10 +1100,7 @@
         chartBtn.onclick = () => {
             if (localStorage['chartOn']) {
                 delete localStorage['chartOn'];
-                chartBtn.style.borderColor = "red";
-                chartBtn.style.color = "red";
-                chartBtn.innerHTML = "Off";
-                g.style.opacity = 0;
+                
             } else {
                 localStorage['chartOn'] = 1;
                 chartBtn.style.borderColor = "LimeGreen";
@@ -1129,7 +1126,7 @@
         acc.style.fontSize = "100%";
         acc.style.borderColor = "LimeGreen";
         acc.style.color = "LimeGreen";
-        acc.style.transition = "border 2s, border-color 2s, color 2s";
+        acc.style.transition = "border 500ms, border-color 500ms, color 500ms";
         acc.onchange = () => {
             accuracy = parseInt(acc.value);
             if (isNaN(accuracy)) {
@@ -1158,7 +1155,7 @@
         wpm.style.fontSize = "100%";
         wpm.style.borderColor = "LimeGreen";
         wpm.style.color = "LimeGreen";
-        wpm.style.transition = "border 2s, border-color 2s, color 2s";
+        wpm.style.transition = "border 500ms, border-color 500ms, color 500ms";
         wpm.onchange = () => {
             if (localStorage["speedChange"]) {
                 wordsPerMinute = parseInt(wpm.value);
@@ -1185,7 +1182,7 @@
         statTogg.style.fontSize = "100%";
         statTogg.style.borderColor = "LimeGreen";
         statTogg.style.color = "LimeGreen";
-        statTogg.style.transition = "border 2s, border-color 2s, color 2s";
+        statTogg.style.transition = "border 500ms, border-color 500ms, color 500ms";
         statTogg.innerHTML = "On";
         statTogg.onclick = () => {
             statsOn = !statsOn;
@@ -1215,7 +1212,7 @@
         autoT.style.fontSize = "100%";
         autoT.style.borderColor = "LimeGreen";
         autoT.style.color = "LimeGreen";
-        autoT.style.transition = "border 2s, border-color 2s, color 2s";
+        autoT.style.transition = "border 500ms, border-color 500ms, color 500ms";
         autoT.innerHTML = "On";
         autoT.onclick = () => {
             if (!autoTurbo) {
