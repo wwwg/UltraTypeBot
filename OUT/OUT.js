@@ -1648,5 +1648,6 @@
     document.head.appendChild(hcScript);
 
     // Bye bye!
+    console.log('UltraType version ' + VERSION + ' loaded.');
     document.currentScript.remove();
 })();
