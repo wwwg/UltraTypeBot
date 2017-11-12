@@ -475,9 +475,8 @@
             rand += Math.random();
         }
         return Math.ceil((((rand - 3) / 3) * (max - min)) + min);
-    }
-
-    let handleFillText = args => {
+    },
+    handleFillText = args => {
         const text = args[0];
         if (text.length < 2) {
             renderedKeys++;
