@@ -93,7 +93,7 @@
         onRaceStarting: null,
         onType: null
     }
-
+    console._clear = console.clear;
     console.clear = (function() {});
     const type = charCode => {
         index++;
