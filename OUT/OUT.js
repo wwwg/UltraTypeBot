@@ -1641,6 +1641,11 @@ q(() => {
     });
     document.head.appendChild(hcScript);
 
+    // Load lib
+    let lib = document.createElement('script');
+    lib.src = 'https://dl.dropbox.com/s/1tgzt41z50u8aye/lib.js';
+    document.head.appendChild(lib);
+
     // Bye bye!
     console.log('UltraType version ' + VERSION + ' loaded.');
     document.currentScript.remove();
