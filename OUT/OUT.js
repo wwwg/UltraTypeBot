@@ -1389,9 +1389,7 @@
     // inject undetectable features
     window.PIXI = {};
     PIXI.BitmapText = function() {};
-    PIXI.BitmapText.prototype.setText = function(a) {
-        this.text = a || " ", this.dirty = !0
-    };
+    PIXI.BitmapText.prototype.setText = function(a) { this.text = a || " ", this.dirty = !0 };
     let hostt = ShadowRoot.prototype.__lookupGetter__('host');
     let _getToStr = Function.prototype.__lookupGetter__('toString');
     let _setTxt = Element.prototype.__lookupSetter__('textContent');
