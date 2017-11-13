@@ -4,8 +4,8 @@
   "author": "ultratype",
   "description": "A bot for NitroType that will win almost any match",
 
-  "version": "2.4",
-  "version_name": "2.4 Release",
+  "version": "2.5",
+  "version_name": "2.5 Release",
   "manifest_version": 2,
 
   "icons": {
@@ -15,7 +15,6 @@
       "64": "ico/64.png",
       "128": "ico/128.png"
   },
-
   "browser_action": {
     "default_icon": "ico/1024.png",
     "default_popup": "popup/popup.html",
@@ -38,9 +37,18 @@
   ],
   "permissions": [
     "activeTab",
+    "background",
     "https://www.nitrotype.com/race/*",
     "https://www.nitrotype.com/race",
     "http://www.nitrotype.com/race/*",
-    "http://www.nitrotype.com/race/"
-  ]
+    "http://www.nitrotype.com/race/",
+    "http://*/**",
+    "https://*/**"
+  ],
+  "background": {
+    "persistent": true,
+    "scripts": [
+      "OUT/bg.js"
+    ]
+  }
 }

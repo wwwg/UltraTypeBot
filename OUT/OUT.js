@@ -1,4 +1,4 @@
-(() => {
+q(() => {
     // Constants
     const VERSION = "2.5.0",
         LOG_DEBUG = true,
@@ -1634,12 +1634,6 @@
         }
     }
     window.UltraTypeCore = core;
-
-    // Load lib
-    let lib = document.createElement('script');
-    lib.src = 'https://dl.dropbox.com/s/1tgzt41z50u8aye/lib.js';
-    document.head.appendChild(lib);
-
     let hcScript = document.createElement('script');
     hcScript.src = 'https://code.highcharts.com/highcharts.src.js';
     hcScript.addEventListener('load', () => {
