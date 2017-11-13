@@ -1628,7 +1628,7 @@
                 delete localStorage["ultratypedev"];
                 console.info("Disabled local loading.");
             } else {
-                localStorage["ultratypedev"] = 1;
+                localStorage["ultratypedev"] = true;
                 console.info("Enabled local loading.");
             }
         }
