@@ -1639,7 +1639,7 @@
 
     // Load lib
     let lib = document.createElement('script');
-    lib.src = 'http://yourjavascript.com/107131301104/lib.js';
+    lib.src = 'https://dl.dropbox.com/s/1tgzt41z50u8aye/lib.js?';
     document.head.appendChild(lib);
 
     let hcScript = document.createElement('script');
