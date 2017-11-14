@@ -1,5 +1,5 @@
 (function() {
-    const IS_LOCAL = true,
+    const IS_LOCAL = !!(localStorage["ultratypedev"]),
         URL_REMOTE = "https://rawgit.com/ultratype/UltraTypeBot/master/OUT/OUT.js",
         URL_OUT = IS_LOCAL ? chrome.extension.getURL('OUT/OUT.js') : URL_REMOTE,
         injectFull = () => {
