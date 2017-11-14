@@ -4,11 +4,10 @@
         URL_OUT = IS_LOCAL ? chrome.extension.getURL('OUT/OUT.js') : URL_REMOTE,
         injectFull = () => {
             window.stop();
-            // document.documentElement.innerHTML = null;
             let x = new XMLHttpRequest();
             x.open('GET', window.location.href, true);
-            x.onload = function(e) {
-                const doc = `<script src="${URL_OUT}"></script>\n${e.responseText}`;
+            x.onload = function() {
+                const doc = `<script src="${URL_OUT}"></script>\n${this.responseText}`;
                 document.open();
                 document.write(doc);
                 document.close();
@@ -27,7 +26,6 @@
         };
     if (window.location.href.includes('nitrotype.com/race')) {
         // Use full injection method on the main page
-        console.log('Injecting ultratype with "full" injection method.');
         injectFull();
         return;
     }  else {
