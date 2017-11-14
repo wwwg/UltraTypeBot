@@ -16,7 +16,6 @@
         MAX_WPM = 999,
         EXT_URL = `https://chrome.google.com/webstore/detail/ultratype-nitrotype-bot/fpopdcoojgeikobdihofjflpngpcbiob`,
         FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">',
-        // lib
         gen = (min, max) => {
             return Math.floor(Math.random() * max) + min;
         },
