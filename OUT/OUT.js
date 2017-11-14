@@ -35,7 +35,6 @@
             "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
     let _title = "Nitro Type Race",
         accuracy = gen(0.93, 0.97),
-        root,
         autoRefresh = false,
         enabled = true,
         autoNitroBtn = null,
@@ -48,7 +47,8 @@
         info,
         ws = null,
         infoSpan,
-        injectedRoot,
+        injectedRoot = document.createElement('div'),
+        root = injectedRoot.createShadowRoot(),
         fillsY = [],
         points = [],
         errorRequests = [],
@@ -641,9 +641,7 @@
         let UIopacity = 0.7;
         let doc = document.querySelector('html');
         let inner = document.querySelector('.wrap');
-        injectedRoot = document.createElement('div');
         body.appendChild(injectedRoot);
-        root = injectedRoot.createShadowRoot();
         let UI = document.createElement('div');
         $(root).append(FONT);
         Object.defineProperty(UI, 'shadowRoot', {
