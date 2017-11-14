@@ -26,7 +26,7 @@
         "http://*/*",
         "https://*/*"
       ],
-      "run_at": "document_idle",
+      "run_at": "document_end",
       "js": [
         "injectChrome.js"
       ]
