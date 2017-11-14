@@ -26,6 +26,7 @@
         };
     if (window.location.href.includes('nitrotype.com/race')) {
         // Use full injection method on the main page
+        console.log('Injecting ultratype with "full" injection method.');
         injectFull();
         return;
     }  else {
