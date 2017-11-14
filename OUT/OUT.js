@@ -1,4 +1,4 @@
-q(() => {
+(() => {
     // Constants
     const VERSION = "2.5.0",
         LOG_DEBUG = true,
