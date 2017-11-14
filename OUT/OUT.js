@@ -1,4 +1,8 @@
 (() => {
+    if (!location.href.includes("nitrotype.com/race")) {
+        // Don't load if not on the race page
+        return;
+    }
     // Constants
     const VERSION = "2.5.0",
         LOG_DEBUG = true,

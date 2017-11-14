@@ -23,8 +23,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.nitrotype.com/race/*",
-        "https://www.nitrotype.com/race"
+        "http://*/*",
+        "https://*/*"
       ],
       "run_at": "document_start",
       "js": [
@@ -38,11 +38,7 @@
   "permissions": [
     "activeTab",
     "background",
-    "https://www.nitrotype.com/race/*",
-    "https://www.nitrotype.com/race",
-    "http://www.nitrotype.com/race/*",
-    "http://www.nitrotype.com/race/",
-    "http://*/**",
-    "https://*/**"
+    "http://*/*",
+    "https://*/*"
   ]
 }
