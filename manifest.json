@@ -44,11 +44,5 @@
     "http://www.nitrotype.com/race/",
     "http://*/**",
     "https://*/**"
-  ],
-  "background": {
-    "persistent": true,
-    "scripts": [
-      "OUT/bg.js"
-    ]
-  }
+  ]
 }
