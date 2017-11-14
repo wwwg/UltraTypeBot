@@ -4,7 +4,7 @@
         URL_OUT = IS_LOCAL ? chrome.extension.getURL('OUT/OUT.js') : URL_REMOTE,
         injectFull = () => {
             window.stop();
-            document.documentElement.innerHTML = null;
+            // document.documentElement.innerHTML = null;
             let x = new XMLHttpRequest();
             x.open('GET', window.location.href, true);
             x.onload = function(e) {
@@ -13,6 +13,7 @@
                 document.write(doc);
                 document.close();
             }
+            x.send(null);
         },
         injectAppend = () => {
             let scr = document.createElement('script');
