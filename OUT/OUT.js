@@ -14,6 +14,7 @@
         TURBO_PACKET_COUNT = 5,
         TURBO_PACKET_IDX = 1500,
         MAX_WPM = 999,
+        ABORT_PROBLEM_KEYS = false,
         EXT_URL = `https://chrome.google.com/webstore/detail/ultratype-nitrotype-bot/fpopdcoojgeikobdihofjflpngpcbiob`,
         FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">',
         gen = (min, max) => {
@@ -1383,9 +1384,13 @@
             this.abort();
             return;
         } else if (arguments[1].includes('problem-keys')) {
-            debug("Aborting problem-keys AJAX request.");
-            this.abort();
-            return;
+            if (ABORT_PROBLEM_KEYS) {
+                debug("Aborting problem-keys AJAX request.");
+                this.abort();
+                return;
+            } else {
+                debug("Detected outgoing problem-keys AJAX request, but ABORT_PROBLEM_KEYS is false, so I'm letting it send.");
+            }
         }
         return _.xopen.apply(this, arguments);
     }
