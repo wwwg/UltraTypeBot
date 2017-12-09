@@ -1,8 +1,8 @@
 {
-  "name": "UltraType NitroType Bot",
+  "name": "UltraType NitroType / Typing Game Bot",
   "short_name": "UltraType",
   "author": "ultratype",
-  "description": "A bot for NitroType that will win almost any match",
+  "description": "A typing game bot that will win almost any match",
 
   "version": "2.5.2",
   "version_name": "2.5.2 Release",
