@@ -1647,6 +1647,15 @@
                 localStorage["ultratypedev"] = true;
                 console.info("Enabled local loading.");
             }
+        },
+        // Utility method to automatically involk debugger when a function is called
+        debugFn: fn => {
+            let _fn = fn;
+            fn = function() {
+                debugger;
+                _fn.apply(this, arguments);
+            }
+            return fn;
         }
     }
     window.UltraTypeCore = core;
