@@ -1639,14 +1639,14 @@
                 'autoNitro',
                 'wpm',
                 'chartOn',
-                'speedChange',
-                'ultratypedev'
+                'speedChange'
             ].forEach(k => {
                 delete localStorage[k];
             });
         },
         flush: () => {
             core.flushRaw();
+            delete localStorage['ultratypedev'];
             console.warn('Flushed UltraType settings, reloading...');
             setTimeout(location.reload.bind(location), 1000);
         },
