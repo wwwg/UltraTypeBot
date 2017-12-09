@@ -15,6 +15,7 @@
         TURBO_PACKET_IDX = 1500,
         MAX_WPM = 999,
         ABORT_PROBLEM_KEYS = false,
+        PROBLEM_KEYS_DEBUG = true,
         EXT_URL = `https://chrome.google.com/webstore/detail/ultratype-nitrotype-bot/fpopdcoojgeikobdihofjflpngpcbiob`,
         FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">',
         gen = (min, max) => {
@@ -1384,6 +1385,10 @@
             this.abort();
             return;
         } else if (arguments[1].includes('problem-keys')) {
+            if (PROBLEM_KEYS_DEBUG) {
+                console.warn('PROBLEM_KEYS_DEBUG is enabled, firing up debugger.');
+                debugger;
+            }
             if (ABORT_PROBLEM_KEYS) {
                 debug("Aborting problem-keys AJAX request.");
                 this.abort();
