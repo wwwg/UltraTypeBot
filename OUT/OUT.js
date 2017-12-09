@@ -177,6 +177,7 @@
     },
     addGraph = g => {
         if (isStopped) return;
+        if (!localStorage['chartOn']) return;
         if (root) {
             let _style = $("<style>.highcharts-container{width:100% !important;height:100% !important;display:inline-block;}</style>");
             root.appendChild(_style[0]);
@@ -1077,7 +1078,6 @@
         chartBtn.onclick = () => {
             if (localStorage['chartOn']) {
                 delete localStorage['chartOn'];
-
             } else {
                 localStorage['chartOn'] = 1;
                 chartBtn.style.borderColor = "LimeGreen";
