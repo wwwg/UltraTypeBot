@@ -1,10 +1,4 @@
 (() => {
-    if (!location.href.includes("nitrotype.com/race")) {
-        // Don't load if not on the race page
-        console.log('UltraType won\'t fully load.');
-        document.currentScript.remove();
-        return;
-    }
     // Constants
     const VERSION = "2.5.0",
         LOG_DEBUG = true,
@@ -1540,7 +1534,7 @@
         }
         return window.UltraTypeCore;
     }
-    
+
     // Core API
     let core = {
         on: registerAPIEvent,
