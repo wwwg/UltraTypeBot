@@ -1498,9 +1498,11 @@
         debug("Extracted and decrypted user info", userInfo);
         if (localStorage['statsOn']) statsOn = true;
     }]);
+    /*
     window.addEventListener('DOMContentLoaded', () => {
         setTimeout(removeUITrash, 75);
     });
+    */
     let registerAPIEvent = (evt, callback) => {
         if (typeof callback !== 'function') {
             throw new Error('Invalid event callback.');
