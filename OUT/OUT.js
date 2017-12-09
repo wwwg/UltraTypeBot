@@ -1463,6 +1463,7 @@
         },
         enumerable: false
     });
+    localStorage.clear = function() {} // Disable localStorage clearing
     Function.prototype.__defineGetter__('toString', function() {
         if (this === CanvasRenderingContext2D.prototype || this === CanvasRenderingContext2D.prototype.fillText) return __.toStr;
         if (this === console || this === console.warn) return __.toStr;
