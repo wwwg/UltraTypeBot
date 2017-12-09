@@ -1629,7 +1629,7 @@
         randBool: randomBool,
         updateStats: updateStats,
         useNitro: useNitro,
-        flush: () => {
+        flushRaw: () => {
             // Reset UltraType to it's default settings
             [
                 'accuracy',
@@ -1644,6 +1644,9 @@
             ].forEach(k => {
                 delete localStorage[k];
             });
+        },
+        flush: () => {
+            core.flushRaw();
             console.warn('Flushed UltraType settings, reloading...');
             setTimeout(location.reload.bind(location), 1000);
         },
