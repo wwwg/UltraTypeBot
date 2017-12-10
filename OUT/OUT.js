@@ -1,5 +1,5 @@
 (() => {
-    if (!window.location.href === "https://www.nitrotype.com/race") {
+    if (window.location.href !== "https://www.nitrotype.com/race") {
         // Don't load if not on the race page
         console.warn('UltraType: not loading on this page. Bye!');
         document.currentScript.remove(); // Remove this script from the dom
