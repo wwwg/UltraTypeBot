@@ -1491,17 +1491,6 @@
         if (this === window.onerror) return __.toStr;
         return _.toStr;
     });
-    var _bodyListener = HTMLBodyElement.prototype.addEventListener;
-    HTMLBodyElement.prototype.addEventListener = function() {
-        let evt = arguments[0],
-            handler = arguments[1];
-        if (evt == 'keypress') {
-            debug("Intercepted registration of keypress event handler", handler);
-            keyPressHandler = handler;
-            window.pressHandler = keyPressHandler; // For debugging in global scope
-        }
-        return _bodyListener.apply(this, arguments);
-    }
     setInterval(() => {
         _setTitle.call(document, "UltraType 2");
     }, 100);
@@ -1529,6 +1518,17 @@
         userInfo = JSON.parse(userInfo);
         debug("Extracted and decrypted user info", userInfo);
         if (localStorage['statsOn']) statsOn = true;
+
+        var _attachHandler = $('head').constructor.prototype.keypress;
+        $('head').constructor.prototype.keypress = function() {
+            if (this && this[0] && this[0] == document.body) {
+                let handler = arguments[0];
+                keyPressHandler = handler;
+                window.pressHandler = handler;
+                debug("Intercepted jQuery keypress handler:", handler);
+            }
+            return _attachHandler.apply(this, arguments);
+        }
     }]);
     /*
     window.addEventListener('DOMContentLoaded', () => {
