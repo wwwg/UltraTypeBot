@@ -1081,6 +1081,9 @@
         chartBtn.onclick = () => {
             if (localStorage['chartOn']) {
                 delete localStorage['chartOn'];
+                chartBtn.style.borderColor = "red";
+                chartBtn.style.color = "red";
+                chartBtn.innerHTML = "Off";
             } else {
                 localStorage['chartOn'] = 1;
                 chartBtn.style.borderColor = "LimeGreen";
