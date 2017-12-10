@@ -462,9 +462,9 @@
             let validPacket = true;
             let packet = {};
             if (msg.data) {
-                if (msg.data.includes('banned')) {
-                    console.warn('WebSocket message with suspicious content detected.');
-                    debugger;
+                if (msg.data.includes(`"payload":{"type":"banned"}}`)) {
+                    console.warn('Incoming WebSocket message indicates ban.');
+                    // debugger;
                 }
                 try {
                     packet = JSON.parse(msg.data.substring(1, msg.length));
