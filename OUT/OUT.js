@@ -10,7 +10,7 @@
         return;
     }
     // Constants
-    const VERSION = "2.5.0",
+    const VERSION = "2.6.0",
         LOG_DEBUG = true,
         LOG_TYPING_INFO = false,
         DO_BAN_CHECK = true,
