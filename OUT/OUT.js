@@ -107,12 +107,31 @@
     }
     console._clear = console.clear;
     console.clear = (function() {});
-    const type = charCode => {
+    // OLD typing function, no longer in use due to NitroType's anti-cheat measures
+    const _type = charCode => {
         index++;
         $(document.body).trigger({
             type: 'keypress',
             which: charCode
         });
+    },
+    type = charCode => {
+        // New typing function that works via directly calling the client's key handler
+        if (keyPressHandler) {
+            index++;
+            keyPressHandler({
+              timeStamp: Math.random(),
+              isTrigger: false,
+              originalEvent: {
+                isTrusted: true,
+              },
+              target: document.body,
+              which: charCode,
+              shiftKey: false
+            });
+        } else {
+            console.warn('UltraType: No key press handler avalible to call!');
+        }
     },
     overrideOnError = () => {
         window.onerror = evt => {
@@ -1524,7 +1543,6 @@
             if (this && this[0] && this[0] == document.body) {
                 let handler = arguments[0];
                 keyPressHandler = handler;
-                window.pressHandler = handler;
                 debug("Intercepted jQuery keypress handler:", handler);
             }
             return _attachHandler.apply(this, arguments);

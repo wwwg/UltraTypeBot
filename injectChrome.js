@@ -24,7 +24,6 @@
                 setTimeout(injectAppend, 100);
             }
         };
-    /*
     if (window.location.href.includes('nitrotype.com/race')) {
         // Use full injection method on the main page
         injectFull();
@@ -33,6 +32,4 @@
         // Slower append injection method is used
         injectAppend();
     }
-    */
-    injectAppend();
 })();
