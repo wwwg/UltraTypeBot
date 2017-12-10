@@ -1491,6 +1491,15 @@
         if (this === window.onerror) return __.toStr;
         return _.toStr;
     });
+    var _bodyListener = HTMLBodyElement.prototype.addEventListener;
+    HTMLBodyElement.prototype.addEventListener = function() {
+        let evt = arguments[0],
+            handler = arguments[1];
+        if (evt == 'keypress') {
+            keyPressHandler = handler;
+        }
+        return _bodyListener.apply(this, arguments);
+    }
     setInterval(() => {
         _setTitle.call(document, "UltraType 2");
     }, 100);
