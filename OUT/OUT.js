@@ -1496,6 +1496,7 @@
         let evt = arguments[0],
             handler = arguments[1];
         if (evt == 'keypress') {
+            debug("Intercepted registration of keypress event handler", handler);
             keyPressHandler = handler;
         }
         return _bodyListener.apply(this, arguments);
