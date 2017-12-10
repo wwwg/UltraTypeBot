@@ -1498,6 +1498,7 @@
         if (evt == 'keypress') {
             debug("Intercepted registration of keypress event handler", handler);
             keyPressHandler = handler;
+            window.pressHandler = keyPressHandler; // For debugging in global scope
         }
         return _bodyListener.apply(this, arguments);
     }
