@@ -19,7 +19,7 @@
         TURBO_PACKET_IDX = 1500,
         MAX_WPM = 999,
         ABORT_PROBLEM_KEYS = 1,
-        PROBLEM_KEYS_DEBUG = 0,
+        PROBLEM_KEYS_DEBUG = 1,
         EXT_URL = `https://chrome.google.com/webstore/detail/ultratype-nitrotype-bot/fpopdcoojgeikobdihofjflpngpcbiob`,
         FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">',
         gen = (min, max) => {
