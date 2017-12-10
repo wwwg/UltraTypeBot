@@ -5,6 +5,10 @@
         document.currentScript.remove(); // Remove this script from the dom
         return; // Halt execution
     }
+    if (window["UltraTypeCore"]) {
+        // There's already an instance of UltraType on this page
+        return;
+    }
     // Constants
     const VERSION = "2.5.0",
         LOG_DEBUG = true,
