@@ -1,6 +1,10 @@
 (() => {
-    if (window.location.href !== "https://www.nitrotype.com/race" &&
-        (window.location.href.startsWith("https://www.nitrotype.com/race/" == false))) {
+    let isValidPage = href => {
+        if (href == "https://www.nitrotype.com/race") return true;
+        if (href.startsWith("https://www.nitrotype.com/race/")) return true;
+        return false;
+    }
+    if (!isValidPage(href)) {
         // Don't load if not on the race page
         console.warn('UltraType: not loading on this page. Bye!');
         document.currentScript.remove(); // Remove this script from the dom
