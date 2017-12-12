@@ -875,6 +875,11 @@
         }
     },
     initChart = () => {
+        if (!document.body) {
+            let _initChart = initChart.bind(this);
+            setTimeout(_initChart, 300);
+            return;
+        }
         g.style.zIndex = 9999;
         g.style.backgroundColor = "#000";
         g.style.fontFamily = "Ubuntu";
