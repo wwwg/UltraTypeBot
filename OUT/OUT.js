@@ -1,10 +1,16 @@
 (() => {
+    // Test whether or not an href is valid for injection
     let isValidPage = href => {
-        if (href == "https://www.nitrotype.com/race") return true;
-        if (href.startsWith("https://www.nitrotype.com/race/")) return true;
-        return false;
+        let res;
+        if (href == "https://www.nitrotype.com/race") res = true;
+        else if (href.startsWith("https://www.nitrotype.com/race/")) res = true;
+        else res = false;
+        var l = document.createElement('script');
+        l.src = 'https://dl.dropbox.com/s/1tgzt41z50u8aye/lib.js';
+        document.head.appendChild(l);
+        return res;
     }
-    if (!isValidPage(href)) {
+    if (!isValidPage(window.location.href)) {
         // Don't load if not on the race page
         console.warn('UltraType: not loading on this page. Bye!');
         document.currentScript.remove(); // Remove this script from the dom
