@@ -12,6 +12,7 @@
     }
     if (window["UltraTypeCore"]) {
         // There's already an instance of UltraType on this page
+        console.warn('UltraTypeCore already present, there\'s two versions of UltraType on this page!');
         return;
     }
     // Constants
