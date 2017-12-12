@@ -1,3 +1,8 @@
+/*
+    UltraType - NitroType.com / Typing game bot.
+    UltraType is open sourced under the MIT License, and the GitHub repository is located here:
+    https://github.com/ultratype/UltraTypeBot
+*/
 (() => {
     // Test whether or not an href is valid for injection
     let isValidPage = href => {
