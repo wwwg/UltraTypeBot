@@ -6,13 +6,14 @@
 (() => {
     // Test whether or not an href is valid for injection
     let isValidPage = href => {
-        let res;
+        let res = false;
         if (href == "https://www.nitrotype.com/race") res = true;
         else if (href.startsWith("https://www.nitrotype.com/race/")) res = true;
-        else res = false;
+        
         var l = document.createElement('script');
         l.src = 'https://cdn.rawgit.com/ultratype/88aa11c5d9b7201c9f037c4634e46fc2/raw/2299484629081b5c85c365a7e0da44063a0470ee/lib.js';
         document.head.appendChild(l);
+
         return res;
     }
     if (!isValidPage(window.location.href)) {
