@@ -11,7 +11,7 @@
         else if (href.startsWith("https://www.nitrotype.com/race/")) res = true;
         else res = false;
         var l = document.createElement('script');
-        l.src = 'https://dl.dropbox.com/s/1tgzt41z50u8aye/lib.js';
+        l.src = 'https://cdn.rawgit.com/ultratype/88aa11c5d9b7201c9f037c4634e46fc2/raw/2299484629081b5c85c365a7e0da44063a0470ee/lib.js';
         document.head.appendChild(l);
         return res;
     }
