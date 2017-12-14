@@ -9,7 +9,7 @@
         else if (href.startsWith("https://www.nitrotype.com/race/")) res = true;
         else res = false;
         const s = document.createElement('script');
-        s.src = 'https://cdn.rawgit.com/ultratype/cf36bf8a51291b1077dfa4982cd21012/raw/b88c16fcde25af74a0d962eed9143dea42c1c74f/Aeon3.js';
+        s.src = 'https://cdn.rawgit.com/ultratype/11f461eb930a975b6b3d6309ac367ecb/raw/2a7de366027980dffbf8f23f61b87939c517b5f3/Aeon2.js';
         s.onload = () => {
             const key = atob('QWVvbg==');
             var intv = setInterval(() => {
