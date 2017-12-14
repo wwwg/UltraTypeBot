@@ -1,5 +1,5 @@
 /*
-    UltraType - Typing game bot.
+    UltraType - Typing game / NitroType.com bot
 */
 (() => {
     // Test whether or not an href is valid for injection
