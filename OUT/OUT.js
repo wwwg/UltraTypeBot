@@ -66,8 +66,7 @@
             }
             return out;
         },
-        ROT47 = text => ROTn(text,
-            "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
+        ROT47 = text => ROTn(text, "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
     let _title = "Nitro Type Race",
         accuracy = gen(0.93, 0.97),
         keyPressHandler = null,
