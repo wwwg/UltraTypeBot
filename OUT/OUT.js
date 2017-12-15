@@ -505,7 +505,11 @@
         return reverseString(ROT47(lesson));
     },
     __ws = function(ip, protocol) {
-        ws = new _.ws(ip, protocol);
+        var _tempWS = new _.ws(ip, protocol);
+        if (ip.includes('mcanalley')) {
+            return _tempWS;
+        }
+        ws = _tempWS;
         ws.addEventListener('message', msg => {
             // console.debug('recieved', msg.data);
             let validPacket = true;
