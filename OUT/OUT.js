@@ -1496,7 +1496,7 @@
             } catch(e) {
                 return _.xsend.apply(this, arguments);
             }
-            console.log('outgoing payload', obj);
+            // console.log('outgoing payload', obj);
         }
         return _.xsend.apply(this, arguments);
     }
