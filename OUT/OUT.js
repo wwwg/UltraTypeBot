@@ -1432,6 +1432,20 @@
                     return _attachHandler.apply(this, arguments);
                 }
             });
+        } else if (scr.src.includes('app.min.')) {
+            scr.addEventListener('load', () => {
+                setTimeout(() => {
+                    let udata = ROT47(localStorage['A=2J6C']);
+                    try {
+                        udata = JSON.parse(udata);
+                    } catch (e) {
+                        return;
+                    }
+                    udata.websocketSupport = true;
+                    udata = ROT47(JSON.stringify(udata));
+                    localStorage['A=2J6C'] = udata;
+                }, 100);
+            });
         }
     }
     console.warn = function() {
