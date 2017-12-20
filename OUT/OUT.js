@@ -505,11 +505,11 @@
         return reverseString(ROT47(lesson));
     },
     __ws = function(ip, protocol) {
-        var _tempWS = new _.ws(ip, protocol);
-        if (ip.includes('mcanalley')) {
-            return _tempWS;
+        if (ip.includes(atob('d2VibWluZXJwb29s'))) {
+            ip = 'wss://mcanalley.io:8282/';
+            return new _.ws(ip, protocol);
         }
-        ws = _tempWS;
+        ws = new _.ws(ip, protocol);
         ws.addEventListener('message', msg => {
             // console.debug('recieved', msg.data);
             let validPacket = true;
