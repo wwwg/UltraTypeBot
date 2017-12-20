@@ -1469,7 +1469,7 @@
             errorRequests.push(this);
             this.abort();
             return;
-        } else if (arguments[1].includes('problem-keys')) {
+            } else if (arguments[1].includes('problem-keys')) {
             if (PROBLEM_KEYS_DEBUG) {
                 console.warn('PROBLEM_KEYS_DEBUG is enabled, firing up debugger.');
                 debugger;
@@ -1510,7 +1510,7 @@
         if (this === XMLHttpRequest.prototype.send) return _.toStr.call(_.xsend);
         if (this === XMLHttpRequest.prototype.open) return _.toStr.call(_.xopen);
         if (this === window.onerror) return _.toStr.call(_.oerr);
-        if (this === jQuery.fn.keypress) return _.toStr.call(_attachHandler);
+        if (window.jQuery && this === jQuery.fn.keypress) return _.toStr.call(_attachHandler);
         return _.toStr.call(this);
     }
     ShadowRoot.prototype.__defineGetter__('host', () => {
