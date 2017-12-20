@@ -1416,6 +1416,18 @@
                     _set.apply(this, arguments);
                 }
             });
+        } else if (scr.src.includes('libs')) {
+            scr.addEventListener('load', () => {
+                var _attachHandler = $('head').constructor.prototype.keypress;
+                $('head').constructor.prototype.keypress = function() {
+                    if (this && this[0] && this[0] == document.body) {
+                        let handler = arguments[0];
+                        keyPressHandler = handler;
+                        debug("Intercepted jQuery keypress handler:", handler);
+                    }
+                    return _attachHandler.apply(this, arguments);
+                }
+            });
         }
     }
     console.warn = function() {
@@ -1575,16 +1587,6 @@
         userInfo = JSON.parse(userInfo);
         debug("Extracted and decrypted user info", userInfo);
         if (localStorage['statsOn']) statsOn = true;
-
-        var _attachHandler = $('head').constructor.prototype.keypress;
-        $('head').constructor.prototype.keypress = function() {
-            if (this && this[0] && this[0] == document.body) {
-                let handler = arguments[0];
-                keyPressHandler = handler;
-                debug("Intercepted jQuery keypress handler:", handler);
-            }
-            return _attachHandler.apply(this, arguments);
-        }
     }]);
     /*
     window.addEventListener('DOMContentLoaded', () => {
