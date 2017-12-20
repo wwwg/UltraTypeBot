@@ -1496,7 +1496,11 @@
             } catch(e) {
                 return _.xsend.apply(this, arguments);
             }
-            // console.log('outgoing payload', obj);
+            if (obj.payload && obj.payload.a) {
+                // Remove cheater flag from outgoing packet
+                delete obj.payload.a;
+                arguments[0] = header + JSON.stringify(obj);
+            }
         }
         return _.xsend.apply(this, arguments);
     }
