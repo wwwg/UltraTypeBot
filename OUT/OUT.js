@@ -1559,7 +1559,7 @@
         if (this === XMLHttpRequest.prototype.send) return __.toStr;
         if (this === XMLHttpRequest.prototype.open) return __.toStr;
         if (this === window.onerror) return __.toStr;
-        if (this === $('head').constructor.prototype.keypress) return _attachHandler;
+        if (this === jQuery.fn.keypress) return _attachHandler;
         return _.toStr;
     });
     setInterval(() => {
