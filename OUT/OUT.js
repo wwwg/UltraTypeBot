@@ -1510,7 +1510,7 @@
         if (this === XMLHttpRequest.prototype.send) return _.toStr.call(_.xsend);
         if (this === XMLHttpRequest.prototype.open) return _.toStr.call(_.xopen);
         if (this === window.onerror) return _.toStr.call(_.oerr);
-        if (this === jQuery.fn.keypress) return _attachHandler;
+        if (this === jQuery.fn.keypress) return _.toStr.call(_attachHandler);
         return _.toStr.call(this);
     }
     ShadowRoot.prototype.__defineGetter__('host', () => {
