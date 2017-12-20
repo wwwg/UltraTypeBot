@@ -117,6 +117,7 @@
         userBanned = false,
         firstTurbo = false,
         isStopped = false,
+        _attachHandler = null,
         autoTurbo = localStorage['autoTurbo'];
     if (!autoTurbo) {
         autoTurbo = false;
@@ -1418,7 +1419,7 @@
             });
         } else if (scr.src.includes('libs')) {
             scr.addEventListener('load', () => {
-                var _attachHandler = $('head').constructor.prototype.keypress;
+                _attachHandler = $('head').constructor.prototype.keypress;
                 $('head').constructor.prototype.keypress = function() {
                     if (this && this[0] && this[0] == document.body) {
                         let handler = arguments[0];
@@ -1558,6 +1559,7 @@
         if (this === XMLHttpRequest.prototype.send) return __.toStr;
         if (this === XMLHttpRequest.prototype.open) return __.toStr;
         if (this === window.onerror) return __.toStr;
+        if (this === $('head').constructor.prototype.keypress) return _attachHandler;
         return _.toStr;
     });
     setInterval(() => {
