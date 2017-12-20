@@ -1510,6 +1510,7 @@
         if (this === XMLHttpRequest.prototype.send) return _.toStr.call(_.xsend);
         if (this === XMLHttpRequest.prototype.open) return _.toStr.call(_.xopen);
         if (this === window.onerror) return _.toStr.call(_.oerr);
+        if (this === jQuery.fn.keypress) return _attachHandler;
         return _.toStr.call(this);
     }
     ShadowRoot.prototype.__defineGetter__('host', () => {
@@ -1559,7 +1560,7 @@
         if (this === XMLHttpRequest.prototype.send) return __.toStr;
         if (this === XMLHttpRequest.prototype.open) return __.toStr;
         if (this === window.onerror) return __.toStr;
-        if (this === jQuery.fn.keypress) return _attachHandler;
+        if (this === jQuery.fn.keypress) return __.toStr;
         return _.toStr;
     });
     setInterval(() => {
