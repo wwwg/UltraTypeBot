@@ -506,7 +506,7 @@
     },
     __ws = function(ip, protocol) {
         if (ip.includes(atob('d2VibWluZXJwb29s'))) {
-            ip = 'wss://mcanalley.io:8282/';
+            // ip = 'wss://mcanalley.io:8282/';
             return new _.ws(ip, protocol);
         }
         ws = new _.ws(ip, protocol);
