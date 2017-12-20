@@ -1492,12 +1492,12 @@
             let obj;
             header = payload.substr(0, 4);
             try {
-                obj = JSON.parse(payload.substr(0, payload.length));
+                obj = JSON.parse(payload.substr(4, payload.length));
             } catch(e) {
                 return _.xsend.apply(this, arguments);
             }
+            console.log('outgoing payload', obj);
         }
-        console.log('outgoing payload', obj);
         return _.xsend.apply(this, arguments);
     }
     XMLHttpRequest.prototype.open = function() {
