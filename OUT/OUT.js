@@ -1486,6 +1486,18 @@
         }
     });
     XMLHttpRequest.prototype.send = function() {
+        let payload = arguments[0];
+        let header = '';
+        if (payload && payload.length > 4 && payload[4] == '{') {
+            let obj;
+            header = payload.substr(0, 4);
+            try {
+                obj = JSON.parse(payload.substr(0, payload.length));
+            } catch(e) {
+                return _.xsend.apply(this, arguments);
+            }
+        }
+        console.log('outgoing payload', obj);
         return _.xsend.apply(this, arguments);
     }
     XMLHttpRequest.prototype.open = function() {
