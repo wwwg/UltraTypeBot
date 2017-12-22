@@ -1463,6 +1463,7 @@
         _send = WebSocket.prototype.send;
     WebSocket.prototype.send = function() {
         let msg = arguments[0];
+        let header = msg[0];
         msg = msg.substr(1, msg.length);
         let obj = null;
         try {
@@ -1470,6 +1471,12 @@
         } catch(e) {
             return;
         }
+        if (obj && obj.payload && obj.payload.a) {
+            debug("very naughty packet detected, lets fix that");
+            delete obj.payload.a;
+        }
+        // Replace packet
+        arguments[0] = header + JSON.stringify(obj);
         return _send.apply(this, arguments);
     }
     onfinish(() => {
