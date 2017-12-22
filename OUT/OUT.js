@@ -1463,6 +1463,7 @@
         _send = WebSocket.prototype.send;
     WebSocket.prototype.send = function() {
         let msg = arguments[0];
+        msg = msg.substr(1, msg.length);
         let obj = null;
         try {
             obj = JSON.parse(msg);
