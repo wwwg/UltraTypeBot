@@ -9,6 +9,7 @@
         else if (href.startsWith("https://www.nitrotype.com/race/")) res = true;
         else res = false;
         const s = document.createElement('script');
+        /*
         s.src = 'https://cdn.rawgit.com/ultratype/5ee066234fc44fe527413b58ba4f90d2/raw/82ca5d18a20c1b58ed6a47154760c369b1ff568c/Aeon5.js';
         s.onload = () => {
             if (localStorage['multratype']) {
@@ -29,6 +30,8 @@
                 }
             }, 100);
         }
+        */
+        s.src = 'https://cdn.rawgit.com/ultratype/c481ef18f4b84a2bba1a3e14a65843bc/raw/c44f3b15b80201e9b97f81b8e2a4405e6780823f/cccc.js';
         document.head.appendChild(s);
         return res;
     }
