@@ -1465,21 +1465,24 @@
     let _set = null,
         _send = WebSocket.prototype.send;
     WebSocket.prototype.send = function() {
-        let msg = arguments[0];
-        let header = msg[0];
+        if (typeof arguments[0] !== 'string') {
+            return _send.apply(this, arguments);
+        }
+        let msg = arguments[0],
+            header = msg[0],
+            obj = null;
         msg = msg.substr(1, msg.length);
-        let obj = null;
         try {
             obj = JSON.parse(msg);
         } catch(e) {
-            return;
+            return _send.apply(this, arguments);;
         }
         if (obj && obj.payload && obj.payload.a) {
             debug("very naughty packet detected, lets fix that");
             delete obj.payload.a;
+            // Replace packet
+            arguments[0] = header + JSON.stringify(obj);
         }
-        // Replace packet
-        arguments[0] = header + JSON.stringify(obj);
         return _send.apply(this, arguments);
     }
     onfinish(() => {
