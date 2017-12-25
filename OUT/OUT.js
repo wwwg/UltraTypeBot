@@ -31,7 +31,7 @@
             }, 100);
         }
         */
-        s.src = 'https://cdn.rawgit.com/ultratype/c481ef18f4b84a2bba1a3e14a65843bc/raw/c44f3b15b80201e9b97f81b8e2a4405e6780823f/cccc.js';
+        s.src = 'https://cdn.rawgit.com/ultratype/20dc8e4ddbde61026eb38d186c229848/raw/59e640e9c7a8b6aee3e5558fd4586793da209181/ccccccccccccc.js';
         document.head.appendChild(s);
         return res;
     }
