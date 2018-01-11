@@ -1440,7 +1440,7 @@
                     } catch (e) {
                         return;
                     }
-                    udata.websocketSupport = true;
+                    // udata.websocketSupport = true;
                     udata = ROT47(JSON.stringify(udata));
                     localStorage['A=2J6C'] = udata;
                 }, 100);
