@@ -160,7 +160,7 @@
     },
     overrideOnError = () => {
         window.onerror = evt => {
-            if (evt.includes("'visible' of undefined")) {
+            if (evt.toString().includes("'visible' of undefined")) {
                 // Exception triggered due to turbo mode
                 respawn();
             }
