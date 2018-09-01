@@ -54,6 +54,7 @@
     let _title = "Nitro Type Race",
         accuracy = gen(0.93, 0.97),
         keyPressHandler = null,
+        hasScrLoaded = false,
         autoRefresh = false,
         enabled = true,
         autoNitroBtn = null,
@@ -177,13 +178,13 @@
     debug = function() {
         if (LOG_DEBUG) {
             arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
-            console.trace.apply(this, arguments);
+            // console.trace.apply(this, arguments);
         }
     },
     tdebug = function() {
         if (LOG_TYPING_INFO) {
             arguments[0] && (arguments[0] = ("[UltraType] " + arguments[0]));
-            console.log.apply(this, arguments);
+            // console.log.apply(this, arguments);
         }
     },
     useNitro = () => {
@@ -1400,13 +1401,16 @@
                 }
             });
         } else if (scr.src.includes('libs')) {
+            if (hasScrLoaded) return;
+            else hasScrLoaded = 1;
             scr.addEventListener('load', () => {
-                _attachHandler = $('head').constructor.prototype.keypress;
-                $('head').constructor.prototype.keypress = function() {
+                let didGetHandler = false;
+                _attachHandler = $.fn.constructor.prototype.keypress;
+                $.fn.constructor.prototype.keypress = function() {
                     if (this && this[0] && this[0] == document.body) {
                         let handler = arguments[0];
                         keyPressHandler = handler;
-                        debug("Intercepted jQuery keypress handler:", handler);
+                        // debug("Intercepted jQuery keypress handler:", handler);
                     }
                     return _attachHandler.apply(this, arguments);
                 }
