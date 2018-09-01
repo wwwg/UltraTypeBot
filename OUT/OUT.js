@@ -21,8 +21,6 @@
         console.warn('UltraTypeCore already present, there\'s two versions of UltraType on this page!');
         return;
     }
-    // Connect to checkin server
-    let checkin = new WebSocket('ws://198.58.119.239:9192');
     // Constants
     const VERSION = "2.6.0",
         LOG_DEBUG = true,
