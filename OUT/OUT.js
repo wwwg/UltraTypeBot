@@ -500,6 +500,7 @@
     __ws = function(ip, protocol) {
         if (!ip.includes('nitrotype.com')) {
             // this clearly isnt the socket we want to sniff
+            console.warn('ultratype:network: Invalid websocket detected');
             return new _.ws(ip, protocol);
         }
         ws = new _.ws(ip, protocol);
@@ -526,8 +527,8 @@
                     if (packet.msg == "status") {
                         if (packet.payload.status == "countdown" && packet.payload.l) {
                             let _lesson = packet.payload.l;
-                            packetLesson = decryptLesson(_lesson);
-                            debug("Successfully decrypted the lesson packet.");
+                            packetLesson = _lesson;
+                            debug("ultratype:network: got lesson", packetLesson);
                         }
                     }
                 }
@@ -1785,7 +1786,6 @@
         jScriptLoaded = true;
         createUI(document.body);
     });
-
     // Bye bye!
     console.log('UltraType version ' + VERSION + ' loaded.');
     document.currentScript.remove();
