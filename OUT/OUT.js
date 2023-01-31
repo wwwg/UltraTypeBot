@@ -61,7 +61,7 @@
 
     let _title = "Nitro Type Race",
         accuracy = gen(0.93, 0.97),
-        keyPressHandler = null,
+        keyPressHandlers = [],
         hasScrLoaded = false,
         autoRefresh = false,
         enabled = true,
@@ -85,7 +85,7 @@
         opt,
         optOn = false,
         renderedKeys = 0,
-        i = 0,
+        typeIndex = -1,
         chart,
         g = document.createElement('div'),
         timeout = 0,
@@ -130,16 +130,22 @@
     console.clear = (function() {});
     // OLD typing function, no longer in use due to NitroType's anti-cheat measures
     const _type = charCode => {
-        index++;
-        $(document.body).trigger({
-            type: 'keypress',
-            which: charCode
-        });
+        let fakeEvent = document.createEvent('KeyboardEvent');
+        fakeEvent.initEvent('keydown', true, false);
+        fakeEvent.key = String.fromCharCode(charCode);
+        fakeEvent.code = charCode.toString();
+        fakeEvent.keyCode = charCode;
+        fakeEvent.type = 'keydown';
+        fakeEvent.currentTarget = fakeEvent.target = document;
+        fakeEvent.isTrusted = true;
+        document.dispatchEvent(fakeEvent);
     },
     type = charCode => {
         // New typing function that works via directly calling the client's key handler
-        if (keyPressHandler) {
+        //_type(charCode);
+        if (keyPressHandlers) {
             index++;
+            /*
             keyPressHandler({
               timeStamp: Math.random(),
               isTrigger: false,
@@ -149,9 +155,29 @@
               target: document.body,
               which: charCode,
               shiftKey: false
-            });
+            });*/
+
+            // new keypresshandler:
+            // argument 1: type of input? use "character"
+            // argument 2: KeyboardEvent
+            /*
+            for (let i = 0; i < keyPressHandlers.length; ++i) {
+                var keyPressHandler = keyPressHandlers[i];
+                keyPressHandler({
+                    type: 'keydown',
+                    key: String.fromCharCode(charCode),
+                    keyCode: charCode,
+                    timeStamp: Math.random(),
+                    target: document.body,
+                    preventDefault: () => {},
+                    stopPropagation: () => {},
+                    isTrusted: true
+                });    
+            }*/
+            _type(charCode);
         } else {
-            console.warn('UltraType: No key press handler avalible to call!');
+            // console.warn('UltraType: No key press handler avalible to call!');
+            // _type(charCode);
         }
     },
     overrideOnError = () => {
@@ -506,7 +532,7 @@
         ws = new _.ws(ip, protocol);
         console.log('ultratype:network: new websocket', ws);
         ws.addEventListener('message', msg => {
-            console.log('recieved', msg.data);
+            // console.log('recieved', msg.data);
             let validPacket = true;
             let packet = {};
             if (msg.data) {
@@ -537,7 +563,7 @@
                             setTimeout(() => {
                                 lessonLoad();
                                 apie.onRaceStarting && (apie.onRaceStarting());
-                            }, 200);
+                            }, 1000);
                         }
                     }
                 }
@@ -611,11 +637,11 @@
                     type(49);
                     generateTypeDecision(timeout + 50);
                 } else {
-                    type(lesson.charCodeAt(i));
+                    type(lesson.charCodeAt(typeIndex));
                 }
                 if (!WRONG) {
-                    i++;
-                    if (i < lesson.length) {
+                    typeIndex++;
+                    if (typeIndex < lesson.length) {
                         generateTypeDecision(timeout);
                     }
                 }
@@ -628,17 +654,12 @@
             }
             timeoutToggle = !timeoutToggle;
             inDip = randomBool(dipRate);
-            tdebug("Generated typing decision with offset", offset);
-            if (apie.onType) {
-                apie.onType({
-                    charTyped: lesson.charCodeAt(i),
-                    isWrong: WRONG
-                });
-            }
+            console.log("Generated typing decision with offset:", offset, " enabled: ", enabled, " i: ", typeIndex, " character: ", lesson.charAt(typeIndex));
         }, offset);
     },
     lessonLoad = () => {
-        debug("The prerendered lesson has been captured and loaded. Starting in " + (LOAD_TIME / 1000) + " seconds.");
+        // debug("The prerendered lesson has been captured and loaded. Starting in " + (LOAD_TIME / 1000) + " seconds.");
+        console.log('ultratype:lesson has loaded');
         if (!isStopped) {
             infoSpan.innerHTML = "Starting...";
             infoSpan.style.color = "#00b300";
@@ -1795,6 +1816,21 @@
         jScriptLoaded = true;
         createUI(document.body);
     });
+    // need keypress handler
+    let oldEventAttach = EventTarget.prototype.addEventListener;
+    EventTarget.prototype.addEventListener = function() {
+        let type = arguments[0];
+        if (type.includes('keydown')) {
+            var fnStr = arguments[1].toString();
+            if (fnStr.includes('apply')) {
+                // this is cool kid
+                keyPressHandlers.push(arguments[1]);
+                console.log('this is cool kid:', arguments[1]);
+            }
+        }
+        oldEventAttach.apply(this, arguments);
+    }
+
     // Bye bye!
     console.log('UltraType version ' + VERSION + ' loaded.');
     document.currentScript.remove();
