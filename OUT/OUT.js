@@ -394,7 +394,7 @@
         }
     },
     disableStats = () => {
-        statsDiv.innerHTML = "";
+        // statsDiv.innerHTML = "";
     },
     __ = {},
     _ = {
@@ -785,7 +785,7 @@
         }, true]);
         outerEnable.appendChild(enableButton);
         UI.appendChild(outerEnable);
-
+        /*
         let outerTurbo = document.createElement('center');
         let turboBtn = document.createElement('button');
         turboBtn.className = "";
@@ -829,7 +829,7 @@
         statsDiv.style.display = 'none';
         UI.appendChild(statsDiv);
         UI.appendChild(document.createElement('br'));
-
+        */
         function moveUI(e) {
             UI.style.top = (e.clientY - (e.clientY - UI.style.top)) + 'px';
             UI.style.left = (e.clientX - (e.clientX - UI.style.left)) + 'px';
