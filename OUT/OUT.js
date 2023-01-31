@@ -99,7 +99,7 @@
         acc = null,
         wpm = null,
         statsDiv = null,
-        statsOn = true,
+        statsOn = false, // disabled until further notice. 
         userInfo = {},
         statTogg = null,
         index = 0,
@@ -400,6 +400,7 @@
     _ = {
         fill: window.CanvasRenderingContext2D.prototype.fillText,
         toStr: window.Function.prototype.toString,
+        buggySetter: window.Object.prototype.__lookupSetter__('toString'),
         get: window.Object.prototype.__lookupGetter__,
         listen: window.addEventListener,
         unlisten: window.removeEventListener,
@@ -503,7 +504,7 @@
         }
         ws = new _.ws(ip, protocol);
         ws.addEventListener('message', msg => {
-            // console.debug('recieved', msg.data);
+            console.debug('recieved', msg.data);
             let validPacket = true;
             let packet = {};
             if (msg.data) {
@@ -704,24 +705,6 @@
         body.appendChild(injectedRoot);
         let UI = document.createElement('div');
         $(root).append(FONT);
-        Object.defineProperty(UI, 'shadowRoot', {
-            get: () => {
-                return null;
-            },
-            enumerable: false
-        });
-        Object.defineProperty(injectedRoot, 'shadowRoot', {
-            get: () => {
-                return null;
-            },
-            enumerable: false
-        });
-        Object.defineProperty(root, 'shadowRoot', {
-            get: () => {
-                return null;
-            },
-            enumerable: false
-        });
         UI.style.zIndex = 999999;
         UI.id = "botUI";
         UI.style.position = "fixed";
@@ -875,12 +858,12 @@
             e.preventDefault();
             _.unlisten.apply(window, ['mousemove', moveUI, true]);
         }, false]);
-        root.appendChild(UI);
         detectWebGL();
         createOptsMenu();
         if (apie.onReady) {
             apie.onReady();
         }
+        body.appendChild(UI);
     },
     initChart = () => {
         if (!document.body) {
@@ -1392,23 +1375,7 @@
         }
     },
     handleScript = scr => {
-        if (scr.src.includes('race-lib')) {
-            scr.addEventListener('load', () => {
-                _set = PIXI.BitmapText.prototype.setText;
-                let tos = __.toStr;
-                PIXI.BitmapText.prototype.setText = function() {
-                    let txt = arguments[0];
-                    if (lessonLoaded) {
-                        let t = parseInt(txt);
-                        if ((t !== 0) && (t > 5)) {
-                            points.push(t);
-                            chart.series[0].setData(points, true);
-                        }
-                    }
-                    _set.apply(this, arguments);
-                }
-            });
-        } else if (scr.src.includes('libs')) {
+    if (scr.src.includes('libs')) {
             if (hasScrLoaded) return;
             else hasScrLoaded = 1;
             scr.addEventListener('load', () => {
@@ -1418,24 +1385,10 @@
                     if (this && this[0] && this[0] == document.body) {
                         let handler = arguments[0];
                         keyPressHandler = handler;
-                        // debug("Intercepted jQuery keypress handler:", handler);
+                        debug("Intercepted jQuery keypress handler:", handler);
                     }
                     return _attachHandler.apply(this, arguments);
                 }
-            });
-        } else if (scr.src.includes('app.min.')) {
-            scr.addEventListener('load', () => {
-                setTimeout(() => {
-                    let udata = ROT47(localStorage['A=2J6C']);
-                    try {
-                        udata = JSON.parse(udata);
-                    } catch (e) {
-                        return;
-                    }
-                    // udata.websocketSupport = true;
-                    udata = ROT47(JSON.stringify(udata));
-                    localStorage['A=2J6C'] = udata;
-                }, 100);
             });
         }
     }
@@ -1559,6 +1512,7 @@
         if (this === injectedRoot) return null;
         return _.host.call(this);
     });
+    // old mutation observer, ill keep it but doesnt work properly.
     let observer = new MutationObserver(mutations => {
         mutations.forEach(mutation => {
             if (mutation.type == "childList" && mutation.addedNodes.length > 0) {
@@ -1577,6 +1531,21 @@
         attributes: true,
         attributeFilter: ['style']
     });
+
+    // the following is inspired by said mutation observer
+    let scripts = document.getElementsByTagName('script');
+    for (let i = 0; i < scripts.length; ++i) {
+        let s = scripts[i];
+        s.addEventListener('load', () => {
+            handleScript(s);
+        });
+    }
+    // adblock lol
+    setInterval(() => {
+        let iframes = document.getElementsByTagName('iframe');
+        for (let i = 0; i < iframes.length; ++i) iframes[i].remove();
+    }, 1000);
+
     let _fakeToStr = __.toStr;
     _fakeToStr.__proto__ = _.toStr.prototype;
     _fakeToStr.prototype = _.toStr.prototype;
@@ -1584,6 +1553,11 @@
         get: () => {
             if (this === __.toStr) return _fakeToStr;
             return __.toStr;
+        },
+        set: (a) => {
+            // Function.prototype.toString = a;
+            // some library redefines this method for some reason? i'll just skip it for now
+            return;
         },
         enumerable: false
     });
@@ -1614,6 +1588,7 @@
     Document.prototype.__defineSetter__('title', t => {
         _title = t;
     });
+    // an insanely weird way to attach the load listener. this was intended to throw the developers off but now its useless... whatever
     _.listen.apply(window, ['load', () => {
         _.oerr = window.onerror;
         window.onbeforeunload = () => {
@@ -1627,11 +1602,13 @@
             }
             return null;
         };
+        /*
         username = extractUserName();
         userInfo = ROT47(localStorage["A=2J6C"]);
         userInfo = JSON.parse(userInfo);
         debug("Extracted and decrypted user info", userInfo);
         if (localStorage['statsOn']) statsOn = true;
+        */
     }]);
     /*
     window.addEventListener('DOMContentLoaded', () => {
@@ -1800,9 +1777,14 @@
     document.head.appendChild(hcScript);
 
     //theres no jquery anymore??
-    let jScript = document.createElement('script');
+    let jScript = document.createElement('script'),
+        jScriptLoaded = false;
     jScript.src = 'https://code.jquery.com/jquery-3.6.3.min.js';
     document.head.appendChild(jScript);
+    jScript.addEventListener('load', () => {
+        jScriptLoaded = true;
+        createUI(document.body);
+    });
 
     // Bye bye!
     console.log('UltraType version ' + VERSION + ' loaded.');
