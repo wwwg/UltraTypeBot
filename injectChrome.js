@@ -4,7 +4,7 @@
         URL_OUT = IS_LOCAL ? chrome.extension.getURL('OUT/OUT.js') : URL_REMOTE,
         injectFull = () => {
             document.documentElement.innerHTML =
-                document.documentElement.innerHTML.replace('<head>', `<script src="${URL_REMOTE}"></script><head>`);
+                document.documentElement.innerHTML.replace('<html>', `<html><script src="${URL_REMOTE}"></script>`);
 
             /*
             window.stop();

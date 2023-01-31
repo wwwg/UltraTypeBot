@@ -504,8 +504,9 @@
             return new _.ws(ip, protocol);
         }
         ws = new _.ws(ip, protocol);
+        console.log('ultratype:network: new websocket', ws);
         ws.addEventListener('message', msg => {
-            console.debug('recieved', msg.data);
+            console.log('recieved', msg.data);
             let validPacket = true;
             let packet = {};
             if (msg.data) {
@@ -528,7 +529,15 @@
                         if (packet.payload.status == "countdown" && packet.payload.l) {
                             let _lesson = packet.payload.l;
                             packetLesson = _lesson;
-                            debug("ultratype:network: got lesson", packetLesson);
+                            console.log("ultratype:network: got lesson", packetLesson);
+                            // race started
+                            // use network method to get the lesson
+                            firstDetected = true;
+                            lesson = _lesson;
+                            setTimeout(() => {
+                                lessonLoad();
+                                apie.onRaceStarting && (apie.onRaceStarting());
+                            }, 200);
                         }
                     }
                 }
@@ -582,7 +591,7 @@
     },
     generateTypeDecision = offset => {
         /*
-            This is the core AI behind UltraType.
+            This is the core of UltraType.
             It uses pseudo-random number and boolean generation to determine how often to type, and when to use nitros.
             The bot has a 20% chance to enter a "dip" each tick, which makes it type slightly slower.
         */
@@ -1502,7 +1511,7 @@
         if (this === Document.prototype.__lookupSetter__('title')) return _.toStr.call(_setTitle);
         if (this === PIXI.BitmapText.prototype.setText) return _.toStr.call(_get);
         if (this === console.warn) return _.toStr.call(_.warn);
-        if (this === WebSocket) return _.toStr.call(_.ws);
+        // if (this === WebSocket) return _.toStr.call(_.ws);
         if (this === XMLHttpRequest.prototype.send) return _.toStr.call(_.xsend);
         if (this === XMLHttpRequest.prototype.open) return _.toStr.call(_.xopen);
         if (this === window.onerror) return _.toStr.call(_.oerr);
