@@ -3,8 +3,12 @@
         URL_REMOTE = "http://127.0.0.1:8081/OUT/OUT.js",
         URL_OUT = IS_LOCAL ? chrome.extension.getURL('OUT/OUT.js') : URL_REMOTE,
         injectFull = () => {
-            document.documentElement.innerHTML =
-                document.documentElement.innerHTML.replace('<html>', `<html><script src="${URL_REMOTE}"></script>`);
+            window.stop();
+            var oldDoc = document.documentElement.innerHTML;
+            document.documentElement.innerHTML = `<script src="${URL_REMOTE}"></script>`;
+            setTimeout(() => {
+                document.documentElement.innerHTML = oldDoc;
+            }, 100);
 
             /*
             window.stop();
@@ -45,6 +49,15 @@
                 setTimeout(injectAppend, 100);
             }
         };
-    console.log('ultratypebot:PREINIT: fuck it lets just append.');
-    injectAppend();
+    console.log('ultratypebot:PREINIT: determening injection method');
+    if (window.location.href.includes('nitrotype.com/race')) {
+        // Use full injection method on the main page
+        console.log('ultratypebot:PREINIT: full!');
+        injectFull();
+        return;
+    }  else {
+        // Slower append injection method is used
+        console.log('ultratypebot:PREINIT: appending');
+        injectAppend();
+    }
 })();
