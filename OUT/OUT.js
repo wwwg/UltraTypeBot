@@ -29,7 +29,7 @@
         return;
     }
     // Constants
-    const VERSION = "2.6.0",
+    const VERSION = "3.0",
         LOG_DEBUG = true,
         LOG_TYPING_INFO = false,
         DO_BAN_CHECK = true,
@@ -76,7 +76,7 @@
         ws = null,
         infoSpan,
         injectedRoot = document.createElement('div'),
-        root = injectedRoot.createShadowRoot(),
+        root = injectedRoot,
         fillsY = [],
         points = [],
         errorRequests = [],
@@ -1798,6 +1798,11 @@
         setTimeout(initChart.bind(window), 250);
     });
     document.head.appendChild(hcScript);
+
+    //theres no jquery anymore??
+    let jScript = document.createElement('script');
+    jScript.src = 'https://code.jquery.com/jquery-3.6.3.min.js';
+    document.head.appendChild(jScript);
 
     // Bye bye!
     console.log('UltraType version ' + VERSION + ' loaded.');
