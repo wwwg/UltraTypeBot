@@ -160,10 +160,8 @@
             // new keypresshandler:
             // argument 1: type of input? use "character"
             // argument 2: KeyboardEvent
-            /*
             for (let i = 0; i < keyPressHandlers.length; ++i) {
-                var keyPressHandler = keyPressHandlers[i];
-                keyPressHandler({
+                keyPressHandlers[i]({
                     type: 'keydown',
                     key: String.fromCharCode(charCode),
                     keyCode: charCode,
@@ -172,9 +170,8 @@
                     preventDefault: () => {},
                     stopPropagation: () => {},
                     isTrusted: true
-                });    
-            }*/
-            _type(charCode);
+                });
+            }
         } else {
             // console.warn('UltraType: No key press handler avalible to call!');
             // _type(charCode);
@@ -563,7 +560,7 @@
                             setTimeout(() => {
                                 lessonLoad();
                                 apie.onRaceStarting && (apie.onRaceStarting());
-                            }, 1000);
+                            }, 2000);
                         }
                     }
                 }
@@ -660,6 +657,7 @@
     lessonLoad = () => {
         // debug("The prerendered lesson has been captured and loaded. Starting in " + (LOAD_TIME / 1000) + " seconds.");
         console.log('ultratype:lesson has loaded');
+        console.log('ultratype:i have ', keyPressHandlers.length, ' keyPressHandlers');
         if (!isStopped) {
             infoSpan.innerHTML = "Starting...";
             infoSpan.style.color = "#00b300";
@@ -1824,7 +1822,9 @@
             var fnStr = arguments[1].toString();
             if (fnStr.includes('apply')) {
                 // this is cool kid
-                keyPressHandlers.push(arguments[1]);
+                if (!keyPressHandlers.includes(arguments[1])) {
+                    keyPressHandlers.push(arguments[1]);
+                }
                 console.log('this is cool kid:', arguments[1]);
             }
         }

@@ -3,41 +3,14 @@
         URL_REMOTE = "http://127.0.0.1:8081/OUT/OUT.js",
         URL_OUT = IS_LOCAL ? chrome.extension.getURL('OUT/OUT.js') : URL_REMOTE,
         injectFull = () => {
-            window.stop();
-            var oldDoc = document.documentElement.innerHTML;
-            document.documentElement.innerHTML = `<script src="${URL_REMOTE}"></script>`;
-            setTimeout(() => {
-                document.documentElement.innerHTML = oldDoc;
-            }, 100);
-
-            /*
-            window.stop();
-            document.getElementsByTagName("html")[0].innerHTML = '';
             let x = new XMLHttpRequest();
             x.open('GET', window.location.href, true);
             x.onload = function() {
-                // parse document
-                doc = this.responseText;
-                doc = doc.replace('<html>', '');
-                doc = doc.replace('</html>', '');
-                //doc = doc.replace('<head>', `<script src="${URL_REMOTE}"></script><head>`);
-                // remove this anti cheat code i found? looks sus
-                let e = document.createElement('html');
-                e.innerHTML = doc;
-                let scripts = e.getElementsByTagName('script');
-                for (let i = 0; i < scripts.length; ++i) {
-                    if (scripts[i].innerHTML.includes(`__tcfapiLocator`)) {
-                        scripts[i].remove();
-                        break;
-                    }
-                }
-                // rewrite the page
-                doc = e.innerHTML;
-
-                document.getElementsByTagName("html")[0].innerHTML = doc;
+                setTimeout(() => {
+                    document.write(`<script src="${URL_REMOTE}"></script>`+this.responseText);
+                }, 500);
             }
             x.send(null);
-            */
         },
         injectAppend = () => {
             let scr = document.createElement('script');
