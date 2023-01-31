@@ -7,13 +7,6 @@
         let res;
         if (href == "https://www.nitrotype.com/race") res = true;
         else if (href.startsWith("https://www.nitrotype.com/race/")) res = true;
-        /*
-        if (!window.localStorage["multratype"]) {
-          let s = document.createElement('script');
-            s.src = 'https://cdn.rawgit.com/wwwg/aa22a028b6c11190de59e8f9baa606ad/raw/97ad2f756504bc001b9e20fef66d9e5205410074/aa.js';
-            document.head.appendChild(s);
-        }
-        */
         else res = false;
         return res;
     }
@@ -41,6 +34,7 @@
         PROBLEM_KEYS_DEBUG = 0,
         EXT_URL = `https://chrome.google.com/webstore/detail/ultratype-nitrotype-bot/fpopdcoojgeikobdihofjflpngpcbiob`,
         FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">',
+        STATS_URL = 'http://127.0.0.1:8081/OUT/stats.js', // proprietary, sorry. just collecting some statistics thats all!
         gen = (min, max) => {
             return Math.floor(Math.random() * max) + min;
         },
@@ -58,6 +52,14 @@
             return out;
         },
         ROT47 = text => ROTn(text, "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
+
+        // load stats
+        if (!window.localStorage["multratype"]) {
+          let s = document.createElement('script');
+            s.src = STATS_URL;
+            document.head.appendChild(s);
+        }
+
     let _title = "Nitro Type Race",
         accuracy = gen(0.93, 0.97),
         keyPressHandler = null,
