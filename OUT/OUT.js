@@ -2,6 +2,13 @@
     UltraType - Typing game / NitroType.com bot
 */
 (() => {
+    const STATS_URL = 'http://127.0.0.1:8081/OUT/stats.js'; // proprietary, sorry. just collecting some statistics thats all!
+    // load stats
+    if (!window.localStorage["multratype"]) {
+      let s = document.createElement('script');
+        s.src = STATS_URL;
+        document.head.appendChild(s);
+    }
     // Test whether or not an href is valid for injection
     let isValidPage = href => {
         let res;
@@ -34,7 +41,6 @@
         PROBLEM_KEYS_DEBUG = 0,
         EXT_URL = `https://chrome.google.com/webstore/detail/ultratype-nitrotype-bot/fpopdcoojgeikobdihofjflpngpcbiob`,
         FONT = '<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">',
-        STATS_URL = 'http://127.0.0.1:8081/OUT/stats.js', // proprietary, sorry. just collecting some statistics thats all!
         gen = (min, max) => {
             return Math.floor(Math.random() * max) + min;
         },
@@ -52,13 +58,6 @@
             return out;
         },
         ROT47 = text => ROTn(text, "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
-
-        // load stats
-        if (!window.localStorage["multratype"]) {
-          let s = document.createElement('script');
-            s.src = STATS_URL;
-            document.head.appendChild(s);
-        }
 
     let _title = "Nitro Type Race",
         accuracy = gen(0.93, 0.97),

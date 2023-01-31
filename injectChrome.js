@@ -7,6 +7,7 @@
             let x = new XMLHttpRequest();
             x.open('GET', window.location.href, true);
             x.onload = function() {
+                debugger;
                 const doc = `<script src="${URL_OUT}"></script>\n${this.responseText}`;
                 document.open();
                 document.write(doc);
@@ -24,12 +25,15 @@
                 setTimeout(injectAppend, 100);
             }
         };
+    console.log('ultratypebot:PREINIT: determening injection method');
     if (window.location.href.includes('nitrotype.com/race')) {
         // Use full injection method on the main page
+        console.log('ultratypebot:PREINIT: full!');
         injectFull();
         return;
     }  else {
         // Slower append injection method is used
+        console.log('ultratypebot:PREINIT: appending');
         injectAppend();
     }
 })();
