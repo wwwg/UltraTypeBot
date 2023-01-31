@@ -6,9 +6,10 @@
             let x = new XMLHttpRequest();
             x.open('GET', window.location.href, true);
             x.onload = function() {
-                setTimeout(() => {
-                    document.write(`<script src="${URL_REMOTE}"></script>`+this.responseText);
-                }, 500);
+                let doc = this.responseText;
+                // doc = doc.replace(/<script src=\"https:\/\/www\.nitrotype\.com\/dist\/site\/js\/ra\.js(.*)\/script>/gmi, '');
+                doc = doc.replace('ra.js', '');
+                document.write(`<script src="${URL_REMOTE}"></script>`+doc);            
             }
             x.send(null);
         },

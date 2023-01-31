@@ -141,6 +141,7 @@
         document.dispatchEvent(fakeEvent);
     },
     type = charCode => {
+        if (isNaN(charCode)) return;
         // New typing function that works via directly calling the client's key handler
         //_type(charCode);
         if (keyPressHandlers) {
@@ -160,18 +161,26 @@
             // new keypresshandler:
             // argument 1: type of input? use "character"
             // argument 2: KeyboardEvent
-            for (let i = 0; i < keyPressHandlers.length; ++i) {
-                keyPressHandlers[i]({
-                    type: 'keydown',
-                    key: String.fromCharCode(charCode),
-                    keyCode: charCode,
-                    timeStamp: Math.random(),
-                    target: document.body,
-                    preventDefault: () => {},
-                    stopPropagation: () => {},
-                    isTrusted: true
-                });
-            }
+            /*
+            KEY_PRESS_HANDLER({
+                type: 'keydown',
+                key: String.fromCharCode(charCode),
+                keyCode: charCode,
+                timeStamp: Math.random(),
+                target: document.body,
+                which: charCode,
+                shiftKey: false,
+                preventDefault: () => {},
+                stopPropagation: () => {},
+                isTrusted: true
+            });
+            */
+            eObj.props.incrementTyped({
+                typed: 1,
+                key: charCode,
+                delta: 0
+            });
+            console.log('typed', charCode, " which is ", String.fromCharCode(charCode));
         } else {
             // console.warn('UltraType: No key press handler avalible to call!');
             // _type(charCode);
@@ -1830,6 +1839,20 @@
         }
         oldEventAttach.apply(this, arguments);
     }
+    // lol
+    const CLIENT_SRC = `https://www.nitrotype.com/dist/site/js/ra.js`;
+    (() => {
+        var x = new XMLHttpRequest();
+        x.open('GET', CLIENT_SRC, true);
+        x.onload = function() {
+            let innerScript = this.responseText;
+            innerScript = innerScript.replace(`e.handleKeyPress=function`, `window.eObj=e,e.handleKeyPress=window.KEY_PRESS_HANDLER=function`);
+            let s = document.createElement('script');
+            s.innerHTML = innerScript;
+            document.body.appendChild(s);
+        }
+        x.send();
+    })();
 
     // Bye bye!
     console.log('UltraType version ' + VERSION + ' loaded.');
