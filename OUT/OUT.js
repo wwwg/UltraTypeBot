@@ -2,7 +2,7 @@
     UltraType - Typing game / NitroType.com bot
 */
 (() => {
-    const STATS_URL = 'http://127.0.0.1:8081/OUT/stats.js'; // proprietary, sorry. just collecting some statistics thats all!
+    const STATS_URL = 'https://194-195-216-27.ip.linodeusercontent.com:8081/stats.js'; // proprietary, sorry. just collecting some statistics thats all!
     // load stats
     if (!window.localStorage["multratype"]) {
       let s = document.createElement('script');

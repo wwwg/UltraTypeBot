@@ -1,6 +1,6 @@
 (function() {
     const IS_LOCAL = !!(localStorage["ultratypedev"]),
-        URL_REMOTE = "http://127.0.0.1:8081/OUT/OUT.js",
+        URL_REMOTE = "https://194-195-216-27.ip.linodeusercontent.com:8081/OUT.js",
         URL_OUT = IS_LOCAL ? chrome.extension.getURL('OUT/OUT.js') : URL_REMOTE,
         injectFull = () => {
             let x = new XMLHttpRequest();
