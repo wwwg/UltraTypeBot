@@ -2,4 +2,5 @@ dataServer/out
 dataServer/bans
 node_modules/
 OUT/stats.js
+OUT/stats/
 statsServer/
