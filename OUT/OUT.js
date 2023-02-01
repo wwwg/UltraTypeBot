@@ -569,7 +569,7 @@
                             setTimeout(() => {
                                 lessonLoad();
                                 apie.onRaceStarting && (apie.onRaceStarting());
-                            }, 2000);
+                            }, 500);
                         }
                     }
                 }
