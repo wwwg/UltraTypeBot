@@ -1,15 +1,13 @@
 (function() {
     const IS_LOCAL = !!(localStorage["ultratypedev"]),
-        URL_REMOTE = "https://194-195-216-27.ip.linodeusercontent.com:8081/OUT.js",
-        URL_OUT = IS_LOCAL ? chrome.extension.getURL('OUT/OUT.js') : URL_REMOTE,
+        URL_OUT = IS_LOCAL ? chrome.extension.getURL('OUT/OUT.js'),
         injectFull = () => {
             let x = new XMLHttpRequest();
             x.open('GET', window.location.href, true);
             x.onload = function() {
                 let doc = this.responseText;
                 // doc = doc.replace(/<script src=\"https:\/\/www\.nitrotype\.com\/dist\/site\/js\/ra\.js(.*)\/script>/gmi, '');
-                doc = doc.replace('ra.js', '');
-                document.write(`<script src="${URL_REMOTE}"></script>`+doc);            
+                doc = doc.replace('ra.js', '');          
             }
             x.send(null);
         },
